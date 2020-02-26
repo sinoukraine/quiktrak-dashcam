@@ -35,7 +35,7 @@
               "client_id": "1097482483564-ls1meq8un9d2ofj747ch9345nn5ggq2a.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.dashcam.app"
+                "bundle_id": "com.quiktrak.quiktrak-dashcam"
               }
             }
           ]
@@ -46,7 +46,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1097482483564:android:f4637fd86e442303",
         "android_client_info": {
-          "package_name": "com.dachcam.app"
+          "package_name": "com.quiktrak.quiktrak-dashcam"
         }
       },
       "oauth_client": [
@@ -71,7 +71,7 @@
               "client_id": "1097482483564-ls1meq8un9d2ofj747ch9345nn5ggq2a.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.dashcam.app"
+                "bundle_id": "com.quiktrak.quiktrak-dashcam"
               }
             }
           ]
@@ -82,7 +82,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1097482483564:android:87367253e626c615",
         "android_client_info": {
-          "package_name": "com.sinopacific.dealer.installer"
+          "package_name": "com.quiktrak.quiktrak-dashcam"
         }
       },
       "oauth_client": [
@@ -107,7 +107,7 @@
               "client_id": "1097482483564-ls1meq8un9d2ofj747ch9345nn5ggq2a.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.dashcam.app"
+                "bundle_id": "com.quiktrak.quiktrak-dashcam"
               }
             }
           ]
@@ -118,7 +118,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1097482483564:android:00a35f4974bea4b7",
         "android_client_info": {
-          "package_name": "com.atga.dashcam"
+          "package_name": "com.quiktrak.quiktrak-dashcam"
         }
       },
       "oauth_client": [
@@ -143,7 +143,7 @@
               "client_id": "1097482483564-ls1meq8un9d2ofj747ch9345nn5ggq2a.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.dashcam.app"
+                "bundle_id": "com.quiktrak.quiktrak-dashcam"
               }
             }
           ]
@@ -154,7 +154,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1097482483564:android:a0bc31796da094f9",
         "android_client_info": {
-          "package_name": "com.warden.app"
+          "package_name": "com.quiktrak.quiktrak-dashcam"
         }
       },
       "oauth_client": [
@@ -179,7 +179,7 @@
               "client_id": "1097482483564-ls1meq8un9d2ofj747ch9345nn5ggq2a.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.dashcam.app"
+                "bundle_id": "com.quiktrak.quiktrak-dashcam"
               }
             }
           ]

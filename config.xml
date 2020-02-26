@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget xmlns:hardwareAccelerated="true" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.atga.dashcam" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="6" ios-CFBundleVersion="17"><!--com.dashcam.app-->
-    <name>DashCam</name>
+<widget xmlns:hardwareAccelerated="true" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.quiktrak.quiktrak-dashcam" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="1" ios-CFBundleVersion="1"><!--com.dashcam.app-->
+    <name>QuikTrak DashCam</name>
     <description>
-        DashCam
+        QuikTrak DashCam
     </description>
-    <author email="info@atga.com.au" href="http://atga.com.au">
+    <author email="info@atga.com.au" href="http://quiktrak.com.au">
         Sinopacific Co Limited
     </author>
     <content src="index.html" />	
