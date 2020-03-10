@@ -92,35 +92,32 @@
 				
 				myPage.on('click', '#connectCam', function(e){
 					
-					
-					self.openLive();
-					/*
-					if (!permissions) {
-						App.dialog.alert('Permissions plugin not supported');
-						self.openLive();
-					} else {
-						permissions.hasPermission(permissions.ACCESS_COARSE_LOCATION, function(status) {
-							if (status.hasPermission) {
-								self.openLive();							
-							} else {
-								permissions.requestPermission(permissions.ACCESS_COARSE_LOCATION, success, error);
-								
-								function error() {
-									self.$app.preloader.hide();		
-									App.dialog.alert('Changing permission failed');
-								}
+					document.addEventListener("deviceready", onDeviceReady, false);
 
-								function success(status1) {
-									self.openLive();
-									
-									if (!status1.hasPermission) {
-										self.$app.preloader.hide();	
-										error();
-									}
+					function onDeviceReady() {
+						// First of all, connect to ftp server address without protocol prefix. e.g. "192.168.1.1:21", "ftp.xfally.github.io"
+						// Notice: address port is only supported for Android, if not given, default port 21 will be used.
+						window.cordova.plugin.ftp.connect('ftp.xfally.github.io', 'username', 'password', function(ok) {
+							console.info("ftp: connect ok=" + ok);
+							self.$app.dialog.alert("ftp: connect ok=" + ok);
+							// You can do any ftp actions from now on...
+							/*window.cordova.plugin.ftp.upload('/localPath/localFile', '/remotePath/remoteFile', function(percent) {
+								if (percent == 1) {
+									console.info("ftp: upload finish");
+								} else {
+									console.debug("ftp: upload percent=" + percent * 100 + "%");
 								}
-							}
+							}, function(error) {
+								console.error("ftp: upload error=" + error);
+							});*/
+
+						}, function(error) {
+							console.error("ftp: connect error=" + error);
+							self.$app.dialog.alert("ftp: connect error=" + error);
 						});
-					}*/
+					}
+					//self.openLive();
+					
 				});
 				
 

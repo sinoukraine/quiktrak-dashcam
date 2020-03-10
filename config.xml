@@ -8,7 +8,12 @@
         Sinopacific Co Limited
     </author>
     <content src="index.html" />	
-	
+	<!-- https://mvnrepository.com/artifact/com.android.support/support-v4 -->
+	<dependency>
+		<groupId>com.android.support</groupId>
+		<artifactId>support-v4</artifactId>
+		<version>23.2.0</version>
+	</dependency>
 	
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -57,6 +62,7 @@
     
 	
     <!--ios<plugin name="cordova-plugin-console" source="npm" spec="1.0.7" />--><!-- needed -->  
+	
 	<plugin name="cordova-plugin-file" source="npm" />  
 	<plugin name="cordova-plugin-file-opener2" source="npm" />
     <plugin name="cordova-plugin-device" source="npm" spec="2.0.2" /><!-- needed -->  
@@ -85,7 +91,7 @@
     <plugin spec="https://github.com/alatvanas9/cordova-mediascanner-plugin" source="git"  />
     <plugin spec="https://github.com/tripflex/WifiWizard2#e38a734" source="git"  />
     <plugin spec="https://github.com/cdibened/PDFViewer.git" source="git"  />
-	
+    <plugin spec="https://github.com/xfally/cordova-plugin-ftp" source="git"  />
 	
 
     <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
