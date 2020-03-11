@@ -97,7 +97,10 @@
 					function onDeviceReady() {
 						// First of all, connect to ftp server address without protocol prefix. e.g. "192.168.1.1:21", "ftp.xfally.github.io"
 						// Notice: address port is only supported for Android, if not given, default port 21 will be used.
-						window.cordova.plugin.ftp.connect('192.168.43.1:10011', '357730090913204', '99999999', function(ok) {
+						window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+						//window.cordova.plugin.ftp.connect('192.168.43.1:10011', '357730090913204', '99999999', function(ok) {
+						//window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
+						
 							console.info("ftp: connect ok=" + ok);
 							self.$app.dialog.alert("ftp: connect ok=" + ok);
 							// You can do any ftp actions from now on...
