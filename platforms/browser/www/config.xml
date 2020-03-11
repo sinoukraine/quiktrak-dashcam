@@ -17,11 +17,6 @@
         Sinopacific Co Limited
     </author>
     <content src="index.html" />
-    <dependency>
-        <groupId>com.android.support</groupId>
-        <artifactId>support-v4</artifactId>
-        <version>23.2.0</version>
-    </dependency>
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

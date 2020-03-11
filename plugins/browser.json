@@ -48,6 +48,9 @@
         },
         "cordova-plugin-file-opener2": {
             "PACKAGE_NAME": "com.atga.dashcam"
+        },
+        "cordova-plugin-ftp": {
+            "PACKAGE_NAME": "com.quiktrak.quiktrak-dashcam"
         }
     },
     "dependent_plugins": {

@@ -136,5 +136,13 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-ftp": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-ftp@1.1.1"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

@@ -9,11 +9,11 @@
     </author>
     <content src="index.html" />	
 	<!-- https://mvnrepository.com/artifact/com.android.support/support-v4 -->
-	<dependency>
+	<!--<dependency>
 		<groupId>com.android.support</groupId>
 		<artifactId>support-v4</artifactId>
 		<version>23.2.0</version>
-	</dependency>
+	</dependency>-->
 	
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -91,7 +91,8 @@
     <plugin spec="https://github.com/alatvanas9/cordova-mediascanner-plugin" source="git"  />
     <plugin spec="https://github.com/tripflex/WifiWizard2#e38a734" source="git"  />
     <plugin spec="https://github.com/cdibened/PDFViewer.git" source="git"  />
-    <plugin spec="https://github.com/xfally/cordova-plugin-ftp" source="git"  />
+    <!--<plugin spec="https://github.com/xfally/cordova-plugin-ftp" source="git"  />-->
+	<plugin name="cordova-plugin-ftp" source="npm" spec="1.1.1" />
 	
 
     <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">

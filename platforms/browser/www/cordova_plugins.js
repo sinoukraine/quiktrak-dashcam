@@ -378,6 +378,14 @@ module.exports = [
         "clobbers": [
             "cordova.plugins.fileOpener2"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-ftp/www/ftp.js",
+        "id": "cordova-plugin-ftp.ftp",
+        "pluginId": "cordova-plugin-ftp",
+        "clobbers": [
+            "cordova.plugin.ftp"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -398,7 +406,8 @@ module.exports.metadata =
     "cordova-plugin-streaming-media-xtreme": "2.3.1",
     "es6-promise-plugin": "4.2.2",
     "cordova-plugin-rtsp-vlc": "3.0.5",
-    "cordova-plugin-file-opener2": "2.2.1"
+    "cordova-plugin-file-opener2": "2.2.1",
+    "cordova-plugin-ftp": "1.1.1"
 }
 // BOTTOM OF METADATA
 });
