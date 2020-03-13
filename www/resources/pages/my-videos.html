@@ -28,10 +28,10 @@
 					<div class="toolbar tabbar" id="toolbar-menu">
 						<div class="toolbar-inner">
 							<a href="#video" class="tab-link tab-link-active" >
-								<span class="tabbar-label"><b>Loop Video</b></span>
+								<span class="tabbar-label"><b>Front Video</b></span>
 							</a>
 							<a href="#normal" class="tab-link">
-								<span class="tabbar-label"><b>Incident Video</b></span>
+								<span class="tabbar-label"><b>Inward Video</b></span>
 							</a>
 						</div>
 					</div>
@@ -115,6 +115,21 @@
 				self.$app.preloader.show();
 				self.$app.methods.getRecordVideo().then(response => {	
 					//self.methods.setPhotoList({list: response.mp4data});	
+					self.$app.methods.setInStorage({name: 'videoList', data: response});
+                    self.$setState({
+                        ShowVideoList: true,
+                    });
+                    self.$app.utils.nextFrame(()=>{
+                        self.initVideoList(response);
+                    });					
+					self.$app.preloader.hide(); 	
+				}, error => {
+					self.$app.preloader.hide(); 
+					console.log('Please check connect to Dashcam');
+                    //self.$app.dialog.alert('No Dashcam connected');
+				});
+				/*self.$app.methods.getRecordVideo().then(response => {	
+					//self.methods.setPhotoList({list: response.mp4data});	
 					self.$app.methods.setInStorage({name: 'videoList', data: response.mp4data});
                     self.$setState({
                         ShowVideoList: true,
@@ -127,7 +142,8 @@
 					self.$app.preloader.hide(); 
 					console.log('Please check connect to Dashcam');
                     //self.$app.dialog.alert('No Dashcam connected');
-				});
+				});*/
+
             },
             initNormalList: function(normalListArr = []){
                 var self = this;
@@ -300,7 +316,8 @@
                     height: function(item){
                         let height = 0.00;
                         //let heightHeader = 34.94;
-                        let heightElement = 100.00;
+                        
+						let heightElement = 100.00;
 						let heightHeader = 0;
 						let dataLength = item.data.length;
 						
@@ -328,23 +345,23 @@
 						ret += '			<div class="row">';
 						
 						for (let d = 0; d < item.data.length; d ++){	
-							let time = item.data[d].time.substring(6, 8) + '.' + item.data[d].time.substring(4, 6)+' '+item.data[d].time.substring(8, 10) + ':' + item.data[d].time.substring(10, 12);
-							
+							//let time = item.data[d].time.substring(6, 8) + '.' + item.data[d].time.substring(4, 6)+' '+item.data[d].time.substring(8, 10) + ':' + item.data[d].time.substring(10, 12);
+							let time = '13-03-2020';
 							let res = '1080p';							
 							let pattern = /720p/i;							
-							if(pattern.test(item.data[d].filename)) {
+							/*if(pattern.test(item.data[d].filename)) {
 								res = '720p';
-							}
+							}*/
 							
 							ret += '			  <div class="col-50">';
-							ret +='<label class="checkbox check-item photo-check-item display-none">';
-							ret +='<input type="checkbox" name="photo-check" file-name="'+item.data[d].filename+'" value="http://192.168.1.1/DCIM/100video/'+item.data[d].filename+'"/>';
-							ret +='<i class="f7-icons">check</i>';
-							ret +='</label>';
-							ret += 					'<a href="#" onclick="App.methods.openPlayer(\'http://192.168.1.1/DCIM/100video/'+item.data[d].filename+'\')" class="" data-video="'+item.data[d].filename+'">' +
+							//ret +='<label class="checkbox check-item photo-check-item display-none">';
+							//ret +='<input type="checkbox" name="photo-check" file-name="'+item.data[d].filename+'" value="http://192.168.1.1/DCIM/100video/'+item.data[d].filename+'"/>';
+							//ret +='<i class="f7-icons">check</i>';
+							//ret +='</label>';
+							ret += 					'<a href="#" onclick="">' +//App.methods.openPlayer(\'http://192.168.1.1/DCIM/100video/'+item.data[d].filename+'\')" class="" data-video="'+item.data[d].filename+'
 													'<div class="item-content">' +
 													'<div class="item-media video-item-media">' +
-													'<img class="item-path" src="http://192.168.1.1/DCIM/103thumb/'+item.data[d].title+'">' +
+													'<img class="item-path" src="./resources/images/photo-default.png">' +//http://192.168.1.1/DCIM/103thumb/'+item.data[d].title+'
 													'<div class="item-media-bottom">' +
 													'<div class="item-media-quality">' + res + '</div>' +
 													'<div class="item-media-time">'+time+'</div>' +

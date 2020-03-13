@@ -404,10 +404,47 @@ var App = new Framework7({
 		},
 		getRecordVideo: function (resolve, reject) {	
 			return new Promise((resolve, reject) => {
-				$.ajax({
+				
+				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+						//window.cordova.plugin.ftp.connect('192.168.43.1:10011', '357730090913204', '99999999', function(ok) {
+						//window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
+						
+							console.info("ftp: connect ok=" + ok);
+							
+							// You can do any ftp actions from now on...
+							
+							// /storage/sdcard0/DVRMEDIA/Remote/PHOTO
+							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/USB/2020_03_13', function(result) {
+								//self.$app.dialog.alert(JSON.stringify(data));
+								resolve(result);
+								if (data == 1) {
+									//console.info("ftp: upload finish");
+								} else {
+									//console.debug("ftp: upload percent=" + percent * 100 + "%");
+								}
+							}, function(error) {
+								self.$app.dialog.alert('error: ' + JSON.stringify(error));
+								console.error("ftp: ls error=" + error);
+							});
+							/*window.cordova.plugin.ftp.upload('/localPath/localFile', '/remotePath/remoteFile', function(percent) {
+								if (percent == 1) {
+									console.info("ftp: upload finish");
+								} else {
+									console.debug("ftp: upload percent=" + percent * 100 + "%");
+								}
+							}, function(error) {
+								console.error("ftp: upload error=" + error);
+							});*/
+
+						}, function(error) {
+							console.error("ftp: connect error=" + error);
+							self.$app.dialog.alert("ftp: connect error=" + error);
+						});
+						
+				/*$.ajax({
 					   type: "GET",
 				   dataType: "json", 
-						/*dataFilter: function(raw, type) {
+						/dataFilter: function(raw, type) {
 						console.log(raw, type);
 						return JSON.parse(raw);
 						{ 
@@ -420,7 +457,7 @@ var App = new Framework7({
 					"thumbsize": 36302, 
 					"time": "20190523121307" 
 				 }
-					},*/
+					},/
 					  jsonp: false,
 					  //jsonpCallback: "onJsonP",
 						url: 'http://192.168.1.1/ini.htm?cmd=commonvideolist',
@@ -435,7 +472,7 @@ var App = new Framework7({
 					error: function(XMLHttpRequest, textStatus, errorThrown){ 
 					   console.log(textStatus,'error');
 					}
-				});		
+				});	*/	
 			});     
 		},		
         sortParseDatePhoto: function(data){
