@@ -142,7 +142,7 @@
 							
 							// You can do any ftp actions from now on...
 							
-							window.cordova.plugin.ftp.ls('/storage/sdcard0/DVRMEDIA/Remote/PHOTO', '/remotePath/remoteFile', function(percent) {
+							window.cordova.plugin.ftp.ls('/storage/sdcard0/DVRMEDIA/Remote/PHOTO', function(percent) {
 								self.$app.dialog.alert(percent);
 								if (percent == 1) {
 									//console.info("ftp: upload finish");
@@ -150,6 +150,7 @@
 									//console.debug("ftp: upload percent=" + percent * 100 + "%");
 								}
 							}, function(error) {
+								self.$app.dialog.alert(error);
 								console.error("ftp: ls error=" + error);
 							});
 							/*window.cordova.plugin.ftp.upload('/localPath/localFile', '/remotePath/remoteFile', function(percent) {
