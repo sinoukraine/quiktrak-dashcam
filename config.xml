@@ -94,6 +94,9 @@
     <!--<plugin spec="https://github.com/xfally/cordova-plugin-ftp" source="git"  />-->
 	<plugin name="cordova-plugin-ftp" source="npm" spec="1.1.1" />
 	
+    <plugin spec="https://github.com/disono/cordova-rtmp-rtsp-stream" source="git"  />
+	
+	
 
     <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
         <string>You can take a photo of your asset using camera and upload it into the app</string>

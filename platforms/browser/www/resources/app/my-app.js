@@ -414,7 +414,7 @@ var App = new Framework7({
 							// You can do any ftp actions from now on...
 							
 							// /storage/sdcard0/DVRMEDIA/Remote/PHOTO
-							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/USB/2020_03_13', function(result) {
+							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/USB/', function(result) {
 								//self.$app.dialog.alert(JSON.stringify(data));
 								resolve(result);
 								if (data == 1) {
