@@ -1,0 +1,170 @@
+<template>
+	<div class="page  my-resolution-settings" data-name="my-resolution-settings">
+        <div class="navbar">
+			<div class="navbar-inner">
+				<div class="left">
+					<a href="#" class="back link">
+						<i class="f7-icons icon-left"></i>
+					</a>
+				</div>
+				<div class="title">Resolution</div>
+			</div>
+		</div>
+		<div class="page-content">
+			<div class="list no-margin no-hairlines resolution-list">
+				<ul class="padding-left padding-right">
+					<li>
+						<label class="item-radio item-content no-padding">
+								<input type="radio" name="resolution" class="Resolution" value="720p"  {{#if Checked720p}} checked {{/if}} />
+								<i class="icon icon-radio"></i>
+								<div class="item-inner">
+								  <div class="item-title">720 P</div>
+								</div>
+						</label>
+					</li>
+					<li>
+						<label class="item-radio item-content no-padding">
+								<input type="radio" name="resolution" class="Resolution" value="1080p"  {{#if Checked1080p}} checked {{/if}}/>
+								<i class="icon icon-radio"></i>
+								<div class="item-inner">
+								  <div class="item-title">1080 P</div>
+								</div>
+						</label>
+					</li>
+				</ul>
+			</div>
+		</div>
+    </div>
+</template>
+
+<script>
+  // script must return component object
+    return { 
+        data: function () {
+            var self = this;
+            var ret = {
+				phoneMacAddress: '00.00.00.00.00.00',
+				Checked720p: true,
+				Checked1080p: false
+			};            
+
+            return ret;
+        },
+		methods: {			
+			stateToggle: function(hex, name, data) {
+				var self = this;					
+				
+				//7802F8334207
+				if(self.phoneMacAddress != '00.00.00.00.00.00'){
+					self.$app.preloader.show();
+					
+					let macAddress = self.phoneMacAddress.replace(/[^A-Za-z0-9]/g, "");
+					//macAddress = macAddress.substr(1,macAddress.length -2);
+					//App.dialog.alert(self.phoneMacAddress);
+					self.socket.open(
+					  "192.168.1.1",
+					  10080,
+					  function() {		
+						//self.$app.preloader.hide();			
+						//self.initConnectToCam();
+						self.writeToCam("FFF0275D0100000010010006" + macAddress);
+						//App.dialog.alert("FFF0275D0100000010010006" + macAddress);
+					
+						self.writeToCam(hex);						
+						self.$app.methods.setInStorage({name: name, data: data});					
+					  },
+					  function(errorMessage) {
+						//self.$app.preloader.hide();
+						//App.dialog.alert('Something wrong.');	
+						// invoked after unsuccessful opening of socket
+					});
+				}else{
+					//App.dialog.alert('Something wrong.');						
+				}					
+			},
+			writeToCam: function(hex){
+				var self = this;	
+				let dataString = hex;
+				let data = new Uint8Array(dataString.length/2);
+				for (let i = 0, j = 0; i < data.length; i++, j+=2) {
+					 data[ i ] = self.$app.methods.hexToDec(dataString[j] + dataString[j+1]);
+				}
+				
+				self.socket.write(data);
+			}
+		},
+        on: {
+            pageInit: function (e, page) {  
+				var self = this;    				
+				var myPage = $$('.my-resolution-settings');
+				myPage.on('click', '.Resolution', function() {
+					let state = $(this).val();
+						if(state == '1080p'){
+							self.stateToggle('FFF0000001000000700F000101', 'currentResolution', '1080p');
+						}else{
+							self.stateToggle('FFF0000001000000700F000100', 'currentResolution', '720p');
+						}
+				});	
+				
+				window.MacAddress.getMacAddress(
+					function(macAddress) {
+						self.$setState({
+							phoneMacAddress: macAddress,
+						});
+					},function(fail) {
+						//App.dialog.alert('Something wrong.');
+					}
+				);
+				
+				//self.$app.preloader.show();
+				self.socket = new Socket();	
+				
+				self.socket.onData = function(data) {				
+					/*let convertedData = data.reduce((acc, item) => {
+					  let code = item.toString(16);
+					  let formattedCode = ('0' + code).slice(-2);
+					  return acc + formattedCode;
+					}, '');
+					App.dialog.alert(convertedData);*/
+					
+				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
+				};
+				self.socket.onError = function(errorMessage) {
+					self.$app.preloader.hide();
+					App.dialog.alert('Can not change this state.');
+				  // invoked after error occurs during connection
+				};
+				self.socket.onClose = function(hasError) {
+					self.$app.preloader.hide();
+					
+					App.dialog.alert('Set successfully.');
+				  // invoked after connection close
+				};		
+				
+				//init start data
+								
+				var currentResolution = self.$app.methods.getFromStorage("currentResolution");
+				
+				if(currentResolution == '1080p'){
+					self.$setState({
+                        Checked1080p: true,
+                    });
+					self.$setState({
+                        Checked720p: false,
+                    });
+				}else{
+					self.$setState({
+                        Checked1080p: false,
+                    });
+					self.$setState({
+                        Checked720p: true,
+                    });
+				}	
+				
+				
+				
+			}
+		}
+    };
+</script>
+    

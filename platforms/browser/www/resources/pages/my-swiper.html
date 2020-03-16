@@ -1,0 +1,97 @@
+<template>
+	<div data-name="my-swipper" class="page my-swipper">
+		<!--<div class="navbar">
+			<span class="progressbar-infinite display-none"></span>
+			<div class="navbar-inner">
+				<div class="left">
+					{{#if IsCheckAll}}
+					<a href="#" class="download-items">						
+						<i class="f7-icons">download</i>
+					</a>
+					{{else}}
+					<a class="panel-open" href="#">						
+						<i class="f7-icons icon-menu"></i>
+					</a>
+					{{/if}}
+				</div>
+				<div class="title">Gallery</div>
+				<div class="right">
+					<a href="#" class="sort-photos">
+						<i class="f7-icons icon-sort"></i>
+					</a>
+					<a href="#" class="toggle-check-item">
+						{{#if IsCheckAll}}
+							<i class="f7-icons">close</i>
+						{{else}}
+							<i class="f7-icons">check</i>
+						{{/if}}
+					</a>
+				</div>
+				
+				<div class="subnavbar">
+					<div class="toolbar tabbar" id="toolbar-menu">
+						<div class="toolbar-inner">
+							<a href="#alarm" class="tab-link tab-link-active" >
+								<span class="tabbar-label"><b>Alarm</b></span>
+							</a>
+							<a href="#gesture" class="tab-link" >
+								<span class="tabbar-label"><b>Gesture</b></span>
+							</a>
+							<a href="#parking" class="tab-link">
+								<span class="tabbar-label"><b>Parking</b></span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>-->
+        <div class="">
+            <div class="inner-content">
+				<div class="swiper-container swiper-init demo-swiper">
+				  <div class="swiper-wrapper">
+					<div class="swiper-slide"><img src="./resources/images/burger-600.jpg"></div>
+					<div class="swiper-slide"><img src="./resources/images/media-share-0-02-05-2aafe1bb7f25630da7b647cbd6ed1c137a4ca3de262610c0974fea8fad26e3de-dcb09f0b-ece7-4574-a314-b1900382ebf4.jpg"></div>
+					<div class="swiper-slide">Slide 3</div>
+					<div class="swiper-slide">Slide 4</div>
+					<div class="swiper-slide">Slide 5</div>
+					<div class="swiper-slide">Slide 6</div>
+					<div class="swiper-slide">Slide 7</div>
+					<div class="swiper-slide">Slide 8</div>
+					<div class="swiper-slide">Slide 9</div>
+					<div class="swiper-slide">Slide 10</div>
+				  </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+  // script must return component object
+    return {
+        data: function () {
+            var self = this;
+			var ret = {
+				
+            }; 			
+            return ret;
+        },
+        methods: {
+        },
+        on: {
+            pageInit: function (e, page) {  
+				var self = this;                                              
+                console.log('page init');
+				var myPage = $$('.my-gallery');
+				var swiper = App.swiper.create('.swiper-container', {
+					speed: 400,
+					spaceBetween: 100
+				});
+				
+				var swiper = App.swiper.get('.swiper-container');
+
+				//swiper.slideNext();
+			}
+		}
+    };
+</script>

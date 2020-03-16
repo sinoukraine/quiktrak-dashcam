@@ -1,0 +1,121 @@
+<template>
+	<div class="page home-page cam" data-name="my-home">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="left">
+                            <a class="panel-open" href="#">
+                                <i class="f7-icons icon-menu"></i>
+                            </a>
+                        </div>
+                        <div class="title">Home</div>
+                    </div>
+                </div>
+
+                <!--<div class="toolbar toolbar-bottom">
+                    <div class="toolbar-inner">
+                        <a class="btn-cs" href="#" id='openCamList'>
+                            list
+                        </a>
+                    </div>
+                </div>-->
+                <div class="toolbar toolbar-bottom">
+                    <div class="toolbar-inner">
+                        <a class="btn-cs" href="#" id='connectCam'>
+                            live
+                        </a>
+                    </div>
+                </div>
+				
+
+                <div class="page-content">
+                    <div class="inner-content">
+                        <!--<p><a href="/open.dashcam/">open</a></p>
+                        <p><a href="/air.dashcam/">open</a></p>
+<video id="myvideo" controls="controls" width="400">
+    <source src="file:///android_asset/www/gruppenruf.mp4" />
+ </video>-->
+                        <img class="main-bg" src="./resources/images/main.png" alt="main">
+						<!--<p class="text-content">Click the CONNECT button to start watching live stream.</p>-->
+                        <!--<p class="text-content">You have not had any connections to the dashcam.</p>-->
+                        <p class="text-content">Select in the connection settings Wi-Fi your dashcam and click the CONNECT button.</p>
+						<br><a href="/my-hints/">How to connect?</a>
+                    </div>
+                </div>
+            </div>
+</template>
+
+<script>
+  // script must return component object
+    return { 
+        data: function () {
+            var self = this;
+            var ret = {};            
+
+            return ret;
+        },
+		methods: {			
+			openLive: function(){		
+				var self = this;    
+					self.$app.preloader.show();
+							WifiWizard2.getConnectedSSID().then(response => {	
+								let mySSID = JSON.stringify(response);
+								var pattern = /AUTO-VOX/i;
+								var pattern1 = /M-/i;
+								var pattern2 = /ATGA/i;
+								
+								self.$app.preloader.hide();		
+								if ((pattern.test(mySSID) || pattern1.test(mySSID) || pattern2.test(mySSID))) {	
+									VideoPlayer.play(API_LIVE_STREAM);									
+								}else{					
+									self.$app.dialog.alert('Something wrong.');									
+								}					
+							}).catch((error) => {
+								self.$app.preloader.hide();		
+								self.$app.dialog.alert('Please check DashCam connection and turn on location permission on your device');						
+							});
+			},
+		},
+        on: {
+            pageInit: function (e, page) {  
+				var self = this;    
+				var page = page.$el.find('.page-content'); 
+				
+				var myPage = $$('.cam');
+				
+				let permissions = cordova.plugins.permissions;
+				
+				//WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
+								
+				/*WifiWizard2.getWifiRouterIP().then(curid2 => {						
+					App.dialog.alert(JSON.stringify(curid2));
+				});*/
+				
+				myPage.on('click', '#connectCam', function(e){
+					
+					document.addEventListener("deviceready", onDeviceReady, false);
+
+					function onDeviceReady() {
+						// without comment
+						
+						}
+					
+					//self.openLive();
+					
+				});
+				
+
+                /*page.on('click', '.pb-standalone-dark', function(e){
+					self.PhotoBrowserObj.open();
+				});*/
+						
+				
+				//page.on('click', '#connectCam', function(e){				
+				//$$('#connectCam').on('click', function() {    
+					
+					//window.plugins.videoPlayer.play(API_LIVE_STREAM);
+				//});				
+			}
+		}
+    };
+</script>
+    

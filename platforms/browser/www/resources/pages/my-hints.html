@@ -1,0 +1,50 @@
+<template>
+	<div data-name="my-hints" class="page my-hints">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<div class="left">
+					<a href="#" class="back link">
+						<i class="f7-icons icon-left"></i>
+					</a>
+				</div>
+				<div class="title">How to Connect</div>
+			</div>
+		</div>
+		<div class="page-content">
+			<div class="list no-margin no-hairlines guide-list">
+				<ul class="padding-left padding-right">
+					<li class="item-content no-padding">
+						<div class="">
+							<p class="caption-cs">1. Please make sure the USB power cable connect camera and car charger.</p>
+							<p class="caption-cs">2. The red LED is flashing, Car Camera is working.</p>
+							<p class="caption-cs">3. Phone setting - WLAN - Select "ATGA DC100 XXXX" - Enter password:12345678.</p>
+							<center>
+								<img class="main-bg" src="./resources/images/hint.jpg" width="50%" alt="main">
+							</center>
+							<p class="caption-cs">4. When the mobile phone is connected to camera, you can start using Dashcam app.</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+</div>
+</template>
+
+<script>
+  // script must return component object
+    return { 
+        data: function () {
+            var self = this;
+            var ret = {};            
+            
+			/*console.log(self.$route.query.code);
+			if (self.$route.query.code) {
+				ret.PhotoPath = self.$route.query.code;
+            }*/
+
+            return ret;
+        },
+
+    };
+</script>
+    

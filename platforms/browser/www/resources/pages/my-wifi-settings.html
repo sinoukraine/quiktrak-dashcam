@@ -1,0 +1,96 @@
+<template>
+	<div data-name="my-wifi-settings" class="page my-wifi-settings">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<div class="left">
+					<a href="#" class="back link">
+						<i class="f7-icons icon-left"></i>
+					</a>
+				</div>
+				<div class="title">WiFi Settings</div>
+			</div>
+		</div>
+		<!--<div class="page-content">
+			<div class="list no-hairlines no-margin tablet-inset">
+				<ul class="padding-left padding-right">
+					<li>
+						<div class="item-content no-padding">
+							<div class="item-inner display-flex align-items-center justify-content-space-between row no-padding-right">
+								<div class="item-title">Router IP</div>
+								<div class="color-theme text-align-right">{{IP}}</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>-->
+		
+		<div class="toolbar toolbar-bottom">
+			<div class="toolbar-inner">
+				<a href="#" class="btn-cs" id="sendWifiPass">
+						CONFIRM
+				</a>
+			</div>
+		</div>
+		<div class="page-content">
+			<div class="list no-margin no-hairlines wifi-list">
+				<ul class="padding-left padding-right">
+					<li class="item-content no-padding">
+						<div class="item-inner">
+							<div class="item-inner-wrap">
+								<p class="caption-cs">Enter a new password.</p>
+								<p class="caption-cs">Password must be at least 8 characters.</p>
+								<p class="caption-cs color-red">Please power cycle the DC100 after the password has been changed</p>
+								
+							</div>
+						</div>
+					</li>
+					<li class="item-content item-input no-padding">
+						<div class="item-media">Password</div>
+						<div class="item-inner">
+							<div class="item-input-wrap">
+								<input type="password" name="wifiPassword">
+								<span class="input-clear-button"></span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+</div>
+</template>
+
+<script>
+  // script must return component object
+    return { 
+        data: function () {
+            var self = this;
+            var ret = {};     
+			//console.log(self.$route.query.ip);
+			/*if (self.$route.query.ip) {
+				ret.IP = self.$route.query.ip;
+            }*/
+            return ret;
+        },
+        on: {
+            pageInit: function (e, page) {  
+				var self = this;    				
+				var myPage = $$('.my-wifi-settings');
+				                 
+				myPage.on('click', '#sendWifiPass', function() {
+					var newPass = myPage.find('input[name="wifiPassword"]').val(); 
+					//var reg = new RegExp('^[0-9]*$');
+					console.log(newPass.length);
+					if(newPass.length >= 8){
+						self.$app.methods.changePassword(newPass);					
+					}else{
+						App.dialog.alert('Password must be at least 8 characters.');
+					}
+				});
+				
+				}
+			}
+		
+    };
+</script>
+    
