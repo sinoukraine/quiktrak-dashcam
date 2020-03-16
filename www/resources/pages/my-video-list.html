@@ -57,6 +57,13 @@
 				ShowNormalList: false,	
 				ShowVideoList: false,	
             }; 			
+			
+			if (self.$route.query.date) {
+				ret.folderDate = self.$route.query.date;
+            }
+			if (self.$route.query.type) {
+				ret.folderType = self.$route.query.type;
+            }
             return ret;
         },
         methods: {
@@ -66,7 +73,7 @@
 				
 				
                 self.$app.preloader.show();
-				self.$app.methods.getRecordVideoList().then(response => {				
+				self.$app.methods.getRecordVideoList(self.folderDate).then(response => {				
 					//console.log(response);
 					self.$app.methods.setInStorage({name: 'mediaVideoList', data: response});
                     self.$setState({

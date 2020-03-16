@@ -4,24 +4,14 @@
 			<span class="progressbar-infinite color-green display-none"></span>
 			<div class="navbar-inner">
 				<div class="left">
-					{{#if IsCheckAll}}
-					<a href="#" class="download-items">						
-						<i class="f7-icons">download</i>
+					<a href="#" class="back link">
+						<i class="f7-icons icon-left"></i>
 					</a>
-					{{else}}
-					<a class="panel-open" href="#">						
-						<i class="f7-icons icon-menu"></i>
-					</a>
-					{{/if}}
 				</div>
 				<div class="title">Videos</div>
 				<div class="right">
-					<a href="#" class="toggle-check-item">
-						{{#if IsCheckAll}}
-							<i class="f7-icons">close</i>
-						{{else}}
-							<i class="f7-icons">check</i>
-						{{/if}}
+					<a href="#" class="">
+						<i class="material-icons md-36">file_download</i>
 					</a>
 				</div>
 				
@@ -67,6 +57,13 @@
 				ShowNormalList: false,	
 				ShowVideoList: false,	
             }; 			
+			
+			if (self.$route.query.date) {
+				ret.folderDate = self.$route.query.date;
+            }
+			if (self.$route.query.type) {
+				ret.folderType = self.$route.query.type;
+            }
             return ret;
         },
         methods: {
@@ -76,7 +73,7 @@
 				
 				
                 self.$app.preloader.show();
-				self.$app.methods.getRecordVideoList().then(response => {				
+				self.$app.methods.getRecordVideoList(self.folderDate).then(response => {				
 					//console.log(response);
 					self.$app.methods.setInStorage({name: 'mediaVideoList', data: response});
                     self.$setState({
