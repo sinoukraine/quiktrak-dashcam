@@ -355,7 +355,7 @@ var App = new Framework7({
 							console.info("ftp: connect ok=" + ok);
 							
 							// You can do any ftp actions from now on...
-							
+							self.$app.dialog.alert('my'+date);
 							// /storage/sdcard0/DVRMEDIA/Remote/PHOTO
 							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/GENERAL/'+date, function(result) {
 								//self.$app.dialog.alert(JSON.stringify(data));
