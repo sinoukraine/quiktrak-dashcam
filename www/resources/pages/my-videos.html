@@ -154,18 +154,18 @@
 					console.log('Please check connect to Dashcam');
                     //self.$app.dialog.alert('No Dashcam connected');
 				});
+				/*
 				
-				
-					/*self.$app.methods.setInStorage({name: 'videoList', data: [{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"}]});
+					self.$app.methods.setInStorage({name: 'videoList', data: [{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"}]});
                     self.$setState({
                         ShowVideoList: true,
                     });
                     self.$app.utils.nextFrame(()=>{
                         self.initVideoList([{"name":"1223" }]);
                     });					
-					self.$app.preloader.hide();*/
+					self.$app.preloader.hide();
 			
-
+*/
             },
             initNormalList: function(normalListArr = []){
                 var self = this;
@@ -230,9 +230,9 @@
                     // Display the each item using Template7 template parameter
                     renderItem: function (item, index) {          //console.log(item);        
                         var ret = '';
-						var date = item.modifiedDate.substr(0, 10);
+						
 						ret += '<li>';
-						ret += '  <a href="/my-video-list/?type=b&date='+date+'" class="item-link item-content">';
+						ret += '  <a href="/my-video-list/?type=b&date='+item.name+'" class="item-link item-content">';
 						ret += '	<div class="item-media"><img src="./resources/images/folder_1.svg" width="80"/></div>';
 						ret += '	<div class="item-inner">';
 						ret += '	  <div class="item-title-row">';
@@ -369,9 +369,8 @@
                     renderItem: function (item, index) {                 
                         var ret = '';
 						
-						var date = item.modifiedDate.substr(0, 10);
 						ret += '<li>';
-						ret += '  <a href="/my-video-list/?type=f&date='+date+'" class="item-link item-content">';
+						ret += '  <a href="/my-video-list/?type=f&date='+item.name+'" class="item-link item-content">';
 						ret += '	<div class="item-media"><img src="./resources/images/folder_1.svg" width="80"/></div>';
 						ret += '	<div class="item-inner">';
 						ret += '	  <div class="item-title-row">';

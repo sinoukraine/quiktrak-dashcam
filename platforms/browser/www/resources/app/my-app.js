@@ -355,9 +355,9 @@ var App = new Framework7({
 							console.info("ftp: connect ok=" + ok);
 							
 							// You can do any ftp actions from now on...
-							self.$app.dialog.alert('my'+date);
+							App.dialog.alert('my'+date);
 							// /storage/sdcard0/DVRMEDIA/Remote/PHOTO
-							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/GENERAL/'+date, function(result) {
+							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/USB/2020_03_15', function(result) {
 								//self.$app.dialog.alert(JSON.stringify(data));
 								resolve(result);
 								if (data == 1) {
@@ -366,7 +366,7 @@ var App = new Framework7({
 									//console.debug("ftp: upload percent=" + percent * 100 + "%");
 								}
 							}, function(error) {
-								self.$app.dialog.alert('error: ' + JSON.stringify(error));
+								App.dialog.alert('error: ' + JSON.stringify(error));
 								console.error("ftp: ls error=" + error);
 							});
 							/*window.cordova.plugin.ftp.upload('/localPath/localFile', '/remotePath/remoteFile', function(percent) {
@@ -381,7 +381,7 @@ var App = new Framework7({
 
 						}, function(error) {
 							console.error("ftp: connect error=" + error);
-							self.$app.dialog.alert("ftp: connect error=" + error);
+							App.dialog.alert("ftp: connect error=" + error);
 						});
 				
 			});   			
