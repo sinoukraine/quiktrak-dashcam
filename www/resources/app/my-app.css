@@ -882,6 +882,6 @@ label.check-item input[type=checkbox]:checked~.check-item {
 	width:76vw;
 }
 
-.media-list ul:before{
+.media-list ul:before, .media-list ul:after{
 	display:none;
 }

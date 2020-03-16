@@ -38,18 +38,18 @@
 				</div>
 			</div>
 		</div>
-		<div class="tabs ptr-content">
-			<!-- First tab, active -->
+		<div class="tabs">
+			<!-- First tab, active  ptr-content-->
 			<div class="page-content tab tab-active" id="video">
 				<div class="block">
-					<div class="ptr-preloader">
+					
+					<!--<div class="ptr-preloader">
 						<div class="preloader"></div>
 						<div class="ptr-arrow"></div>
-					</div>
-					<!--<div class="list virtual-list video-list media-list no-hairlines">-->
+					</div><div class="list virtual-list video-list media-list no-hairlines">-->
 					
 					{{#if ShowVideoList}}
-						<div key="VirtualVideoList" class="list media-list virtual-list no-chevron videosList">
+						<div key="VirtualVideoList" class="list media-list virtual-list no-margin no-chevron videosList">
 					
 						</div> 
 					{{/if}}
@@ -62,16 +62,14 @@
 			<!-- Second tab -->
 			<div class="page-content tab" id="normal">
 				<div class="block">
-					<div class="ptr-preloader">
+					<!--<div class="ptr-preloader">
 						<div class="preloader"></div>
 						<div class="ptr-arrow"></div>
-					</div>
-					<div class="list virtual-list video-list no-hairlines">
+					</div>-->
 					{{#if ShowNormalList}}
-						<div key="VirtualNormalList" class="list media-list virtual-list no-hairlines no-margin no-chevron searchbar-found normalList">
+						<div key="VirtualNormalList" class="list media-list virtual-list no-hairlines no-margin no-chevron  normalList">
 						</div> 
 					{{/if}}
-					</div>
 				</div>
 			</div>
 		</div>
@@ -122,22 +120,22 @@
 				var self = this;  
 				
 				
-                /*self.$app.preloader.show();
+                self.$app.preloader.show();
 				self.$app.methods.getRecordPhoto().then(response => {				
 					//console.log(response);
-					self.$app.methods.setInStorage({name: 'normalList', data: response.mp4data});
+					self.$app.methods.setInStorage({name: 'normalList', data: response});
                     self.$setState({
                         ShowNormalList: true,
                     });
                     self.$app.utils.nextFrame(()=>{
-                        self.initNormalList(response.mp4data);
+                        self.initNormalList(response);
                     });					
 					self.$app.preloader.hide(); 	
 				}, error => {
 					self.$app.preloader.hide(); 
 					console.log('Please check connect to Dashcam');
                     //self.$app.dialog.alert('Something wrong.');
-				});*/
+				});
 				
 				
 				self.$app.preloader.show();
@@ -156,7 +154,9 @@
 					console.log('Please check connect to Dashcam');
                     //self.$app.dialog.alert('No Dashcam connected');
 				});
-					/*self.$app.methods.setInStorage({name: 'videoList', data: [{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"}]});
+				
+				
+					/*self.$app.methods.setInStorage({name: 'videoList', data: [{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"}]});
                     self.$setState({
                         ShowVideoList: true,
                     });
@@ -164,21 +164,7 @@
                         self.initVideoList([{"name":"1223" }]);
                     });					
 					self.$app.preloader.hide();*/
-				/*self.$app.methods.getRecordVideo().then(response => {	
-					//self.methods.setPhotoList({list: response.mp4data});	
-					self.$app.methods.setInStorage({name: 'videoList', data: response.mp4data});
-                    self.$setState({
-                        ShowVideoList: true,
-                    });
-                    self.$app.utils.nextFrame(()=>{
-                        self.initVideoList(response.mp4data);
-                    });					
-					self.$app.preloader.hide(); 	
-				}, error => {
-					self.$app.preloader.hide(); 
-					console.log('Please check connect to Dashcam');
-                    //self.$app.dialog.alert('No Dashcam connected');
-				});*/
+			
 
             },
             initNormalList: function(normalListArr = []){
@@ -188,9 +174,9 @@
                 //var listSearchEl = self.$el.find('.searchbar');    
                 var normalList = self.$app.methods.getFromStorage("normalList");
 				//let dateArr = self.$app.methods.sortDateNormal(normalList);           
-               let dateArr = [{
+               /*let dateArr = [{
 				'data': normalList
-			   }];
+			   }];*/
 			   //console.log(dateArr);
                 /*if (normalListArr.length) {
                     normalListArr.sort(function(a,b){
@@ -207,27 +193,27 @@
                     el: listEl, 
                     setListHeight: false,
                     // search item by item
-                    searchAll: function (query, items) {
-                        /*var found = [];
+                   /* searchAll: function (query, items) {
+                        var found = [];
                         query = query.trim().toLowerCase();   
                         for (var i = 0; i < items.length; i++) {
                             if (items[i].AccountName.toLowerCase().indexOf(query) >= 0 || 
                                 items[i].EMail.toLowerCase().indexOf(query) >= 0 ||                                
                                 query === '') found.push(i);
                         }
-                        return found; //return array with mathced indexes*/
+                        return found; //return array with mathced indexes
 						let found = [];
 						for (let i = 0; i < items.length; i++) {
 							if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
 						}
 						return found;
-                    },
+                    },*/
 					
                     //List of array items
-                    items: dateArr,
+                    items: normalList,
                     height: function(item){
-						let height = 0.00;
-						let heightElement = 100.00;
+						let height = 112.67;
+						/*let heightElement = 100.00;
 						let dataLength = 0;
 						//let heightHeader = 34.94;
 						let heightHeader = 0;
@@ -238,14 +224,28 @@
 						}else{
 							height = heightHeader + heightElement*(dataLength/2);
 						}
-                       
+                       */
                         return height;
                     },
                     // Display the each item using Template7 template parameter
                     renderItem: function (item, index) {          //console.log(item);        
                         var ret = '';
 						
-						ret += '<div class="list media-list">';
+						ret += '<li>';
+						ret += '  <a href="#" class="item-link item-content">';
+						ret += '	<div class="item-media"><img src="./resources/images/folder_1.svg" width="80"/></div>';
+						ret += '	<div class="item-inner">';
+						ret += '	  <div class="item-title-row">';
+						ret += '		<div class="item-title">'+item.name+'</div>';
+						ret += '		<div class="item-after"><i class="material-icons md-36">play_circle_outline</i></div>';
+						ret += '	  </div>';
+						ret += '	  <div class="item-subtitle">size: '+item.size+'</div>';
+						ret += '	  <div class="item-text">'+item.modifiedDate+'</div>';
+						ret += '	</div>';
+						ret += '	</a>';
+						ret += '</li>';
+						
+						/*ret += '<div class="list media-list">';
 						ret += '  <ul>';
 						ret += '	<li>';
 						ret += '	  <div class="item-content">      ';  
@@ -286,7 +286,7 @@
 						ret += '	  </div>';
 						ret += '	</li>';
 						ret += '  </ul>';
-						ret += '</div>';
+						ret += '</div>';*/
 												
 						return ret;
                     }
@@ -350,7 +350,7 @@
 					
                     items: videoList,
                     height: function(item){
-                        let height = 105.33;
+                        let height = 112.67;
                         //let heightHeader = 34.94;
                         
 						/*let heightElement = 100.00;
@@ -371,14 +371,14 @@
 						
 						ret += '<li>';
 						ret += '  <a href="#" class="item-link item-content">';
-						ret += '	<div class="item-media"><img src="./resources/images/folder_1.svg" width="64"/></div>';
+						ret += '	<div class="item-media"><img src="./resources/images/folder_1.svg" width="80"/></div>';
 						ret += '	<div class="item-inner">';
 						ret += '	  <div class="item-title-row">';
 						ret += '		<div class="item-title">'+item.name+'</div>';
 						ret += '		<div class="item-after"><i class="material-icons md-36">play_circle_outline</i></div>';
 						ret += '	  </div>';
 						ret += '	  <div class="item-subtitle">size: '+item.size+'</div>';
-						ret += '	  <div class="item-text" style="font-size:12px">'+item.modifiedDate+'</div>';
+						ret += '	  <div class="item-text">'+item.modifiedDate+'</div>';
 						ret += '	</div>';
 						ret += '	</a>';
 						ret += '</li>';

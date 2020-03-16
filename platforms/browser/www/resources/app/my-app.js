@@ -339,41 +339,42 @@ var App = new Framework7({
 		getRecordPhoto: function(resolve, reject){ 		
 			return new Promise((resolve, reject) => {
 				
-				/*let url = 'http://192.168.1.1/ini.htm?cmd=alarmvideolist';
-				let params = {};
-				let headers = {};
-				let newArr = [];
-				cordova.plugin.http.get(url, 
-					params, headers, (response) => {
-						let array = JSON.parse(response.data);
+				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+						//window.cordova.plugin.ftp.connect('192.168.43.1:10011', '357730090913204', '99999999', function(ok) {
+						//window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
 						
-						//array.length = 1;
-						console.log(array);
-						resolve(array);
-				}, function(response) {
-				  reject();
-				});	*/
-				$.ajax({
-					   type: "GET",
-				   dataType: "json", 
-					  jsonp: false,
-						url: 'http://192.168.1.1/ini.htm?cmd=alarmvideolist',
-					  async: true,           
-						crossDomain: true, 
-					  cache: false,
-					success: function (result) {    
-						//if (resolve) {
-						resolve(result);
-						//}
-					},
-					error: function(XMLHttpRequest, textStatus, errorThrown){ 
-					   console.log(textStatus,'error_photo');
-						//if (reject) {
-						reject();
-						//}  
-					}
-					
-				});	
+							console.info("ftp: connect ok=" + ok);
+							
+							// You can do any ftp actions from now on...
+							
+							// /storage/sdcard0/DVRMEDIA/Remote/PHOTO
+							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/GENERAL/', function(result) {
+								//self.$app.dialog.alert(JSON.stringify(data));
+								resolve(result);
+								if (data == 1) {
+									//console.info("ftp: upload finish");
+								} else {
+									//console.debug("ftp: upload percent=" + percent * 100 + "%");
+								}
+							}, function(error) {
+								self.$app.dialog.alert('error: ' + JSON.stringify(error));
+								console.error("ftp: ls error=" + error);
+							});
+							/*window.cordova.plugin.ftp.upload('/localPath/localFile', '/remotePath/remoteFile', function(percent) {
+								if (percent == 1) {
+									console.info("ftp: upload finish");
+								} else {
+									console.debug("ftp: upload percent=" + percent * 100 + "%");
+								}
+							}, function(error) {
+								console.error("ftp: upload error=" + error);
+							});*/
+
+						}, function(error) {
+							console.error("ftp: connect error=" + error);
+							self.$app.dialog.alert("ftp: connect error=" + error);
+						});
+				
 			});   			
 		},
 		getVRecordPhoto: function(resolve, reject){ 			
@@ -414,7 +415,7 @@ var App = new Framework7({
 							// You can do any ftp actions from now on...
 							
 							// /storage/sdcard0/DVRMEDIA/Remote/PHOTO
-							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/USB/2020_03_16', function(result) {
+							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/USB/', function(result) {
 								//self.$app.dialog.alert(JSON.stringify(data));
 								resolve(result);
 								if (data == 1) {
