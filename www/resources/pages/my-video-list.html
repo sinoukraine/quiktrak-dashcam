@@ -71,8 +71,8 @@
 					
 				var self = this;  
 				
-                //self.$app.preloader.show();
-				self.$app.methods.getRecordVideoList(self.folderDate).then(response => {				
+                self.$app.preloader.show();
+				self.$app.methods.getRecordVideoList(self.folderDate, self.folderType).then(response => {				
 					//console.log(response);
 					self.$app.methods.setInStorage({name: 'mediaVideoList', data: response});
                     self.$setState({
