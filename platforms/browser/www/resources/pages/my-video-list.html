@@ -190,6 +190,12 @@
 				});
 				
 				
+				page.on('click', '.download-items', function() {
+						let fileName = $(this).attr('data-name');
+						self.downloadFile(fileName);					
+					});
+					
+					
 				var myPage = $$('.my-videos');
 				
 				myPage.on('click', '.toggle-check-item', function(e){
@@ -206,11 +212,7 @@
 					var arrItems = [];			
 					
 					//var currentCamera = self.$app.methods.getFromStorage("currentCamera");
-				
-					$$('.dwnl-file').on('click', function() {
-						let fileName = $(this).attr('data-name');
-						self.downloadFile(fileName);					
-					});
+					
 				
 					var downloadItems = $$('[name="photo-check"]');
 					downloadItems.forEach(function() {
