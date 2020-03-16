@@ -345,7 +345,7 @@ var App = new Framework7({
                 App.dialog.alert('Wrong query parameters!');
             }
         },
-		getRecordVideoList: function(resolve, reject){ 		
+		getRecordVideoList: function(resolve, reject, date){ 		
 			return new Promise((resolve, reject) => {
 				
 				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
@@ -357,7 +357,7 @@ var App = new Framework7({
 							// You can do any ftp actions from now on...
 							
 							// /storage/sdcard0/DVRMEDIA/Remote/PHOTO
-							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/GENERAL/2020_03_16', function(result) {
+							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/GENERAL/'+date, function(result) {
 								//self.$app.dialog.alert(JSON.stringify(data));
 								resolve(result);
 								if (data == 1) {

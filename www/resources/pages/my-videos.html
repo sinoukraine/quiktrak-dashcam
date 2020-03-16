@@ -230,9 +230,9 @@
                     // Display the each item using Template7 template parameter
                     renderItem: function (item, index) {          //console.log(item);        
                         var ret = '';
-						
+						var date = item.modifiedDate.substr(0, 10);
 						ret += '<li>';
-						ret += '  <a href="/my-video-list/?date=2020-03-16" class="item-link item-content">';
+						ret += '  <a href="/my-video-list/?type=b&date='+date+'" class="item-link item-content">';
 						ret += '	<div class="item-media"><img src="./resources/images/folder_1.svg" width="80"/></div>';
 						ret += '	<div class="item-inner">';
 						ret += '	  <div class="item-title-row">';
@@ -369,8 +369,9 @@
                     renderItem: function (item, index) {                 
                         var ret = '';
 						
+						var date = item.modifiedDate.substr(0, 10);
 						ret += '<li>';
-						ret += '  <a href="#" class="item-link item-content">';
+						ret += '  <a href="/my-video-list/?type=f&date='+date+'" class="item-link item-content">';
 						ret += '	<div class="item-media"><img src="./resources/images/folder_1.svg" width="80"/></div>';
 						ret += '	<div class="item-inner">';
 						ret += '	  <div class="item-title-row">';
