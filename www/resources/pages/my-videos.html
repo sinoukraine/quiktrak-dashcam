@@ -48,33 +48,11 @@
 					</div>
 					<div class="list virtual-list video-list no-hairlines">
 					
-					
-					
-					<!--<div class="treeview">
-					  <div class="treeview-item treeview-load-children" @treeview:loadchildren="loadChildren">
-						<div class="treeview-item-root">
-						  <div class="treeview-toggle"></div>
-						  <div class="treeview-item-content">
-							<i class="icon f7-icons">persons</i>
-							<div class="treeview-item-label">Users</div>
-						  </div>
-						</div>
-						<div class="treeview-item-children">
-						  {{#each loadedChildren}}
-						  <div class="treeview-item">
-							<div class="treeview-item-root">
-							  <div class="treeview-item-content">
-								<i class="icon f7-icons">person</i>
-								<div class="treeview-item-label">{{name}}</div>
-							  </div>
-							</div>
-						  </div>
-						  {{/each}}
-						</div>
-					  </div>
-					</div>-->
-					
-					
+					{{#if ShowVideoList}}
+						<div key="VirtualVideoList" class="list media-list virtual-list no-hairlines no-margin no-chevron searchbar-found videosList">
+						</div> 
+					{{/if}}
+									
 					
 					
 					</div>					
@@ -410,7 +388,7 @@
 							ret += 					'<a href="#" onclick="">' +//App.methods.openPlayer(\'http://192.168.1.1/DCIM/100video/'+item.data[d].filename+'\')" class="" data-video="'+item.data[d].filename+'
 													'<div class="item-content">' +
 													'<div class="item-media video-item-media">' +
-													'<img class="item-path" src="./resources/images/photo-default.png">' +//http://192.168.1.1/DCIM/103thumb/'+item.data[d].title+'
+													'<img class="item-path" src="./resources/images/dir.png">' +//http://192.168.1.1/DCIM/103thumb/'+item.data[d].title+'
 													'<div class="item-media-bottom">' +
 													'<div class="item-media-quality">' + res + '</div>' +
 													'<div class="item-media-time">'+time+'</div>' +
