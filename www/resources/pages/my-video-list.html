@@ -95,7 +95,7 @@
 				var self = this;  
 				
                 self.$app.preloader.show();
-				self.$app.methods.downloadMedia(data, folderType).then(response => {	
+				self.$app.methods.downloadMedia(data, self.folderType).then(response => {	
 				
 					self.$app.preloader.hide(); 	
 					self.$app.dialog.alert('OK');
