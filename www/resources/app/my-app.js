@@ -265,6 +265,12 @@ var App = new Framework7({
                             ret = JSON.parse(str);
                         }
 					break;  
+					case 'mediaVideoList':
+						str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.MEDIAVIDEOLIST");
+                        if(str) {
+                            ret = JSON.parse(str);
+                        }
+					break; 
 					default:
                         App.dialog.alert('There is no item saved with such name - '+name);
                 }
@@ -328,7 +334,10 @@ var App = new Framework7({
                     break;      
                     case 'videoList':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.VIDEOLIST", JSON.stringify(params.data));
-                    break;                      
+                    break;             
+                    case 'mediaVideoList':
+                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.MEDIAVIDEOLIST", JSON.stringify(params.data));
+                    break;              
                     default:
                         App.dialog.alert('There is no function associated with this name - '+params.name);
                 }   
@@ -336,6 +345,47 @@ var App = new Framework7({
                 App.dialog.alert('Wrong query parameters!');
             }
         },
+		getRecordVideoList: function(resolve, reject){ 		
+			return new Promise((resolve, reject) => {
+				
+				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+						//window.cordova.plugin.ftp.connect('192.168.43.1:10011', '357730090913204', '99999999', function(ok) {
+						//window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
+						
+							console.info("ftp: connect ok=" + ok);
+							
+							// You can do any ftp actions from now on...
+							
+							// /storage/sdcard0/DVRMEDIA/Remote/PHOTO
+							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/GENERAL/2020-03-16', function(result) {
+								//self.$app.dialog.alert(JSON.stringify(data));
+								resolve(result);
+								if (data == 1) {
+									//console.info("ftp: upload finish");
+								} else {
+									//console.debug("ftp: upload percent=" + percent * 100 + "%");
+								}
+							}, function(error) {
+								self.$app.dialog.alert('error: ' + JSON.stringify(error));
+								console.error("ftp: ls error=" + error);
+							});
+							/*window.cordova.plugin.ftp.upload('/localPath/localFile', '/remotePath/remoteFile', function(percent) {
+								if (percent == 1) {
+									console.info("ftp: upload finish");
+								} else {
+									console.debug("ftp: upload percent=" + percent * 100 + "%");
+								}
+							}, function(error) {
+								console.error("ftp: upload error=" + error);
+							});*/
+
+						}, function(error) {
+							console.error("ftp: connect error=" + error);
+							self.$app.dialog.alert("ftp: connect error=" + error);
+						});
+				
+			});   			
+		},
 		getRecordPhoto: function(resolve, reject){ 		
 			return new Promise((resolve, reject) => {
 				

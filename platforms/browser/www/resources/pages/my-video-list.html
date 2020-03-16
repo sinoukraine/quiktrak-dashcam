@@ -1,0 +1,233 @@
+<template>
+	<div data-name="my-video-list" class="page gallery my-video-list">
+		<div class="navbar">
+			<span class="progressbar-infinite color-green display-none"></span>
+			<div class="navbar-inner">
+				<div class="left">
+					{{#if IsCheckAll}}
+					<a href="#" class="download-items">						
+						<i class="f7-icons">download</i>
+					</a>
+					{{else}}
+					<a class="panel-open" href="#">						
+						<i class="f7-icons icon-menu"></i>
+					</a>
+					{{/if}}
+				</div>
+				<div class="title">Videos</div>
+				<div class="right">
+					<a href="#" class="toggle-check-item">
+						{{#if IsCheckAll}}
+							<i class="f7-icons">close</i>
+						{{else}}
+							<i class="f7-icons">check</i>
+						{{/if}}
+					</a>
+				</div>
+				
+			</div>
+		</div>
+		<div >
+			<!-- First tab, active  ptr-content-->
+			<div class="page-content" id="video">
+				<div class="block">
+					
+					<!--<div class="ptr-preloader">
+						<div class="preloader"></div>
+						<div class="ptr-arrow"></div>
+					</div><div class="list virtual-list video-list media-list no-hairlines">-->
+					
+					{{#if ShowVideoList}}
+						<div key="VirtualVideoList" class="list media-list virtual-list no-margin no-chevron videosList">
+					
+						</div> 
+					{{/if}}
+									
+				
+					
+					<!--</div>-->					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</template>
+
+<script>
+  // script must return component object
+    return {
+        data: function () {
+            var self = this;
+			var ret = {
+			//loadedChildren: [],
+				IsCheckAll: false,
+				photoBrowserArr: [],
+                VirtualNormalList: false,
+                VirtualVideoList: false,
+				ShowNormalList: false,	
+				ShowVideoList: false,	
+            }; 			
+            return ret;
+        },
+        methods: {
+            getGalleryList: function(){
+					
+				var self = this;  
+				
+				
+                self.$app.preloader.show();
+				self.$app.methods.getRecordVideoList().then(response => {				
+					//console.log(response);
+					self.$app.methods.setInStorage({name: 'mediaVideoList', data: response});
+                    self.$setState({
+                        ShowVideoList: true,
+                    });
+                    self.$app.utils.nextFrame(()=>{
+                        self.initVideoList(response);
+                    });					
+					self.$app.preloader.hide(); 	
+				}, error => {
+					self.$app.preloader.hide(); 
+					console.log('Please check connect to Dashcam');
+                    //self.$app.dialog.alert('Something wrong.');
+				});
+				
+
+            },
+            initVideoList: function(videoListArr = []){
+                var self = this;
+                
+                var listEl = self.$el.find('.videosList');   
+                var videoList = self.$app.methods.getFromStorage("mediaVideoList");
+				
+                self.VirtualVideoList = App.virtualList.create({
+                    el: listEl, 
+                    setListHeight: false,
+                    // search item by item
+                    /*searchAll: function (query, items) {
+                        var found = [];
+                        query = query.trim().toLowerCase();   
+                        for (var i = 0; i < items.length; i++) {
+                            if (items[i].AccountName.toLowerCase().indexOf(query) >= 0 || 
+                                items[i].EMail.toLowerCase().indexOf(query) >= 0 ||                                
+                                query === '') found.push(i);
+                        }
+                        return found; //return array with mathced indexes
+						let found = [];
+						for (let i = 0; i < items.length; i++) {
+							if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+						}
+						return found;
+                    },*/
+                    //List of array items
+					
+                    items: videoList,
+                    height: function(item){
+                        let height = 112.67;
+                        
+                        return height;
+                    },
+                    // Display the each item using Template7 template parameter
+                    renderItem: function (item, index) {                 
+                        var ret = '';
+						
+						ret += '<li>';
+						ret += '  <a href="#" class="item-link item-content">';
+						ret += '	<div class="item-media"><img src="./resources/images/file_1.svg" width="80"/></div>';
+						ret += '	<div class="item-inner">';
+						ret += '	  <div class="item-title-row">';
+						ret += '		<div class="item-title">'+item.name+'</div>';
+						ret += '		<div class="item-after"><i class="material-icons md-36">play_for_work</i></div>';
+						ret += '	  </div>';
+						ret += '	  <div class="item-subtitle">size: '+item.size+'</div>';
+						ret += '	  <div class="item-text">'+item.modifiedDate+'</div>';
+						ret += '	</div>';
+						ret += '	</a>';
+						ret += '</li>';
+						
+												
+						return ret;
+                    }
+                });				
+            },
+        },
+        on: {
+            pageInit: function (e, page) {  
+				var self = this;                                              
+                console.log('page init');
+				
+                self.getGalleryList();	
+
+				var page = page.$el.find('.page-content'); 
+
+                page.on('click', '.pb-standalone-dark', function(e){
+					self.PhotoBrowserObj.open($(this).attr('data-index'));
+				});
+				
+				page.on('taphold', '.item-path', function(e){
+					self.$setState({
+                        IsCheckAll: true,
+                    });
+					$('.photo-check-item').removeClass('display-none');
+				});
+				
+				
+				var myPage = $$('.my-videos');
+				
+				myPage.on('click', '.toggle-check-item', function(e){
+					let newState = !self.IsCheckAll;
+					self.$setState({
+                        IsCheckAll: newState,
+                    });
+					$('.photo-check-item').toggleClass('display-none');
+				});				
+							
+					
+				myPage.on('click', '.download-items', function(e){
+				
+					var arrItems = [];			
+					
+					//var currentCamera = self.$app.methods.getFromStorage("currentCamera");
+				
+					var downloadItems = $$('[name="photo-check"]');
+					downloadItems.forEach(function() {
+						if($(this).is(":checked")){
+							let objItem = {
+								name: $(this).attr('file-name'),
+								dir: 'dashcam',
+								url: $(this).val()
+							}
+							arrItems.push(objItem);
+						}											
+						$(this).removeAttr("checked");
+					});
+					
+					self.$setState({
+                        IsCheckAll: false,
+                    });
+										
+					$('.photo-check-item').toggleClass('display-none');
+					
+					self.$app.methods.downloadFiles(arrItems);
+					arrItems.length = 0;
+				});	
+								
+				
+				
+				// Pull to refresh content
+				var $ptrContent = $$('.ptr-content');
+				// Add 'refresh' listener on it
+				$ptrContent.on('ptr:refresh', function (e) {
+				  // Emulate 2s loading
+				  setTimeout(function () { // Prepend new list element
+					
+					self.getGalleryList();	
+					//$ptrContent.find('ul').prepend(itemHTML);
+					// When loading done, we need to reset it
+					App.ptr.done(); // or e.detail();
+				  }, 2000);
+				});
+			}
+		}
+    };
+</script>

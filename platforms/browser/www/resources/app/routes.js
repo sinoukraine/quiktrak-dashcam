@@ -211,4 +211,9 @@ var routes = [{
         path: '/my-gesture-induction/',
         componentUrl: './resources/pages/my-gesture-induction.html?v=1.65',
     },	
+	{
+        name: 'my-video-list',
+        path: '/my-video-list/',
+        componentUrl: './resources/pages/my-video-list.html?v=1.65',
+    },	
 ]
