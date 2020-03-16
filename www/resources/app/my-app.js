@@ -345,7 +345,7 @@ var App = new Framework7({
                 App.dialog.alert('Wrong query parameters!');
             }
         },
-		getRecordVideoList: function(resolve, reject, date){ 		
+		getRecordVideoList: function(date,resolve, reject){ 		
 			return new Promise((resolve, reject) => {
 				
 				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
