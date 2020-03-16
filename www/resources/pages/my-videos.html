@@ -46,14 +46,16 @@
 						<div class="preloader"></div>
 						<div class="ptr-arrow"></div>
 					</div>
-					<div class="list virtual-list video-list no-hairlines">
+					<div class="list virtual-list video-list media-list no-hairlines">
 					
 					{{#if ShowVideoList}}
 						<div key="VirtualVideoList" class="list media-list virtual-list no-hairlines no-margin no-chevron searchbar-found videosList">
+						<ul>
+						</ul>
 						</div> 
 					{{/if}}
 									
-					
+				
 					
 					</div>					
 				</div>
@@ -301,7 +303,7 @@
             initVideoList: function(videoListArr = []){
                 var self = this;
                 
-                var listEl = self.$el.find('.videosList'); 
+                var listEl = self.$el.find('.videosList ul'); 
                 //var listSearchEl = self.$el.find('.searchbar');    
                 var videoList = self.$app.methods.getFromStorage("videoList");
 				//let dateArr = self.$app.methods.sortDatePhoto(videoList);           
@@ -341,10 +343,10 @@
 					
                     items: dateArr,
                     height: function(item){
-                        let height = 0.00;
+                        let height = 105.33;
                         //let heightHeader = 34.94;
                         
-						let heightElement = 100.00;
+						/*let heightElement = 100.00;
 						let heightHeader = 0;
 						let dataLength = item.data.length;
 						
@@ -353,14 +355,28 @@
 						}else{
 							height = heightHeader + heightElement*(dataLength/2);
 						}
-						console.log(height);
+						console.log(height);*/
                         return height;
                     },
                     // Display the each item using Template7 template parameter
                     renderItem: function (item, index) {                 
                         var ret = '';
 						
-						ret += '<div class="list media-list">';
+						ret += '<li>';
+						ret += '  <a href="#" class="item-link item-content">';
+						ret += '	<div class="item-media"><img src="./resources/images/folder_1.svg" width="80"/></div>';
+						ret += '	<div class="item-inner">';
+						ret += '	  <div class="item-title-row">';
+						ret += '		<div class="item-title">Yellow Submarine</div>';
+						ret += '		<div class="item-after">$15</div>';
+						ret += '	  </div>';
+						ret += '	  <div class="item-subtitle">Beatles</div>';
+						ret += '	  <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>';
+						ret += '	</div>';
+						ret += '	</a>';
+						ret += '</li>';
+						
+						/*ret += '<div class="list media-list">';
 						ret += '  <ul>';
 						ret += '	<li>';
 						ret += '	  <div class="item-content">      ';  
@@ -375,10 +391,7 @@
 							//let time = item.data[d].time.substring(6, 8) + '.' + item.data[d].time.substring(4, 6)+' '+item.data[d].time.substring(8, 10) + ':' + item.data[d].time.substring(10, 12);
 							let time = '13-03-2020';
 							let res = '1080p';							
-							let pattern = /720p/i;							
-							/*if(pattern.test(item.data[d].filename)) {
-								res = '720p';
-							}*/
+							let pattern = /720p/i;		
 							
 							ret += '			  <div class="col-50">';
 							//ret +='<label class="checkbox check-item photo-check-item display-none">';
@@ -405,7 +418,7 @@
 						ret += '	  </div>';
 						ret += '	</li>';
 						ret += '  </ul>';
-						ret += '</div>';
+						ret += '</div>';*/
 												
 						return ret;
                     }
