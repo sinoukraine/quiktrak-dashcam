@@ -345,6 +345,85 @@ var App = new Framework7({
                 App.dialog.alert('Wrong query parameters!');
             }
         },
+		
+		downloadMedia: function(date, type, resolve, reject){ 		
+			
+			
+			
+			
+			
+			return new Promise((resolve, reject) => {
+				
+				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+						//window.cordova.plugin.ftp.connect('192.168.43.1:10011', '357730090913204', '99999999', function(ok) {
+						//window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
+						
+							console.info("ftp: connect ok=" + ok);
+							
+							// You can do any ftp actions from now on...
+							
+							window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
+
+							function fileSystemSuccess(fileSystem) {
+								//var download_link = encodeURI(URL);
+								//ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
+
+								var directoryEntry = fileSystem.root; // to get root path of directory
+								directoryEntry.getDirectory(Folder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
+								var rootdir = fileSystem.root;
+								var fp = rootdir.toURL(); 
+								//var fp = cordova.file.dataDirectory;
+								//App.dialog.alert(rootdir + '..' + rootdir.toURL());// Returns Fulpath of local directory
+								//var fp = "file:///storage/sdcard0'";
+								//fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/' + Folder_Name + "/" + File_Name + "." + ext;
+								fp = fp + "/" + type + "/" + date + "/";// + "." + ext; // fullpath and name of the file which we want to give
+								// download function call
+								//filetransfer(download_link, fp);
+								
+								
+								// /storage/sdcard0/DVRMEDIA/Remote/PHOTO
+								window.cordova.plugin.ftp.download('/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+date, fp, function(result) {
+									//self.$app.dialog.alert(JSON.stringify(data));
+									
+									if (data == 1) {
+										//console.info("ftp: upload finish");
+										resolve(result);
+									} else {
+										App.dialog.alert("ftp: dwnl=" + result * 100 + "%");
+									}
+								}, function(error) {
+									//App.dialog.alert('error: ' + JSON.stringify(error));
+									console.error("ftp: ls error=" + error);
+									
+									App.dialog.alert("ftp: dwnl err" + error);
+								});
+							}
+
+							function onDirectorySuccess(parent) {
+								// Directory created successfuly
+							}
+
+							function onDirectoryFail(error) {
+								//Error while creating directory
+								App.dialog.alert("Unable to create new directory: " + error.code);
+							}
+
+							function fileSystemFail(evt) {
+								//Unable to access file system
+								App.dialog.alert(evt.target.error.code);
+							}
+							
+							
+							
+
+						}, function(error) {
+							console.error("ftp: connect error=" + error);
+							//App.dialog.alert("ftp: connect error=" + error);
+						});
+				
+			});   			
+		},
+		
 		getRecordVideoList: function(date, type, resolve, reject){ 		
 			return new Promise((resolve, reject) => {
 				

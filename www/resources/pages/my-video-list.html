@@ -90,6 +90,25 @@
 				
 
             },
+			 downloadFile: function(data){
+					
+				var self = this;  
+				
+                self.$app.preloader.show();
+				self.$app.methods.downloadMedia(data, folderType).then(response => {	
+				
+					self.$app.preloader.hide(); 	
+					self.$app.dialog.alert('OK');
+				}, error => {
+					self.$app.preloader.hide(); 
+					console.log('Please check connect to Dashcam');
+                    //self.$app.dialog.alert('Something wrong.');
+				});
+				
+
+            },
+						
+			
             initVideoList: function(videoListArr = []){
                 var self = this;
                 
@@ -128,7 +147,7 @@
                         var ret = '';
 						
 						ret += '<li>';
-						ret += '  <a href="#" class="item-link item-content">';
+						ret += '  <a href="onclick:self.downloadFile('+item.name+')" class="item-link item-content">';
 						ret += '	<div class="item-media"><img src="./resources/images/file_1.svg" width="80"/></div>';
 						ret += '	<div class="item-inner">';
 						ret += '	  <div class="item-title-row">';
