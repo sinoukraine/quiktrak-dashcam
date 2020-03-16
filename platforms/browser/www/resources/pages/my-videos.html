@@ -141,7 +141,7 @@
 				
 				
 				self.$app.preloader.show();
-				self.$app.methods.getRecordVideo().then(response => {	
+				/*self.$app.methods.getRecordVideo().then(response => {	
 					//self.methods.setPhotoList({list: response.mp4data});	
 					self.$app.methods.setInStorage({name: 'videoList', data: response});
                     self.$setState({
@@ -155,15 +155,15 @@
 					self.$app.preloader.hide(); 
 					console.log('Please check connect to Dashcam');
                     //self.$app.dialog.alert('No Dashcam connected');
-				});
-					/*self.$app.methods.setInStorage({name: 'videoList', data: [{"name":"1223"}]});
+				});*/
+					self.$app.methods.setInStorage({name: 'videoList', data: [{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"}]});
                     self.$setState({
                         ShowVideoList: true,
                     });
                     self.$app.utils.nextFrame(()=>{
-                        self.initVideoList([{"name":"1223"}]);
+                        self.initVideoList([{"name":"1223" }]);
                     });					
-					self.$app.preloader.hide();*/
+					self.$app.preloader.hide();
 				/*self.$app.methods.getRecordVideo().then(response => {	
 					//self.methods.setPhotoList({list: response.mp4data});	
 					self.$app.methods.setInStorage({name: 'videoList', data: response.mp4data});
@@ -371,14 +371,14 @@
 						
 						ret += '<li>';
 						ret += '  <a href="#" class="item-link item-content">';
-						ret += '	<div class="item-media"><img src="./resources/images/folder_1.svg" width="80"/></div>';
+						ret += '	<div class="item-media"><img src="./resources/images/folder_1.svg" width="64"/></div>';
 						ret += '	<div class="item-inner">';
 						ret += '	  <div class="item-title-row">';
-						ret += '		<div class="item-title">Yellow Submarine</div>';
+						ret += '		<div class="item-title">'+item.name+'</div>';
 						ret += '		<div class="item-after"><i class="material-icons md-36">play_circle_outline</i></div>';
 						ret += '	  </div>';
-						ret += '	  <div class="item-subtitle">32 files</div>';
-						ret += '	  <div class="item-text">26-03-2020</div>';
+						ret += '	  <div class="item-subtitle">size: '+item.size+'</div>';
+						ret += '	  <div class="item-text" style="font-size:12px">'+item.modifiedDate+'</div>';
 						ret += '	</div>';
 						ret += '	</a>';
 						ret += '</li>';

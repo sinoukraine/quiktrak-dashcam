@@ -881,3 +881,7 @@ label.check-item input[type=checkbox]:checked~.check-item {
 .range-slider-box{
 	width:76vw;
 }
+
+.media-list ul:before{
+	display:none;
+}
