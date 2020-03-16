@@ -150,7 +150,7 @@
                         var ret = '';
 						
 						ret += '<li>';
-						ret += '  <a href="#" @click="downloadFile('+item.name+')" class="item-link item-content">';
+						ret += '  <a href="#" data-name="'+item.name+'" class="item-link item-content dwnl-file">';
 						ret += '	<div class="item-media"><img src="./resources/images/file_1.svg" width="80"/></div>';
 						ret += '	<div class="item-inner">';
 						ret += '	  <div class="item-title-row">';
@@ -206,6 +206,11 @@
 					var arrItems = [];			
 					
 					//var currentCamera = self.$app.methods.getFromStorage("currentCamera");
+				
+					$$('.dwnl-file').on('click', function() {
+						let fileName = $(this).attr('data-name');
+						self.downloadFile(fileName);					
+					});
 				
 					var downloadItems = $$('[name="photo-check"]');
 					downloadItems.forEach(function() {
