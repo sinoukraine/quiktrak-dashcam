@@ -9,9 +9,9 @@
     <feature name="CordovaHttpPlugin">
         <param name="browser-package" value="CordovaHttpPlugin" />
     </feature>
-    <name>QuikTrak DashCam</name>
+    <name>QT DashCam</name>
     <description>
-        QuikTrak DashCam
+        QT DashCam
     </description>
     <author email="info@atga.com.au" href="http://quiktrak.com.au">
         Sinopacific Co Limited

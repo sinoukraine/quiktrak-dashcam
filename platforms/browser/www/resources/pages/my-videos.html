@@ -141,7 +141,7 @@
 				
 				
 				self.$app.preloader.show();
-				/*self.$app.methods.getRecordVideo().then(response => {	
+				self.$app.methods.getRecordVideo().then(response => {	
 					//self.methods.setPhotoList({list: response.mp4data});	
 					self.$app.methods.setInStorage({name: 'videoList', data: response});
                     self.$setState({
@@ -155,15 +155,15 @@
 					self.$app.preloader.hide(); 
 					console.log('Please check connect to Dashcam');
                     //self.$app.dialog.alert('No Dashcam connected');
-				});*/
-					self.$app.methods.setInStorage({name: 'videoList', data: [{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"}]});
+				});
+					/*self.$app.methods.setInStorage({name: 'videoList', data: [{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"}]});
                     self.$setState({
                         ShowVideoList: true,
                     });
                     self.$app.utils.nextFrame(()=>{
                         self.initVideoList([{"name":"1223" }]);
                     });					
-					self.$app.preloader.hide();
+					self.$app.preloader.hide();*/
 				/*self.$app.methods.getRecordVideo().then(response => {	
 					//self.methods.setPhotoList({list: response.mp4data});	
 					self.$app.methods.setInStorage({name: 'videoList', data: response.mp4data});
