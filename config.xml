@@ -21,7 +21,8 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-	<!--<allow-navigation href="http://192.168.43.1/*"/>	-->
+	<allow-navigation href="http://192.168.43.1/*"/>	
+	<allow-navigation href="ftp://192.168.43.1/*"/>
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
