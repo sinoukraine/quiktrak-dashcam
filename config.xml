@@ -113,9 +113,9 @@
     <config-file platform="ios" target="*-Info.plist" parent="ITSAppUsesNonExemptEncryption">
         <false/>
     </config-file>  
-	<edit-config target="/manifest/application" file="app/src/main/AndroidManifest.xml" mode="merge" >
-            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
-        </edit-config>  
+	<config-file target="AndroidManifest.xml" parent="/manifest" mode="merge" > 
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />            
+        </config-file>
 
     <platform name="android">
         <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />
