@@ -498,7 +498,8 @@ var App = new Framework7({
 							
 							// /storage/sdcard0/DVRMEDIA/Remote/PHOTO
 							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+date, function(result) {
-								self.$app.dialog.alert(JSON.stringify(data));
+								App.dialog.alert(JSON.stringify(data));
+								App.dialog.alert('/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+date);
 								resolve(result);
 								if (data == 1) {
 									//console.info("ftp: upload finish");
