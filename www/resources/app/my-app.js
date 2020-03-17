@@ -380,10 +380,10 @@ var App = new Framework7({
 								fp = fp + "/" + type + "_" + date + "/";// + "." + ext; // fullpath and name of the file which we want to give
 								// download function call
 								//filetransfer(download_link, fp);
-								
+								App.dialog.alert(fp);
 								
 								// /storage/sdcard0/DVRMEDIA/Remote/PHOTO
-								window.cordova.plugin.ftp.download('/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+date, fp, function(result) {
+								window.cordova.plugin.ftp.download(fp, '/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+date, function(result) {
 									//self.$app.dialog.alert(JSON.stringify(data));
 									
 									if (data == 1) {
@@ -402,7 +402,7 @@ var App = new Framework7({
 
 							function onDirectorySuccess(parent) {
 								// Directory created successfuly
-								App.dialog.alert('dir success');
+								//App.dialog.alert('dir success');
 							}
 
 							function onDirectoryFail(error) {
