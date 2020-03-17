@@ -407,14 +407,46 @@ var App = new Framework7({
 									
 									
 									//filetransfer(rp, lp);
-																		
+															
+									var progressPercent = 0;
+									
 									window.cordova.plugin.ftp.download(lp, rp, function(result) {		
 										//App.dialog.alert("ftp: dwnl=" + result * 100 + "%");	
 										
 										$$('.view-main #demo-inline-progressbar').removeClass('display-none');
-										$$('.view-main #demo-inline-progressbar').attr('data-progress', parseInt((result * 100), 10).toString(10));
-										//App.progressbar.set('#demo-inline-progressbar', parseInt((result * 100), 10).toString(10));
-										if (data == 1) {
+										//$$('.view-main #demo-inline-progressbar').attr('data-progress', parseInt((result * 100), 10).toString(10));
+										
+										var pcnt = result * 100;
+										
+										switch(pcnt){							
+											case pcnt > 2: 
+												progressPercent = 2;
+											break;					
+											case pcnt > 5: 
+												progressPercent = 5;
+											break;					
+											case pcnt > 25: 
+												progressPercent = 25;
+											break;					
+											case pcnt > 45: 
+												progressPercent = 45;
+											break;					
+											case pcnt > 55: 
+												progressPercent = 75;
+											break;					
+											case pcnt > 75: 
+												progressPercent = 75;
+											break;			
+											case pcnt > 98: 
+												progressPercent = 98;
+											break;
+											default:
+												App.dialog.alert(result);
+										}
+										
+										App.progressbar.set('#demo-inline-progressbar', progressPercent);
+										
+										if (result == 1) {
 											resolve(result);
 										} else {
 											//App.dialog.alert("ftp: dwnl=" + result * 100 + "%");
