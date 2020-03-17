@@ -349,6 +349,7 @@ var App = new Framework7({
 		downloadMedia: function(date, type, resolve, reject){ 		
 			
 			var folderDate = date.substr(0, 10);
+			var folder = type + "_" + folderDate;
 			var fileName = date;
 			
 			
@@ -361,53 +362,54 @@ var App = new Framework7({
 							console.info("ftp: connect ok=" + ok);
 							
 							// You can do any ftp actions from now on...
-							
-							window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
+							var networkState = navigator.connection.type;
+							if (networkState == Connection.NONE) {
+								return;
+							} else {
+								window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
 
-							function fileSystemSuccess(fileSystem) {
-								
-								var directoryEntry = fileSystem.root;	
-								var folder = type + "_" + folderDate;
-								directoryEntry.getDirectory(folder, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); 
-								
-								var rootdir = fileSystem.root;
-								var fp = rootdir.toURL(); 
-								
-								var lp = fp + "/" + folder + "/" + fileName;
-								var rp = '/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+folderDate+'/'+fileName;
-								
-								App.dialog.alert(lp);								
-								App.dialog.alert(rp);
-								
-								window.cordova.plugin.ftp.download(lp, rp, function(result) {									
-									if (data == 1) {
-										resolve(result);
-									} else {
-										App.dialog.alert("ftp: dwnl=" + result * 100 + "%");
-									}
-								}, function(error) {
-									console.error("ftp: ls error=" + error);									
-									App.dialog.alert("ftp: dwnl err" + error);
-								});
-							}
+								function fileSystemSuccess(fileSystem) {
+									
+									var directoryEntry = fileSystem.root;	
+									
+									directoryEntry.getDirectory(folder, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); 
+									
+									var rootdir = fileSystem.root;
+									var fp = rootdir.toURL(); 
+									
+									var lp = fp + "/" + folder + "/" + fileName;
+									var rp = '/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+folderDate+'/'+fileName;
+									
+									App.dialog.alert(lp);								
+									App.dialog.alert(rp);
+									
+									window.cordova.plugin.ftp.download(lp, rp, function(result) {									
+										if (data == 1) {
+											resolve(result);
+										} else {
+											App.dialog.alert("ftp: dwnl=" + result * 100 + "%");
+										}
+									}, function(error) {
+										console.error("ftp: ls error=" + error);									
+										App.dialog.alert("ftp: dwnl err" + error);
+									});
+								}
 
-							function onDirectorySuccess(parent) {
-								// Directory created successfuly
-								//App.dialog.alert('dir success');
-							}
+								function onDirectorySuccess(parent) {
+									// Directory created successfuly
+									//App.dialog.alert('dir success');
+								}
 
-							function onDirectoryFail(error) {
-								//Error while creating directory
-								App.dialog.alert("Unable to create new directory: " + error.code);
-							}
+								function onDirectoryFail(error) {
+									//Error while creating directory
+									App.dialog.alert("Unable to create new directory: " + error.code);
+								}
 
-							function fileSystemFail(evt) {
-								//Unable to access file system
-								App.dialog.alert(evt.target.error.code);
+								function fileSystemFail(evt) {
+									//Unable to access file system
+									App.dialog.alert(evt.target.error.code);
+								}
 							}
-							
-							
-							
 
 						}, function(error) {
 							console.error("ftp: connect error=" + error);
