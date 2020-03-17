@@ -345,7 +345,25 @@ var App = new Framework7({
                 App.dialog.alert('Wrong query parameters!');
             }
         },
-		
+		/*requestStoragePermission: function(data=false, callback) {
+			let self = this;
+
+			let success = function (status) {
+				if ( !status.hasPermission ) {
+					window.permissions.requestPermission(window.permissions.WRITE_EXTERNAL_STORAGE, function() {
+						//alert('[OK] Permission accepted');
+						if (data){
+							callback(data);
+						}
+					}, function(error) {
+						alert('[WARN] Permission not accepted')
+						// Handle permission not accepted
+					});
+				}
+			};
+			let error = function (e) { alert('Something went wrong:' + e); };
+			window.permissions.hasPermission(window.permissions.WRITE_EXTERNAL_STORAGE, success, error);
+		},*/
 		downloadMedia: function(date, type, resolve, reject){ 		
 			
 			var folderDate = date.substr(0, 10);
@@ -359,7 +377,19 @@ var App = new Framework7({
 						//window.cordova.plugin.ftp.connect('192.168.43.1:10011', '357730090913204', '99999999', function(ok) {
 						//window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
 						
-							console.info("ftp: connect ok=" + ok);
+						window.permissions.hasPermission(window.permissions.WRITE_EXTERNAL_STORAGE, successP, errorP)
+						
+						function successP() {
+							downloadMediaFile();
+						}
+						
+						function errorP() {
+							window.permissions.requestPermission(window.permissions.WRITE_EXTERNAL_STORAGE, function() {
+								downloadMediaFile();
+							});
+						}
+						
+						function downloadMediaFile(){
 							//DownloadFile('/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+folderDate+'/'+fileName, folder, date);
 							// You can do any ftp actions from now on...
 							var networkState = navigator.connection.type;
@@ -377,7 +407,7 @@ var App = new Framework7({
 									var rootdir = fileSystem.root;
 									var fp = rootdir.toURL(); 
 									
-									var lp = 'file:///storage/emulated/0/Download/' + fileName; //fp + "/" + folder + "/" + fileName;
+									var lp = 'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/files/' + folder + '/' + fileName;//'file:///storage/emulated/0/Download/' + fileName; //fp + "/" + folder + "/" + fileName;
 									var rp = '/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+folderDate+'/'+fileName;
 									
 									//App.dialog.alert(lp);								
@@ -413,6 +443,10 @@ var App = new Framework7({
 									App.dialog.alert(evt.target.error.code);
 								}
 							}
+						}
+						
+						console.info("ftp: connect ok=" + ok);
+							
 
 						}, function(error) {
 							console.error("ftp: connect error=" + error);
