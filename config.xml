@@ -9,11 +9,11 @@
     </author>
     <content src="index.html" />	
 	<!-- https://mvnrepository.com/artifact/com.android.support/support-v4 -->
-	<!--<dependency>
+	<dependency>
 		<groupId>com.android.support</groupId>
 		<artifactId>support-v4</artifactId>
 		<version>23.2.0</version>
-	</dependency>-->
+	</dependency>
 	
     <access origin="*" />
     <allow-intent href="http://*/*" />
