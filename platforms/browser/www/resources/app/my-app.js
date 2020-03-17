@@ -378,7 +378,7 @@ var App = new Framework7({
 						//window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
 						
 						App.dialog.alert('000');
-						window.permissions.hasPermission(window.permissions.WRITE_EXTERNAL_STORAGE, 
+						window.permissions.checkPermission(window.permissions.WRITE_EXTERNAL_STORAGE, 
 							function(s) {
 								App.dialog.alert('111');
 								downloadMediaFile();

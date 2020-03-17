@@ -74,7 +74,7 @@
     <plugin spec="https://github.com/phonegap/phonegap-mobile-accessibility.git" source="git" /><!-- needed -->  
     <plugin name="cordova-launch-review" source="npm" spec="3.1.1" />
 	<plugin name="cordova-plugin-advanced-http" source="npm" spec="2.0.9" />
-	<plugin name="cordova-plugin-android-permissions" source="npm"  spec="1.0.0" />
+	<plugin name="cordova-plugin-android-permissions" source="npm"  spec="1.0.2" />
 	<!--<plugin name="com.tlantic.plugins.socket" source="npm" spec="0.3.2" />-->
 	<!--ios<plugin spec="https://github.com/Tlantic/cdv-socket-plugin"  source="git"  />	-->
 	<plugin spec="https://github.com/blocshop/sockets-for-cordova"  source="git"  />
