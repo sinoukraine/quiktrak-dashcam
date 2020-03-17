@@ -367,8 +367,9 @@ var App = new Framework7({
 							function fileSystemSuccess(fileSystem) {
 								//var download_link = encodeURI(URL);
 								//ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
-								App.dialog.alert('ok1');
+								
 								var directoryEntry = fileSystem.root; // to get root path of directory
+								App.dialog.alert(directoryEntry);
 								directoryEntry.getDirectory(Folder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
 								var rootdir = fileSystem.root;
 								var fp = rootdir.toURL(); 
