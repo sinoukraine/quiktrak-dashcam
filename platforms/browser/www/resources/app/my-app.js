@@ -422,7 +422,8 @@ var App = new Framework7({
 									//filetransfer(rp, lp);
 									
 									window.cordova.plugin.ftp.download(lp, rp, function(result) {		
-										App.dialog.alert("ftp: dwnl=" + result * 100 + "%");							
+										//App.dialog.alert("ftp: dwnl=" + result * 100 + "%");	
+										App.progressbar.set('#demo-inline-progressbar', result * 100);
 										if (data == 1) {
 											resolve(result);
 										} else {
