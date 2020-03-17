@@ -1,5 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget xmlns:hardwareAccelerated="true" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.quiktrak.quiktrak-dashcam" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="1" ios-CFBundleVersion="1"><!--com.dashcam.app-->
+<widget 
+	version="1.0.0" 
+	android-versionCode="1" 
+	ios-CFBundleVersion="1"
+	id="com.quiktrak.quiktrak-dashcam" 
+	xmlns="http://www.w3.org/ns/widgets" xmlns:hardwareAccelerated="true" xmlns:cdv="http://cordova.apache.org/ns/1.0" 
+	defaultlocale="en-US" ><!--com.dashcam.app-->
     <name>QT DashCam</name>
     <description>
         QT DashCam
@@ -8,21 +14,15 @@
         Sinopacific Co Limited
     </author>
     <content src="index.html" />	
-	<!-- https://mvnrepository.com/artifact/com.android.support/support-v4 -->
-	<dependency>
-		<groupId>com.android.support</groupId>
-		<artifactId>support-v4</artifactId>
-		<version>23.2.0</version>
-	</dependency>
+	<access origin="*"  allows-arbitrary-loads-for-media='true' allows-arbitrary-loads-in-web-content='true' allows-local-networking='true' />
 	
-    <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" /><allow-navigation href="http://192.168.1.1/*"/>
-	
+    <allow-intent href="geo:*" />
+	<allow-navigation href="http://192.168.43.1/*"/>	
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
@@ -30,24 +30,32 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+    <platform name="android">
+  	  <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
+  	      <application android:usesCleartextTraffic="true" />
+  	  </edit-config>
+  	</platform>
+	
+    <preference name="loadUrlTimeoutValue" value="700000" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="Orientation" value="portrait" />
-    <preference name="android-minSdkVersion" value="18" />
+    <preference name="android-minSdkVersion" value="19" />
     <!-- <preference name="android-maxSdkVersion" value="27" /> -->
-    <preference name="android-targetSdkVersion" value="26" />
+    <preference name="android-targetSdkVersion" value="28" />
+    <preference name="multiDexEnabled" value="true" />     
     <preference name="deployment-target" value="10.2" />
     <preference name="StatusBarOverlaysWebView" value="false" />
     <!-- <preference name="StatusBarBackgroundColor" value="#333" /> -->
     <preference name="StatusBarStyle" value="blacktranslucent" />
     <preference name="phonegap-version" value="cli-9.0.0" />
-    <preference name="loadUrlTimeoutValue" value="60000" />
-	<preference name="Fullscreen" value="false" />
-	<preference name="AllowInlineMediaPlayback" value="true"/>
-	<preference name="AndroidPersistentFileLocation" value="Internal" /><!--Compatibility-->
-		
+	
+	<!--<preference name="Fullscreen" value="false" />
+	<preference name="AllowInlineMediaPlayback" value="true"/>-->
+	<preference name="AndroidPersistentFileLocation" value="Internal" /><!--Compatibility-->		
     <plugin name="cordova-plugin-statusbar" source="npm" spec="2.1.3" /> <!-- needed -->  
 	
 	
+	    
     <!--
     <plugin name="phonegap-plugin-push" source="npm" spec="2.1.2">  
         <variable name="SENDER_ID" value="1097482483564" />
