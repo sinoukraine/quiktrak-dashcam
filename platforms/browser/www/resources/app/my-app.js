@@ -396,6 +396,7 @@ var App = new Framework7({
 							if (networkState == Connection.NONE) {
 								return;
 							} else {
+								
 								window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
 
 								function fileSystemSuccess(fileSystem) {
@@ -407,7 +408,7 @@ var App = new Framework7({
 									var rootdir = fileSystem.root;
 									var fp = rootdir.toURL(); 
 									
-									var lp = 'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/files/' + folder + '/' + fileName;//'file:///storage/emulated/0/Download/' + fileName; //fp + "/" + folder + "/" + fileName;
+									var lp = 'file:///storage/emulated/0/Download/' + fileName;//'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/files/' + folder + '/' + fileName;// //fp + "/" + folder + "/" + fileName;
 									var rp = '/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+folderDate+'/'+fileName;
 									
 									//App.dialog.alert(lp);								
