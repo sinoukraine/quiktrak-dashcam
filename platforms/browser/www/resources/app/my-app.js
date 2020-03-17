@@ -399,7 +399,7 @@ var App = new Framework7({
 									var rootdir = fileSystem.root;
 									var fp = rootdir.toURL(); 
 									
-									var lp = 'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/files/' + folder + '/' + fileName;//// //fp + "/" + folder + "/" + fileName;'file:///storage/emulated/0/Download/' + fileName;
+									var lp = fp + "/" + folder + "/" + fileName;//// //'file:///storage/emulated/0/Download/' + fileName;'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/files/' + folder + '/' + fileName;
 									var rp = '/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+folderDate+'/'+fileName;
 									
 									//App.dialog.alert(lp);								
