@@ -380,10 +380,13 @@ var App = new Framework7({
 									var lp = fp + "/" + folder + "/" + fileName;
 									var rp = '/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+folderDate+'/'+fileName;
 									
-									App.dialog.alert(lp);								
-									App.dialog.alert(rp);
+									//App.dialog.alert(lp);								
+									//App.dialog.alert(rp);
 									
-									window.cordova.plugin.ftp.download(lp, rp, function(result) {									
+									
+									filetransfer(rp, lp);
+									
+									/*window.cordova.plugin.ftp.download(lp, rp, function(result) {									
 										if (data == 1) {
 											resolve(result);
 										} else {
@@ -392,7 +395,7 @@ var App = new Framework7({
 									}, function(error) {
 										console.error("ftp: ls error=" + error);									
 										App.dialog.alert("ftp: dwnl err" + error);
-									});
+									});*/
 								}
 
 								function onDirectorySuccess(parent) {
