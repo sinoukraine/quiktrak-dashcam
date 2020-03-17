@@ -416,7 +416,7 @@ var App = new Framework7({
 										$$('.view-main #demo-inline-progressbar').removeClass('display-none');
 										//$$('.view-main #demo-inline-progressbar').attr('data-progress', parseInt((result * 100), 10).toString(10));
 										
-										var pcnt = result * 100;
+										var pcnt = parseInt((result * 100), 10);
 										
 										switch(pcnt){							
 											case pcnt > 2: 
@@ -441,7 +441,7 @@ var App = new Framework7({
 												progressPercent = 98;
 											break;
 											default:
-												App.dialog.alert(result);
+												App.dialog.alert(pcnt);
 										}
 										
 										App.progressbar.set('#demo-inline-progressbar', progressPercent);
