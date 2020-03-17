@@ -361,13 +361,13 @@ var App = new Framework7({
 							console.info("ftp: connect ok=" + ok);
 							
 							// You can do any ftp actions from now on...
-							App.dialog.alert(date +"+"+ type);
+							
 							window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
 
 							function fileSystemSuccess(fileSystem) {
 								//var download_link = encodeURI(URL);
 								//ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
-
+								App.dialog.alert('ok1');
 								var directoryEntry = fileSystem.root; // to get root path of directory
 								directoryEntry.getDirectory(Folder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
 								var rootdir = fileSystem.root;
@@ -401,6 +401,7 @@ var App = new Framework7({
 
 							function onDirectorySuccess(parent) {
 								// Directory created successfuly
+								App.dialog.alert('dir success');
 							}
 
 							function onDirectoryFail(error) {
