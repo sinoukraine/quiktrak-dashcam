@@ -4,8 +4,7 @@
 	android-versionCode="1" 
 	ios-CFBundleVersion="1"
 	id="com.quiktrak.quiktrak-dashcam" 
-	xmlns="http://www.w3.org/ns/widgets" xmlns:hardwareAccelerated="true" xmlns:cdv="http://cordova.apache.org/ns/1.0" 
-	defaultlocale="en-US" ><!--com.dashcam.app-->
+	xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android" defaultlocale="en-US" ><!--com.dashcam.app  xmlns:hardwareAccelerated="true"-->
     <name>QT DashCam</name>
     <description>
         QT DashCam
@@ -22,7 +21,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-	<allow-navigation href="http://192.168.43.1/*"/>	
+	<!--<allow-navigation href="http://192.168.43.1/*"/>	-->
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
