@@ -1,6 +1,7 @@
 <template>
 	<div data-name="my-video-list" class="page gallery my-video-list">
 		<div class="navbar">
+			<span data-progress="0" class="progressbar display-none" id="demo-inline-progressbar"></span>
 			<div class="navbar-inner">
 				<div class="left">
 					<a href="#" class="back link">
@@ -99,8 +100,9 @@
 				
 				self.$app.methods.downloadMedia(data, self.folderType).then(response => {	
 				
-					self.$app.preloader.hide(); 	
-					self.$app.dialog.alert('OK');
+					self.$app.preloader.hide(); 		
+					$$('.view-main #demo-inline-progressbar').addClass('display-none');
+					self.$app.dialog.alert('File downloaded');
 				}, error => {
 					self.$app.preloader.hide(); 
 					console.log('Please check connect to Dashcam');

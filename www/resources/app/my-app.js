@@ -51,7 +51,7 @@ var App = new Framework7({
     on: {
         init: function() {
 			// Create dynamic Popup
-			var currentHintState = App.methods.getFromStorage("downloadPlayer");
+			/*var currentHintState = App.methods.getFromStorage("downloadPlayer");
 			
 			App.methods.setInStorage({name: 'currentResolution', data: '1080p'});	
 			App.methods.setInStorage({name: 'settingSoundOn', data: 'on'});	
@@ -67,12 +67,7 @@ var App = new Framework7({
 					  content: '<div class="page open-dashcam-page popup">'+
 							'<div class="navbar">'+
 							'	<div class="navbar-inner">'+
-							/*'		<div class="left">'+
-							'			<a class="panel-open" href="#">'+
-							'				<i class="f7-icons icon-menu"></i>'+
-							'			</a>'+
-							'		</div>'+
-							*/'		<div class="title">ATGA DC100</div>'+
+							'		<div class="title">ATGA DC100</div>'+
 							'	</div>'+
 							'</div>'+
 
@@ -95,12 +90,6 @@ var App = new Framework7({
 							'</div>'+
 						'</div>',
 					  
-					  /*content: '<div class="popup">'+
-								  '<div class="block">'+
-									'<p>Popup created dynamically.</p>'+
-									'<p><a href="#" class="link popup-close">Close me</a></p>'+
-								  '</div>'+
-								'</div>',*/
 					  // Events
 					  on: {
 						open: function (popup) {
@@ -116,7 +105,7 @@ var App = new Framework7({
 					
 					 dynamicPopup.open();
 			 
-				}
+				}*/
 			//App.dialog.alert('Please ');
             // console.log('App initialized');
         },
@@ -381,11 +370,9 @@ var App = new Framework7({
 						
 						permissions.hasPermission(permissions.MANAGE_EXTERNAL_STORAGE, 
 							function(status) {
-								App.dialog.alert('111');
 								downloadMediaFile();
 							}, 
 							function() {
-								App.dialog.alert('222');
 								permissions.requestPermission(permissions.MANAGE_EXTERNAL_STORAGE, function(b) {
 									downloadMediaFile();
 								});
@@ -403,7 +390,7 @@ var App = new Framework7({
 								window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
 
 								function fileSystemSuccess(fileSystem) {
-							App.dialog.alert('6_6');
+							
 									
 									var directoryEntry = fileSystem.root;	
 									
@@ -423,6 +410,8 @@ var App = new Framework7({
 									
 									window.cordova.plugin.ftp.download(lp, rp, function(result) {		
 										//App.dialog.alert("ftp: dwnl=" + result * 100 + "%");	
+										
+										$$('.view-main #demo-inline-progressbar').removeClass('display-none');
 										App.progressbar.set('#demo-inline-progressbar', result * 100);
 										if (data == 1) {
 											resolve(result);
@@ -431,7 +420,7 @@ var App = new Framework7({
 										}
 									}, function(error) {
 										console.error("ftp: ls error=" + error);									
-										App.dialog.alert("ftp: dwnl err" + error);
+										App.dialog.alert("Something went wrong");
 									});
 								}
 
