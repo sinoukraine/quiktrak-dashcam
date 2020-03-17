@@ -411,7 +411,7 @@ var App = new Framework7({
 															
 									var progressPercent = 0;
 									
-									window.cordova.plugin.ftp.download(lp, rp, function(result) {		
+									window.cordova.plugin.ftp.download(rp, lp, function(result) {		
 										//App.dialog.alert("ftp: dwnl=" + result * 100 + "%");	
 										
 										$$('.view-main #demo-inline-progressbar').removeClass('display-none');
