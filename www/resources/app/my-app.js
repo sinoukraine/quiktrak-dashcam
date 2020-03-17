@@ -348,8 +348,8 @@ var App = new Framework7({
 		
 		downloadMedia: function(date, type, resolve, reject){ 		
 			
-			
-			
+			var foledrDate = date.substr(0, 10);
+			var fileDate = date;
 			
 			
 			return new Promise((resolve, reject) => {
@@ -370,20 +370,20 @@ var App = new Framework7({
 								
 								var directoryEntry = fileSystem.root; // to get root path of directory
 								
-								directoryEntry.getDirectory(type + "_" + date, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
+								directoryEntry.getDirectory(type + "_" + foledrDate, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
 								var rootdir = fileSystem.root;
 								var fp = rootdir.toURL(); 
 								//var fp = cordova.file.dataDirectory;
 								//App.dialog.alert(rootdir + '..' + rootdir.toURL());// Returns Fulpath of local directory
 								//var fp = "file:///storage/sdcard0'";
 								//fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/' + Folder_Name + "/" + File_Name + "." + ext;
-								fp = fp + "/" + type + "_" + date + "/";// + "." + ext; // fullpath and name of the file which we want to give
+								fp = fp + "/" + type + "_" + foledrDate + "/" + fileDate;// + "." + ext; // fullpath and name of the file which we want to give
 								// download function call
 								//filetransfer(download_link, fp);
 								App.dialog.alert(fp);
 								
 								// /storage/sdcard0/DVRMEDIA/Remote/PHOTO
-								window.cordova.plugin.ftp.download(fp, '/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+date, function(result) {
+								window.cordova.plugin.ftp.download(fp, '/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+date+'/'+fileDate, function(result) {
 									//self.$app.dialog.alert(JSON.stringify(data));
 									
 									if (data == 1) {
