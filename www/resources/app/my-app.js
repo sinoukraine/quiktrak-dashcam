@@ -418,7 +418,7 @@ var App = new Framework7({
 										
 										var pcnt = +result * 100;
 										
-										switch(pcnt){							
+										/*switch(pcnt){							
 											case (pcnt > 2): 
 												progressPercent = 2;
 											break;					
@@ -442,9 +442,9 @@ var App = new Framework7({
 											break;
 											default:
 												App.dialog.alert(pcnt);
-										}
+										}*/
 										
-										App.progressbar.set('#demo-inline-progressbar', progressPercent);
+										App.progressbar.set('#demo-inline-progressbar', pcnt);
 										
 										if (result == 1) {
 											resolve(result);
