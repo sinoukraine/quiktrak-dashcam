@@ -416,28 +416,28 @@ var App = new Framework7({
 										$$('.view-main #demo-inline-progressbar').removeClass('display-none');
 										//$$('.view-main #demo-inline-progressbar').attr('data-progress', parseInt((result * 100), 10).toString(10));
 										
-										var pcnt = parseInt((result * 100), 10);
+										var pcnt = Math.floor( +result * 100 );
 										
 										switch(pcnt){							
-											case pcnt > 2: 
+											case (pcnt > 2): 
 												progressPercent = 2;
 											break;					
-											case pcnt > 5: 
+											case (pcnt > 5): 
 												progressPercent = 5;
 											break;					
-											case pcnt > 25: 
+											case (pcnt > 25): 
 												progressPercent = 25;
 											break;					
-											case pcnt > 45: 
+											case (pcnt > 45): 
 												progressPercent = 45;
 											break;					
-											case pcnt > 55: 
+											case (pcnt > 55): 
 												progressPercent = 75;
 											break;					
-											case pcnt > 75: 
+											case (pcnt > 75): 
 												progressPercent = 75;
 											break;			
-											case pcnt > 98: 
+											case (pcnt > 98): 
 												progressPercent = 98;
 											break;
 											default:
