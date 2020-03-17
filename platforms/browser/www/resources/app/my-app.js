@@ -421,7 +421,7 @@ var App = new Framework7({
 									
 									//filetransfer(rp, lp);
 									
-									window.cordova.plugin.ftp.download(lp, rp, function(result) {		App.dialog.alert('ok--');							
+									window.cordova.plugin.ftp.download(lp, rp, function(result) {		//App.dialog.alert('ok--');							
 										if (data == 1) {
 											resolve(result);
 										} else {
