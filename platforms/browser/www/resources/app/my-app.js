@@ -377,13 +377,15 @@ var App = new Framework7({
 								//App.dialog.alert(rootdir + '..' + rootdir.toURL());// Returns Fulpath of local directory
 								//var fp = "file:///storage/sdcard0'";
 								//fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/' + Folder_Name + "/" + File_Name + "." + ext;
+								App.dialog.alert(fp);
 								fp = fp + "/" + type + "_" + foledrDate + "/" + fileDate;// + "." + ext; // fullpath and name of the file which we want to give
 								// download function call
 								//filetransfer(download_link, fp);
-								App.dialog.alert(fp);
 								
+								
+								App.dialog.alert('/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+foledrDate+'/'+fileDate);
 								// /storage/sdcard0/DVRMEDIA/Remote/PHOTO
-								window.cordova.plugin.ftp.download(fp, '/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+date+'/'+fileDate, function(result) {
+								window.cordova.plugin.ftp.download(fp, '/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+foledrDate+'/'+fileDate, function(result) {
 									//self.$app.dialog.alert(JSON.stringify(data));
 									
 									if (data == 1) {
