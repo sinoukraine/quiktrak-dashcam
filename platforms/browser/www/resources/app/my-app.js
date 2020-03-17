@@ -380,26 +380,32 @@ var App = new Framework7({
 						window.permissions.hasPermission(window.permissions.WRITE_EXTERNAL_STORAGE, successP, errorP)
 						
 						function successP() {
+							App.dialog.alert(111);
 							downloadMediaFile();
 						}
 						
 						function errorP() {
+							App.dialog.alert(222);
 							window.permissions.requestPermission(window.permissions.WRITE_EXTERNAL_STORAGE, function() {
 								downloadMediaFile();
 							});
 						}
 						
 						function downloadMediaFile(){
+							App.dialog.alert(333);
 							//DownloadFile('/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+folderDate+'/'+fileName, folder, date);
 							// You can do any ftp actions from now on...
 							var networkState = navigator.connection.type;
 							if (networkState == Connection.NONE) {
+							App.dialog.alert(444);
 								return;
 							} else {
 								
+							App.dialog.alert(555);
 								window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
 
 								function fileSystemSuccess(fileSystem) {
+							App.dialog.alert('6_6');
 									
 									var directoryEntry = fileSystem.root;	
 									
