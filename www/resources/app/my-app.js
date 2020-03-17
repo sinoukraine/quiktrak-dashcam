@@ -369,15 +369,15 @@ var App = new Framework7({
 								//ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
 								
 								var directoryEntry = fileSystem.root; // to get root path of directory
-								App.dialog.alert(directoryEntry);
-								directoryEntry.getDirectory(Folder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
+								
+								directoryEntry.getDirectory(type + "_" + date, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
 								var rootdir = fileSystem.root;
 								var fp = rootdir.toURL(); 
 								//var fp = cordova.file.dataDirectory;
 								//App.dialog.alert(rootdir + '..' + rootdir.toURL());// Returns Fulpath of local directory
 								//var fp = "file:///storage/sdcard0'";
 								//fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/' + Folder_Name + "/" + File_Name + "." + ext;
-								fp = fp + "/" + type + "/" + date + "/";// + "." + ext; // fullpath and name of the file which we want to give
+								fp = fp + "/" + type + "_" + date + "/";// + "." + ext; // fullpath and name of the file which we want to give
 								// download function call
 								//filetransfer(download_link, fp);
 								
