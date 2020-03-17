@@ -412,7 +412,7 @@ var App = new Framework7({
 										//App.dialog.alert("ftp: dwnl=" + result * 100 + "%");	
 										
 										$$('.view-main #demo-inline-progressbar').removeClass('display-none');
-										App.progressbar.set('#demo-inline-progressbar', parseInt((result * 100), 10).toString(10));
+										App.progressbar.set('#demo-inline-progressbar', parseInt((result * 10), 10).toString(10));
 										if (data == 1) {
 											resolve(result);
 										} else {
