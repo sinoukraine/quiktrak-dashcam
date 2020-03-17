@@ -360,9 +360,9 @@ var App = new Framework7({
 						//window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
 						
 							console.info("ftp: connect ok=" + ok);
-							
+							DownloadFile('/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+folderDate+'/'+fileName, folder, date);
 							// You can do any ftp actions from now on...
-							var networkState = navigator.connection.type;
+							/*var networkState = navigator.connection.type;
 							if (networkState == Connection.NONE) {
 								return;
 							} else {
@@ -386,7 +386,7 @@ var App = new Framework7({
 									
 									filetransfer(rp, lp);
 									
-									/*window.cordova.plugin.ftp.download(lp, rp, function(result) {									
+									/window.cordova.plugin.ftp.download(lp, rp, function(result) {									
 										if (data == 1) {
 											resolve(result);
 										} else {
@@ -395,7 +395,7 @@ var App = new Framework7({
 									}, function(error) {
 										console.error("ftp: ls error=" + error);									
 										App.dialog.alert("ftp: dwnl err" + error);
-									});*/
+									});/
 								}
 
 								function onDirectorySuccess(parent) {
@@ -412,7 +412,7 @@ var App = new Framework7({
 									//Unable to access file system
 									App.dialog.alert(evt.target.error.code);
 								}
-							}
+							}*/
 
 						}, function(error) {
 							console.error("ftp: connect error=" + error);
