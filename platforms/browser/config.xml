@@ -24,6 +24,8 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <allow-navigation href="http://192.168.43.1/*" />
+    <allow-navigation href="ftp://192.168.43.1/*" />
     <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
         <string>You can take a photo of your asset using camera and upload it into the app</string>
     </edit-config>
