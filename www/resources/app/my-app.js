@@ -377,19 +377,19 @@ var App = new Framework7({
 						//window.cordova.plugin.ftp.connect('192.168.43.1:10011', '357730090913204', '99999999', function(ok) {
 						//window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
 						
-						window.permissions.hasPermission(window.permissions.WRITE_EXTERNAL_STORAGE, successP, errorP)
-						
-						function successP() {
-							App.dialog.alert(111);
-							downloadMediaFile();
-						}
-						
-						function errorP() {
-							App.dialog.alert(222);
-							window.permissions.requestPermission(window.permissions.WRITE_EXTERNAL_STORAGE, function() {
+						App.dialog.alert('000');
+						window.permissions.hasPermission(window.permissions.WRITE_EXTERNAL_STORAGE, 
+							function(s) {
+								App.dialog.alert('111');
 								downloadMediaFile();
-							});
-						}
+							}, 
+							function(e) {
+								App.dialog.alert('222');
+								window.permissions.requestPermission(window.permissions.WRITE_EXTERNAL_STORAGE, function(b) {
+									downloadMediaFile();
+								});
+							}
+						);
 						
 						function downloadMediaFile(){
 							App.dialog.alert(333);
@@ -455,12 +455,11 @@ var App = new Framework7({
 						console.info("ftp: connect ok=" + ok);
 							
 
-						}, function(error) {
-							console.error("ftp: connect error=" + error);
-							//App.dialog.alert("ftp: connect error=" + error);
-						});
-				
-			});   			
+					}, function(error) {
+						console.error("ftp: connect error=" + error);
+						App.dialog.alert("ftp: connect error=" + error);
+					});				
+				});   			
 		},
 		
 		getRecordVideoList: function(date, type, resolve, reject){ 		
