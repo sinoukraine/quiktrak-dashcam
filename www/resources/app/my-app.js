@@ -361,7 +361,7 @@ var App = new Framework7({
 							console.info("ftp: connect ok=" + ok);
 							
 							// You can do any ftp actions from now on...
-							
+							App.dialog.alert(date +"+"+ type);
 							window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
 
 							function fileSystemSuccess(fileSystem) {
