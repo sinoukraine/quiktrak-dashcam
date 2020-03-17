@@ -416,7 +416,7 @@ var App = new Framework7({
 										$$('.view-main #demo-inline-progressbar').removeClass('display-none');
 										//$$('.view-main #demo-inline-progressbar').attr('data-progress', parseInt((result * 100), 10).toString(10));
 										
-										var pcnt = Math.floor( +result * 100 );
+										var pcnt = +result * 100;
 										
 										switch(pcnt){							
 											case (pcnt > 2): 
