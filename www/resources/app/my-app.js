@@ -377,15 +377,16 @@ var App = new Framework7({
 						//window.cordova.plugin.ftp.connect('192.168.43.1:10011', '357730090913204', '99999999', function(ok) {
 						//window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
 						
-						App.dialog.alert('000');
-						window.permissions.checkPermission(window.permissions.WRITE_EXTERNAL_STORAGE, 
-							function(s) {
+						var permissions = cordova.plugins.permissions;
+						
+						permissions.hasPermission(permissions.WRITE_EXTERNAL_STORAGE, 
+							function(status) {
 								App.dialog.alert('111');
 								downloadMediaFile();
 							}, 
-							function(e) {
+							function() {
 								App.dialog.alert('222');
-								window.permissions.requestPermission(window.permissions.WRITE_EXTERNAL_STORAGE, function(b) {
+								permissions.requestPermission(permissions.WRITE_EXTERNAL_STORAGE, function(b) {
 									downloadMediaFile();
 								});
 							}
