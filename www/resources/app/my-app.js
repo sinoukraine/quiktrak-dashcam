@@ -362,7 +362,7 @@ var App = new Framework7({
 			
 			return new Promise((resolve, reject) => {
 				
-				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+				window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
 						//window.cordova.plugin.ftp.connect('192.168.43.1:10011', '357730090913204', '99999999', function(ok) {
 						//window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
 						
@@ -400,8 +400,8 @@ var App = new Framework7({
 									var fp = rootdir.toURL(); 
 									
 									
-									var lp = "file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/" + fileName;//// //'file:///storage/emulated/0/Download/' + fileName;'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/files/' + folder + '/' + fileName;
-									var rp = '/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+folderDate+'/'+fileName;
+									var lp = "file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/lg.png";//// //'file:///storage/emulated/0/Download/' + fileName;'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/files/' + folder + '/' + fileName;
+									var rp = '/sinopacificukraine.com/www/letter/qp/logo.png';
 									
 									//App.dialog.alert(lp);								
 									//App.dialog.alert(rp);
