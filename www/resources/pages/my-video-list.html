@@ -87,8 +87,7 @@
 					fileEntry.copyTo(externalDirEntry, 'myfile.mp4',
 						function(e)
 						{
-							self.$app.dialog.alert('ww');
-							//self.viewFile(e.nativeURL);
+							self.viewFile(e.nativeURL);
 						},
 						function()
 						{
@@ -106,6 +105,7 @@
 								self.$app.dialog.alert('Error status: ' + e.status + ' - Error message: ' + e.message);
 							},
 							success: function () {
+								
 								console.log('file opened successfully');
 							}
 						}
