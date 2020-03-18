@@ -254,6 +254,12 @@ var App = new Framework7({
                             ret = JSON.parse(str);
                         }
 					break;  
+					case 'eventList':
+						str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.EVENTLIST");
+                        if(str) {
+                            ret = JSON.parse(str);
+                        }
+					break;  
 					case 'mediaVideoList':
 						str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.MEDIAVIDEOLIST");
                         if(str) {
@@ -323,6 +329,9 @@ var App = new Framework7({
                     break;      
                     case 'videoList':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.VIDEOLIST", JSON.stringify(params.data));
+                    break;     
+                    case 'eventList':
+                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.EVENTLIST", JSON.stringify(params.data));
                     break;             
                     case 'mediaVideoList':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.MEDIAVIDEOLIST", JSON.stringify(params.data));
@@ -560,6 +569,79 @@ var App = new Framework7({
 							
 							// /storage/sdcard0/DVRMEDIA/Remote/PHOTO
 							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/USB/', function(result) {
+								//self.$app.dialog.alert(JSON.stringify(data));
+								resolve(result);
+								if (data == 1) {
+									//console.info("ftp: upload finish");
+								} else {
+									//console.debug("ftp: upload percent=" + percent * 100 + "%");
+								}
+							}, function(error) {
+								self.$app.dialog.alert('error: ' + JSON.stringify(error));
+								console.error("ftp: ls error=" + error);
+							});
+							/*window.cordova.plugin.ftp.upload('/localPath/localFile', '/remotePath/remoteFile', function(percent) {
+								if (percent == 1) {
+									console.info("ftp: upload finish");
+								} else {
+									console.debug("ftp: upload percent=" + percent * 100 + "%");
+								}
+							}, function(error) {
+								console.error("ftp: upload error=" + error);
+							});*/
+
+						}, function(error) {
+							console.error("ftp: connect error=" + error);
+							self.$app.dialog.alert("ftp: connect error=" + error);
+						});
+						
+				/*$.ajax({
+					   type: "GET",
+				   dataType: "json", 
+						/dataFilter: function(raw, type) {
+						console.log(raw, type);
+						return JSON.parse(raw);
+						{ 
+					"filename": "20190523121307_180_720p.MP4", 
+					"duration": 180, 
+					"filesize": 94716138, 
+					"title": "20190523121307.JPG", 
+					"titlesize": 5817, 
+					"thumb": "20190523121307.TGZ", 
+					"thumbsize": 36302, 
+					"time": "20190523121307" 
+				 }
+					},/
+					  jsonp: false,
+					  //jsonpCallback: "onJsonP",
+						url: 'http://192.168.1.1/ini.htm?cmd=commonvideolist',
+					  async: true,           
+						crossDomain: true, 
+					  cache: false,
+					success: function (result) {    
+						//console.log('res', result, 'ault');
+						//data = result;
+						resolve(result);
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown){ 
+					   console.log(textStatus,'error');
+					}
+				});	*/	
+			});     
+		},		
+		getRecordEvent: function (resolve, reject) {	
+			return new Promise((resolve, reject) => {
+				
+				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+						//window.cordova.plugin.ftp.connect('192.168.43.1:10011', '357730090913204', '99999999', function(ok) {
+						//window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
+						
+							console.info("ftp: connect ok=" + ok);
+							
+							// You can do any ftp actions from now on...
+							
+							// /storage/sdcard0/DVRMEDIA/Remote/PHOTO
+							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/EVENT/', function(result) {
 								//self.$app.dialog.alert(JSON.stringify(data));
 								resolve(result);
 								if (data == 1) {
