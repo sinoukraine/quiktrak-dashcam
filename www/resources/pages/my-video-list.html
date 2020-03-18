@@ -67,6 +67,48 @@
             return ret;
         },
         methods: {
+			showMediaFile: function(fileName){
+					
+				var self = this; 
+				
+				/*var fullPathToFilePrivate = cordova.file.applicationDirectory + 'www/resources/manual/DC100-user-guide.pdf';*/
+				var fullPathToFilePrivate = 'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/'+fileName;
+				var externalDirEntry;
+				window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function success(dirEntry) {
+					externalDirEntry = dirEntry;
+				},function (e) {
+					self.$app.dialog.alert('error dir '+JSON.stringify(e));
+				});
+
+				window.resolveLocalFileSystemURL(fullPathToFilePrivate, function onSuccess(fileEntry)
+				{
+					fileEntry.copyTo(externalDirEntry, 'myfile.mp4',
+						function(e)
+						{
+							self.viewFile(e.nativeURL);
+						},
+						function()
+						{
+							self.$app.dialog.alert('copying FAILED');
+						});
+				}, function (e) { self.$app.dialog.alert(JSON.stringify(e)); });
+			},			
+			viewFile: function(url){
+				if (cordova && cordova.plugins.fileOpener2) {
+					cordova.plugins.fileOpener2.open(
+						url, // You can also use a Cordova-style file uri: cdvfile://localhost/persistent/Downloads/starwars.pdf
+						'video/mp4',
+						{
+							error: function (e) {
+								self.$app.dialog.alert('Error status: ' + e.status + ' - Error message: ' + e.message);
+							},
+							success: function () {
+								console.log('file opened successfully');
+							}
+						}
+					);
+				}
+			},		
             getGalleryList: function(){
 					
 				var self = this;  
@@ -102,7 +144,8 @@
 				
 					self.$app.preloader.hide(); 		
 					$$('.view-main #demo-inline-progressbar').addClass('display-none');
-					self.$app.dialog.alert('File downloaded');
+					self.$app.dialog.alert(response);
+					self.showMediaFile(response);
 				}, error => {
 					self.$app.preloader.hide(); 
 					console.log('Please check connect to Dashcam');

@@ -357,14 +357,11 @@ var App = new Framework7({
 			
 			var folderDate = date.substr(0, 10);
 			var folder = type + "_" + folderDate;
-			var fileName = date;
-			
+			var fileName = date;			
 			
 			return new Promise((resolve, reject) => {
 				
-				window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
-						//window.cordova.plugin.ftp.connect('192.168.43.1:10011', '357730090913204', '99999999', function(ok) {
-						//window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
+				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
 						
 						var permissions = cordova.plugins.permissions;
 						
@@ -380,8 +377,6 @@ var App = new Framework7({
 						);
 						
 						function downloadMediaFile(){
-							//DownloadFile('/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+folderDate+'/'+fileName, folder, date);
-							// You can do any ftp actions from now on...
 							var networkState = navigator.connection.type;
 							if (networkState == Connection.NONE) {
 								return;
@@ -390,65 +385,27 @@ var App = new Framework7({
 								window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
 
 								function fileSystemSuccess(fileSystem) {
-							
-									
-									/*var directoryEntry = fileSystem.root;	
-									
+									/*var directoryEntry = fileSystem.root;										
 									directoryEntry.getDirectory(folder, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); */
 									
 									var rootdir = fileSystem.root;
 									var fp = rootdir.toURL(); 
 									
 									
-									var lp = "file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/lg.png";//// //'file:///storage/emulated/0/Download/' + fileName;'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/files/' + folder + '/' + fileName;
-									var rp = '/sinopacificukraine.com/www/letter/qp/logo.png';
+									var lp = "file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/" + fileName;//'file:///storage/emulated/0/Download/' + fileName;'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/files/' + folder + '/' + fileName;
 									
-									//App.dialog.alert(lp);								
-									//App.dialog.alert(rp);
+									var rp = '/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+folderDate+'/'+fileName;
 									
-									
-									//filetransfer(rp, lp);
-															
-									var progressPercent = 0;
-									
-									window.cordova.plugin.ftp.download(lp, rp, function(result) {		
-										//App.dialog.alert("ftp: dwnl=" + result * 100 + "%");	
-										
+									window.cordova.plugin.ftp.download(lp, rp, function(result) {												
 										$$('.view-main #demo-inline-progressbar').removeClass('display-none');
 										//$$('.view-main #demo-inline-progressbar').attr('data-progress', parseInt((result * 100), 10).toString(10));
 										
 										var pcnt = +result * 100;
 										
-										/*switch(pcnt){							
-											case (pcnt > 2): 
-												progressPercent = 2;
-											break;					
-											case (pcnt > 5): 
-												progressPercent = 5;
-											break;					
-											case (pcnt > 25): 
-												progressPercent = 25;
-											break;					
-											case (pcnt > 45): 
-												progressPercent = 45;
-											break;					
-											case (pcnt > 55): 
-												progressPercent = 75;
-											break;					
-											case (pcnt > 75): 
-												progressPercent = 75;
-											break;			
-											case (pcnt > 98): 
-												progressPercent = 98;
-											break;
-											default:
-												App.dialog.alert(pcnt);
-										}*/
-										
 										App.progressbar.set('#demo-inline-progressbar', pcnt);
 										
 										if (result == 1) {
-											resolve(result);
+											resolve(fileName);
 										} else {
 											//App.dialog.alert("ftp: dwnl=" + result * 100 + "%");
 										}
