@@ -124,7 +124,7 @@
                         ShowVideosList: true,
                     });
                     self.$app.utils.nextFrame(()=>{
-                        self.initVideoList(response);
+                        self.initVideosList(response);
                     });					
 					self.$app.preloader.hide(); 	
 				}, error => {
@@ -165,7 +165,7 @@
             },
 						
 			
-            initVideoList: function(videoListArr = []){
+            initVideosList: function(videoListArr = []){
                 var self = this;
                 
                 var listEl = self.$el.find('.videosList');   
