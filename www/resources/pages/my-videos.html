@@ -39,16 +39,15 @@
 		</div>
 		<div class="tabs">
 			<!-- First tab, active  ptr-content-->
-			<div class="page-content tab tab-active" id="video">
+			<div class="page-content tab tab-active ptr-content pt-60" id="video">
 				<div class="block">
 					
-					<!--<div class="ptr-preloader">
+					<div class="ptr-preloader">
 						<div class="preloader"></div>
 						<div class="ptr-arrow"></div>
-					</div><div class="list virtual-list video-list media-list no-hairlines">-->
-					
+					</div>
 					{{#if ShowVideoList}}
-						<div key="VirtualVideoList" class="list media-list virtual-list no-margin no-chevron videosList">
+						<div key="VirtualVideoList" class="list media-list virtual-list no-chevron videosList">
 					
 						</div> 
 					{{/if}}
@@ -59,14 +58,14 @@
 				</div>
 			</div>
 			<!-- Second tab -->
-			<div class="page-content tab" id="normal">
+			<div class="page-content tab ptr-content pt-60" id="normal">
 				<div class="block">
-					<!--<div class="ptr-preloader">
+					<div class="ptr-preloader">
 						<div class="preloader"></div>
 						<div class="ptr-arrow"></div>
-					</div>-->
+					</div>
 					{{#if ShowNormalList}}
-						<div key="VirtualNormalList" class="list media-list virtual-list no-hairlines no-margin no-chevron  normalList">
+						<div key="VirtualNormalList" class="list media-list virtual-list no-hairlines  no-chevron  normalList">
 						</div> 
 					{{/if}}
 				</div>
@@ -153,18 +152,18 @@
 					console.log('Please check connect to Dashcam');
                     //self.$app.dialog.alert('No Dashcam connected');
 				});
-				/*
+			
 				
-					self.$app.methods.setInStorage({name: 'videoList', data: [{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"}]});
+					/*self.$app.methods.setInStorage({name: 'videoList', data: [{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"}]});
                     self.$setState({
                         ShowVideoList: true,
                     });
                     self.$app.utils.nextFrame(()=>{
                         self.initVideoList([{"name":"1223" }]);
                     });					
-					self.$app.preloader.hide();
+					self.$app.preloader.hide();*/
 			
-*/
+
             },
             initNormalList: function(normalListArr = []){
                 var self = this;

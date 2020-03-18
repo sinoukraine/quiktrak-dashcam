@@ -775,8 +775,12 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
     height: 80px;
 }
 
-.ptr-content {
-	margin-top: -40px;
+.pt-20 {
+	padding-top: 20px;
+}
+
+.pt-60 {
+	padding-top: 60px;
 }
 
 .check-item{
@@ -884,4 +888,9 @@ label.check-item input[type=checkbox]:checked~.check-item {
 
 .media-list ul:before, .media-list ul:after{
 	display:none;
+}
+
+.media-list .item-text{
+	overflow:hidden;
+	text-overflow: ellipsis;
 }

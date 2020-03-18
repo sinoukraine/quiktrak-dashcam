@@ -17,18 +17,18 @@
 				
 			</div>
 		</div>
-		<div >
-			<!-- First tab, active  ptr-content-->
-			<div class="page-content" id="video">
+		<div  class="tabs">
+			<!-- First tab, active  -->
+			<div class="page-content tab tab-active ptr-content pt-20" id="videos">
 				<div class="block">
 					
-					<!--<div class="ptr-preloader">
+					<div class="ptr-preloader">
 						<div class="preloader"></div>
 						<div class="ptr-arrow"></div>
-					</div><div class="list virtual-list video-list media-list no-hairlines">-->
+					</div>
 					
-					{{#if ShowVideoList}}
-						<div key="VirtualVideoList" class="list media-list virtual-list no-margin no-chevron videosList">
+					{{#if ShowVideosList}}
+						<div key="VirtualVideosList" class="list media-list virtual-list no-chevron videosList">
 					
 						</div> 
 					{{/if}}
@@ -53,9 +53,9 @@
 				IsCheckAll: false,
 				photoBrowserArr: [],
                 VirtualNormalList: false,
-                VirtualVideoList: false,
+                VirtualVideosList: false,
 				ShowNormalList: false,	
-				ShowVideoList: false,	
+				ShowVideosList: false,	
             }; 			
 			
 			if (self.$route.query.date) {
@@ -121,7 +121,7 @@
 					//console.log(response);
 					self.$app.methods.setInStorage({name: 'mediaVideoList', data: response});
                     self.$setState({
-                        ShowVideoList: true,
+                        ShowVideosList: true,
                     });
                     self.$app.utils.nextFrame(()=>{
                         self.initVideoList(response);
@@ -132,7 +132,13 @@
 					console.log('Please check connect to Dashcam');
                     //self.$app.dialog.alert('Something wrong.');
 				});
-				
+				/*
+				self.$setState({
+                    ShowVideosList: true,
+                });
+				self.$app.utils.nextFrame(()=>{
+                        self.initVideoList(777);
+                    });	*/
 
             },
 			 downloadFile: function(data){
@@ -165,19 +171,19 @@
                 var listEl = self.$el.find('.videosList');   
                 //var videoList = self.$app.methods.getFromStorage("mediaVideoList");
 				
-				var videoList = [{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"}];
 				
-                self.VirtualVideoList = App.virtualList.create({
+				console.log(videoList);
+                self.VirtualVideosList = App.virtualList.create({
                     el: listEl, 
                     setListHeight: false,
-                    items: videoList,
-                    height: function(item){
-                        let height = 108;
+                    items: [],
+                    height: function(item){console.log(item);
+                        let height = 112.67;
                         
                         return height;
                     },
                     // Display the each item using Template7 template parameter
-                    renderItem: function (item, index) {                 
+                    renderItem: function (item, index) {                
                         var ret = '';
 						
 						ret += '<li>';
@@ -197,7 +203,11 @@
 												
 						return ret;
                     }
-                });				
+                });			
+
+				/*var videoList = [{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"}];
+				
+				self.VirtualVideosList.replaceAllItems(videoList);*/
             },
         },
         on: {
@@ -209,11 +219,8 @@
 
 				var page = page.$el.find('.page-content'); 
 
-                page.on('click', '.pb-standalone-dark', function(e){
-					self.PhotoBrowserObj.open($(this).attr('data-index'));
-				});
 				
-				page.on('taphold', '.item-path', function(e){
+				/*page.on('taphold', '.item-path', function(e){
 					self.$setState({
                         IsCheckAll: true,
                     });
@@ -268,7 +275,7 @@
 					arrItems.length = 0;
 				});	
 								
-				
+				*/
 				
 				// Pull to refresh content
 				var $ptrContent = $$('.ptr-content');
