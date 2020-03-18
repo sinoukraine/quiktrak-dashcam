@@ -8,7 +8,7 @@
 						<i class="f7-icons icon-left"></i>
 					</a>
 				</div>
-				<div class="title">Videos</div>
+				<div class="title">{{videoTitle}}</div>
 				<div class="right">
 					<a href="#" class="">
 						<i class="material-icons md-36">file_download</i>
@@ -63,7 +63,21 @@
             }
 			if (self.$route.query.type) {
 				ret.folderType = self.$route.query.type;
+				
+				switch(self.$route.query.type){
+					case 'USB':
+						ret.videoTitle = 'Front Videos';
+					break;
+					case 'EVENT':
+						ret.videoTitle = 'Event Videos';					
+					break;
+					default:
+						ret.videoTitle = 'Inward Videos';					
+				}
+				
             }
+			
+			
             return ret;
         },
         methods: {
@@ -175,7 +189,7 @@
                 self.VirtualVideosList = App.virtualList.create({
                     el: listEl, 
                     setListHeight: false,
-                    items: [],
+                    items: videoList,
                     height: function(item){console.log(item);
                         let height = 112.67;
                         

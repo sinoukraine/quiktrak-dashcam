@@ -27,10 +27,13 @@
 					<div class="toolbar tabbar" id="toolbar-menu">
 						<div class="toolbar-inner">
 							<a href="#video" class="tab-link tab-link-active" >
-								<span class="tabbar-label"><b>Front Video</b></span>
+								<span class="tabbar-label"><b>Front</b></span>
 							</a>
 							<a href="#normal" class="tab-link">
-								<span class="tabbar-label"><b>Inward Video</b></span>
+								<span class="tabbar-label"><b>Inward</b></span>
+							</a>
+							<a href="#event" class="tab-link">
+								<span class="tabbar-label"><b>Event</b></span>
 							</a>
 						</div>
 					</div>
@@ -70,6 +73,19 @@
 					{{/if}}
 				</div>
 			</div>
+			
+			<div class="page-content tab ptr-content pt-60" id="event">
+				<div class="block">
+					<div class="ptr-preloader">
+						<div class="preloader"></div>
+						<div class="ptr-arrow"></div>
+					</div>
+					{{#if ShowEventList}}
+						<div key="VirtualEventList" class="list media-list virtual-list no-hairlines  no-chevron  eventList">
+						</div> 
+					{{/if}}
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -85,8 +101,10 @@
 				photoBrowserArr: [],
                 VirtualNormalList: false,
                 VirtualVideoList: false,
+                VirtualEventList: false,
 				ShowNormalList: false,	
 				ShowVideoList: false,	
+				ShowEventList: false,	
             }; 			
             return ret;
         },
@@ -231,7 +249,7 @@
 						
 						ret += '<li>';
 						ret += '  <a href="/my-video-list/?type=USB&date='+item.name+'" class="item-link item-content">';
-						ret += '	<div class="item-media"><img src="./resources/images/folder_1.png" width="80"/></div>';
+						ret += '	<div class="item-media"><img src="./resources/images/folder_1.svg" width="80"/></div>';
 						ret += '	<div class="item-inner">';
 						ret += '	  <div class="item-title-row">';
 						ret += '		<div class="item-title">'+item.name+'</div>';
@@ -369,7 +387,7 @@
 						
 						ret += '<li>';
 						ret += '  <a href="/my-video-list/?type=GENERAL&date='+item.name+'" class="item-link item-content">';
-						ret += '	<div class="item-media"><img src="./resources/images/folder_1.png" width="80"/></div>';
+						ret += '	<div class="item-media"><img src="./resources/images/folder_1.svg" width="80"/></div>';
 						ret += '	<div class="item-inner">';
 						ret += '	  <div class="item-title-row">';
 						ret += '		<div class="item-title">'+item.name+'</div>';

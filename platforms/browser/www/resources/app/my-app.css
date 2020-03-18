@@ -894,3 +894,8 @@ label.check-item input[type=checkbox]:checked~.check-item {
 	overflow:hidden;
 	text-overflow: ellipsis;
 }
+
+.dash-icon{
+	font-size: 20px;
+    margin-left: 2px;
+}
