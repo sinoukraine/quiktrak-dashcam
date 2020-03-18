@@ -74,13 +74,14 @@
 				/*var fullPathToFilePrivate = cordova.file.applicationDirectory + 'www/resources/manual/DC100-user-guide.pdf';*/
 				var fullPathToFilePrivate = 'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/'+fileName;
 				var externalDirEntry;
-				self.$app.dialog.alert('open_'+fileName);
-				/*window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function success(dirEntry) {
+				
+				window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function success(dirEntry) {
 					externalDirEntry = dirEntry;
+					self.$app.dialog.alert(dirEntry);
 				},function (e) {
 					self.$app.dialog.alert('error dir '+JSON.stringify(e));
 				});
-
+				/*
 				window.resolveLocalFileSystemURL(fullPathToFilePrivate, function onSuccess(fileEntry)
 				{
 					fileEntry.copyTo(externalDirEntry, 'myfile.mp4',
@@ -145,7 +146,7 @@
 				
 					self.$app.preloader.hide(); 		
 					$$('.view-main #demo-inline-progressbar').addClass('display-none');
-					self.$app.dialog.alert(response);
+					self.$app.dialog.alert('File uploaded');
 					self.showMediaFile(response);
 				}, error => {
 					self.$app.preloader.hide(); 
