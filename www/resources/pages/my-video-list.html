@@ -77,14 +77,15 @@
 				
 				window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function success(dirEntry) {
 					externalDirEntry = dirEntry;
-					self.$app.dialog.alert(dirEntry);
 				},function (e) {
 					self.$app.dialog.alert('error dir '+JSON.stringify(e));
 				});
-				/*
+				
 				window.resolveLocalFileSystemURL(fullPathToFilePrivate, function onSuccess(fileEntry)
 				{
-					fileEntry.copyTo(externalDirEntry, 'myfile.mp4',
+					
+					self.$app.dialog.alert('su');
+					/*fileEntry.copyTo(externalDirEntry, 'myfile.mp4',
 						function(e)
 						{
 							self.viewFile(e.nativeURL);
@@ -92,8 +93,8 @@
 						function()
 						{
 							self.$app.dialog.alert('copying FAILED');
-						});
-				}, function (e) { self.$app.dialog.alert(JSON.stringify(e)); });*/
+						});*/
+				}, function (e) { self.$app.dialog.alert(JSON.stringify(e)); });
 			},			
 			viewFile: function(url){
 				if (cordova && cordova.plugins.fileOpener2) {
