@@ -84,16 +84,16 @@
 				window.resolveLocalFileSystemURL(fullPathToFilePrivate, function onSuccess(fileEntry)
 				{
 					
-					self.$app.dialog.alert('su');
-					/*fileEntry.copyTo(externalDirEntry, 'myfile.mp4',
+					fileEntry.copyTo(externalDirEntry, 'myfile.mp4',
 						function(e)
 						{
-							self.viewFile(e.nativeURL);
+							self.$app.dialog.alert('ww');
+							//self.viewFile(e.nativeURL);
 						},
 						function()
 						{
 							self.$app.dialog.alert('copying FAILED');
-						});*/
+						});
 				}, function (e) { self.$app.dialog.alert(JSON.stringify(e)); });
 			},			
 			viewFile: function(url){
