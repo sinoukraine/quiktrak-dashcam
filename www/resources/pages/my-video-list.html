@@ -169,10 +169,9 @@
                 var self = this;
                 
                 var listEl = self.$el.find('.videosList');   
-                //var videoList = self.$app.methods.getFromStorage("mediaVideoList");
+                var videoList = self.$app.methods.getFromStorage("mediaVideoList");
 				
 				
-				console.log(videoList);
                 self.VirtualVideosList = App.virtualList.create({
                     el: listEl, 
                     setListHeight: false,
