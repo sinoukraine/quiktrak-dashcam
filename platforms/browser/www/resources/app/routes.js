@@ -214,6 +214,6 @@ var routes = [{
 	{
         name: 'my-video-list',
         path: '/my-video-list/',
-        componentUrl: './resources/pages/my-video-list.html?v=1.78',
+        componentUrl: './resources/pages/my-video-list.html?v=1.79',
     },	
 ]
