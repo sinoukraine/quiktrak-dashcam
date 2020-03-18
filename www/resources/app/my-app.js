@@ -498,8 +498,9 @@ var App = new Framework7({
 							
 							// /storage/sdcard0/DVRMEDIA/Remote/PHOTO
 							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+date, function(result) {
-								App.dialog.alert(JSON.stringify(result));
-								App.dialog.alert('/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+date);
+								//App.dialog.alert(JSON.stringify(result));
+								//App.dialog.alert('/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+date);
+								
 								resolve(result);
 							}, function(error) {
 								//App.dialog.alert('error: ' + JSON.stringify(error));
