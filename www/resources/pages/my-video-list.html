@@ -163,29 +163,13 @@
                 var self = this;
                 
                 var listEl = self.$el.find('.videosList');   
-                var videoList = self.$app.methods.getFromStorage("mediaVideoList");
+                //var videoList = self.$app.methods.getFromStorage("mediaVideoList");
+				
+				var videoList = [{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"},{"name":"2020_03_16","size":"0","modifiedDate":"2020-03-16 14:05:00 GMT+02:00"}];
 				
                 self.VirtualVideoList = App.virtualList.create({
                     el: listEl, 
                     setListHeight: false,
-                    // search item by item
-                    /*searchAll: function (query, items) {
-                        var found = [];
-                        query = query.trim().toLowerCase();   
-                        for (var i = 0; i < items.length; i++) {
-                            if (items[i].AccountName.toLowerCase().indexOf(query) >= 0 || 
-                                items[i].EMail.toLowerCase().indexOf(query) >= 0 ||                                
-                                query === '') found.push(i);
-                        }
-                        return found; //return array with mathced indexes
-						let found = [];
-						for (let i = 0; i < items.length; i++) {
-							if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-						}
-						return found;
-                    },*/
-                    //List of array items
-					
                     items: videoList,
                     height: function(item){
                         let height = 108;
