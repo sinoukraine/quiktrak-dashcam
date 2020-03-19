@@ -55,6 +55,34 @@ dashcam and click the LIVE button.</p>
             return ret;
         },
 		methods: {			
+			feedCommand: function(hex) {
+				var self = this;					
+				
+				//7802F8334207
+				//if(self.phoneMacAddress != '00.00.00.00.00.00'){
+					//self.$app.preloader.show();
+					
+					//let macAddress = self.phoneMacAddress.replace(/[^A-Za-z0-9]/g, "");
+					//macAddress = macAddress.substr(1,macAddress.length -2);
+					//App.dialog.alert(self.phoneMacAddress);
+					self.socket.open(
+					  "test.m2mdata.co",
+					  40500,
+					  function() {		
+						//self.writeToCam("FFF0275D0100000010010006" + macAddress);
+						App.dialog.alert("connected");
+					
+						//self.writeToCam(hex);										
+					  },
+					  function(errorMessage) {
+						//self.$app.preloader.hide();
+						App.dialog.alert('er:'+errorMessage);	
+						// invoked after unsuccessful opening of socket
+					});
+				//}else{
+					//App.dialog.alert('Something wrong.');						
+				//}					
+			},
 			openLive: function(){		
 				var self = this;    
 					self.$app.preloader.show();
@@ -81,6 +109,42 @@ dashcam and click the LIVE button.</p>
 				var self = this;    
 				var page = page.$el.find('.page-content'); 
 				
+				
+				
+				
+				//self.$app.preloader.show();
+				self.socket = new Socket();	
+				
+				self.socket.onData = function(data) {				
+					let convertedData = data.reduce((acc, item) => {
+					  let code = item.toString(16);
+					  let formattedCode = ('0' + code).slice(-2);
+					  return acc + formattedCode;
+					}, '');
+					//App.dialog.alert(convertedData);
+					self.parseHex(convertedData);
+					
+				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
+				};
+				self.socket.onError = function(errorMessage) {
+					self.$app.preloader.hide();
+					App.dialog.alert('Can not change this state.');
+				  // invoked after error occurs during connection
+				};
+				self.socket.onClose = function(hasError) {
+					self.$app.preloader.hide();
+					self.checkTotal();
+					
+					App.dialog.alert('Operation success');
+				  // invoked after connection close
+				};		
+				
+				
+				
+				
+				
+				
+				
 				var myPage = $$('.cam');
 				
 				let permissions = cordova.plugins.permissions;
@@ -92,16 +156,7 @@ dashcam and click the LIVE button.</p>
 				});*/
 				
 				myPage.on('click', '#connectCam', function(e){
-					
-					document.addEventListener("deviceready", onDeviceReady, false);
-
-					function onDeviceReady() {
-						// without comment
-						
-						}
-					
-					//self.openLive();
-					
+					self.feedCommand('FFF0000001000000800F0000');					
 				});
 				
 
