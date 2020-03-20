@@ -8,6 +8,10 @@ a:active, a:focus, a:hover{
 	color: #e3072b;
 }
 
+.popup-close{
+	color: #e3072b !important;
+}
+
 .btn-cs {
     width: 100%;
     max-width: 300px;
@@ -898,4 +902,49 @@ label.check-item input[type=checkbox]:checked~.check-item {
 .dash-icon{
 	font-size: 20px;
     margin-left: 2px;
+}
+
+.theme-dealer .list-block .input-item .floating-label, .theme-dealer .list-block .input-item .label, .theme-dealer .list-block.inputs-list .floating-label, .theme-dealer .list-block.inputs-list .label {
+    font-size: 18px;
+}
+
+.barcode-icon{
+	width: 30px;	
+	position: absolute;
+    right: 20px;
+}
+
+.scan-imei-block{
+	display: flex;
+}
+
+.open-dashcam-page .list-block ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+.open-dashcam-page .item-inner {
+	line-height: 2.5;
+    font-size: 16px;
+	width: 100vw;
+}
+
+.open-dashcam-page .list-block .item-content {
+    box-sizing: border-box;
+    padding-left: 16px;
+    min-height: 48px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
 }

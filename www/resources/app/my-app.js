@@ -51,42 +51,62 @@ var App = new Framework7({
     on: {
         init: function() {
 			// Create dynamic Popup
-			/*var currentHintState = App.methods.getFromStorage("downloadPlayer");
+			var currentHintState = App.methods.getFromStorage("downloadPlayer");
 			
-			App.methods.setInStorage({name: 'currentResolution', data: '1080p'});	
+			/*App.methods.setInStorage({name: 'currentResolution', data: '1080p'});	
 			App.methods.setInStorage({name: 'settingSoundOn', data: 'on'});	
 			App.methods.setInStorage({name: 'settingVoiceAlarm', data: 'on'});	
 			App.methods.setInStorage({name: 'settingVoiceGesture', data: 'on'});	
 			App.methods.setInStorage({name: 'settingVoiceParking', data: 'on'});	
 			App.methods.setInStorage({name: 'settingSurveillance', data: 'off'});	
-			App.methods.setInStorage({name: 'currentSensitivity', data: 'medium'});	
+			App.methods.setInStorage({name: 'currentSensitivity', data: 'medium'});	*/
 				
-				if(currentHintState != '1'){
+				/*WifiWizard.listNetworks(function(a){								
+					for (var i = 1; i <= a.length; i++) {
+						var pattern = /AUTO-VOX/i;
+						var pattern1 = /M-/i;
+						
+						if (pattern.test(a[i])) {
+							
+						}
+					}
+				}, function(e){});;*/
+						
+				//if(currentHintState != '1'){
 					
 					var dynamicPopup = App.popup.create({
 					  content: '<div class="page open-dashcam-page popup">'+
 							'<div class="navbar">'+
 							'	<div class="navbar-inner">'+
-							'		<div class="title">ATGA DC100</div>'+
+							'		<div class="title">QT DashCam</div>'+
 							'	</div>'+
 							'</div>'+
 
 							'<div class="toolbar toolbar-bottom">'+
 							'	<div class="toolbar-inner item-title open-title">'+
 							'		<a class="link popup-close " href="#">'+
-							'			Ok, I understand'+
+							'			Ok'+
 							'		</a>'+
 							'	</div>'+
 							'</div>'+
 
 							'<div class="page-content">'+
-							'	<div class="block">'+
-							'		<p class="item-title open-title">'+
-							'			Please download either of the media players below to live view and view historical images and video'+
-							'		</p><p class="item-title open-title"><img class="main-bg" src="./resources/images/mx.png" width="50" alt="main"></p><p class="item-title open-title"><b>MX Player</b></p><p class="item-title open-title"><img class="main-bg" src="./resources/images/kmp.png" width="50" alt="main"></p><p class="item-title open-title"><b>KM Player</b></p><p class="item-title open-title">Thanks you</p>'+
-							'	</div>'+
-							'	<div class="list virtual-list open-cam-list no-hairlines">'+
-							'	</div>'+
+							'	<div class="block" align="center">'+
+							'		<img src="resources/images/qr.png" width="140px">'+							
+								'</div>'+
+								'<div class="list-block media-list no-hairlines-between no-hairlines sliding active arrow-up">'+
+								'	<ul>'+
+								'		<li class="item-content">'+
+								'			<div class="item-inner">'+
+								'				<div class="item-title label">Please enter your IMEI number:</div>'+
+								'				<div class="item-input scan-imei-block">'+
+								'					<input type="text" placeholder="IMEI" name="IMEI" value="" maxlength="200" class="">'+
+								'					<img src="resources/images/barcode.svg" class="barcode-icon scanBarCode">'+
+								'				</div>'+
+								'			</div>'+
+								'		</li>'+
+								'	</ul>'+								
+								'</div>'+
 							'</div>'+
 						'</div>',
 					  
@@ -95,6 +115,73 @@ var App = new Framework7({
 						open: function (popup) {
 						  console.log('Popup open');
 						  
+						  $$('body').on('click', '.scanBarCode', function() {
+							let input = $$(this).siblings('input');
+
+							let permissions = cordova.plugins.permissions;
+							if (!permissions) {
+								App.dialog.alert('plugin not supported')
+							} else {
+								permissions.hasPermission(permissions.CAMERA, function(status) {
+									// App.dialog.alert(JSON.stringify(status))
+
+									if (status.hasPermission) {
+										openBarCodeReader(input);
+									} else {
+										permissions.requestPermission(permissions.CAMERA, success, error);
+
+										function error() {
+											App.dialog.alert('Camera permission is not turned on');
+										}
+
+										function success(status1) {
+											openBarCodeReader(input);
+											if (!status1.hasPermission) error();
+										}
+									}
+								});
+
+							}
+						});
+
+
+						function openBarCodeReader(input) {
+							//console.log(input);
+							if (window.device && cordova.plugins && cordova.plugins.barcodeScanner) {
+								cordova.plugins.barcodeScanner.scan(
+									function(result) {
+										/*alert("We got a barcode\n" +
+											  "Result: " + result.text + "\n" +
+											  "Format: " + result.format + "\n" +
+											  "Cancelled: " + result.cancelled);*/
+										if (result && result.text) {
+											input.val(result.text);					
+											
+											input.change(); // fix to trigger onchange / oninput event listener
+										}
+
+									},
+									function(error) {
+										alert("Scanning failed: " + error);
+									}, {
+										//preferFrontCamera : true, // iOS and Android
+										showFlipCameraButton: true, // iOS and Android
+										showTorchButton: true, // iOS and Android
+										torchOn: true, // Android, launch with the torch switched on (if available)
+										//saveHistory: true, // Android, save scan history (default false)
+										prompt: "Place a barcode inside the scan area", // Android
+										resultDisplayDuration: 0, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+										//formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+										//orientation : "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
+										//disableAnimations : true, // iOS
+										//disableSuccessBeep: false // iOS and Android
+									}
+								);
+							} else {
+								App.dialog.alert('Your device does not support this function');
+							}
+						}
+
 						  App.methods.setInStorage({name: 'downloadPlayer', data: '1'});	
 						},
 						opened: function (popup) {
@@ -103,9 +190,11 @@ var App = new Framework7({
 					  }
 					});
 					
-					 dynamicPopup.open();
+					dynamicPopup.open();
+					
+					
 			 
-				}*/
+				//}
 			//App.dialog.alert('Please ');
             // console.log('App initialized');
         },
@@ -146,7 +235,31 @@ var App = new Framework7({
                 newArry.push(arry[i]);
             }
             return newArry;
-        },
+        },		
+		sendCmd: function(){		
+				var self = this;    
+				
+				let data = {
+						"Majortoken": "a5b4a26a-053b-4fd8-9b90-19f4c6588146",
+						"minortoken": "5f23466a-407c-4b0b-97aa-0914b9e46360",
+						"imei": "0357730090913204",
+						"cmd": "WIFI,ON",
+				}
+				
+				let url = "https://api.m2mglobaltech.com/Quiktrak/V1/Device/GprsCommand";
+				
+				App.request.post(
+					url, 
+					data, 
+					function (result) {
+						console.log(result);
+					}, 
+					function(e){
+						console.log('error = ' + e);
+					}, 
+					'json'
+					);
+		},
         getFromStorage: function(name){
             var ret = [];
             var str = '';
@@ -912,6 +1025,8 @@ function download(URL, Folder_Name, File_Name) {
 }
 
 /*end download file*/
+
+
 
 $$('#mainMenu li').on('click', menuList)
 
