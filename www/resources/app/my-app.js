@@ -157,10 +157,16 @@ var App = new Framework7({
 							
 							if(imei.length){
 								App.methods.setInStorage({name: 'setIMEI', data: imei});
-								let isOk = App.methods.sendCmd("WIFI,ON");
-								if(isOk == '000'){
-									dynamicPopup.close();
-								}
+								
+								App.methods.sendCmd("WIFI,ON").then(response => {
+									if(response == '000'){
+										dynamicPopup.close();
+									}
+								}, error => {
+									App.dialog.alert('Connection failed');	
+								});
+								
+								
 							}else{
 								App.dialog.alert('Please, fill in IMEI field');							
 							}
@@ -301,7 +307,7 @@ var App = new Framework7({
             }
             return newArry;
         },		
-		sendCmd: function(myCMD){	 
+		sendCmd: function(myCMD, resolve, reject){	 
                 var imei = App.methods.getFromStorage("setIMEI");
 				
 				let data = {
@@ -312,27 +318,28 @@ var App = new Framework7({
 				}
 				
 				let url = "https://api.m2mglobaltech.com/Quiktrak/V1/Device/GprsCommand";
-				
+				return new Promise((resolve, reject) => {
 				App.request.post(
 					url, 
 					data, 
 					function (result) {
 						console.log(result);
 						if(result.MajorCode == '000'){
-							return '000';
+							resolve(result.MajorCode);
 						}else{
 							App.dialog.alert('IMEI number is incorrect');
-							return '001';
+							reject();
 							//App.methods.popupIMEI();
 						}
 					}, 
 					function(e){
 						console.log('error = ' + e);
 						App.dialog.alert('Something went wrong');
-						return '002';
+						reject();
 					}, 
 					'json'
 					);
+				});
 		},
         getFromStorage: function(name){
             var ret = [];
