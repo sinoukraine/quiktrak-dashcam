@@ -85,7 +85,7 @@ var App = new Framework7({
 					}
 				}, function(e){});;*/
 						
-				if(!currentHintState.length){
+				//if(!currentHintState.length){
 					
 					var dynamicPopup = App.popup.create({
 					  content: '<div class="page open-dashcam-page popup">'+
@@ -157,8 +157,10 @@ var App = new Framework7({
 							
 							if(imei.length){
 								App.methods.setInStorage({name: 'setIMEI', data: imei});
-								App.methods.sendCmd("WIFI,ON");
-								dynamicPopup.close();
+								let isOk = App.methods.sendCmd("WIFI,ON");
+								if(isOk == '000'){
+									dynamicPopup.close();
+								}
 							}else{
 								App.dialog.alert('Please, fill in IMEI field');							
 							}
@@ -267,7 +269,7 @@ var App = new Framework7({
 					
 					dynamicPopup.open();					
 			 
-				}
+				//}
 		},
         capitalize: function(s) {
             if (typeof s !== 'string') return ''
@@ -317,15 +319,17 @@ var App = new Framework7({
 					function (result) {
 						console.log(result);
 						if(result.MajorCode == '000'){
-							
+							return '000';
 						}else{
 							App.dialog.alert('IMEI number is incorrect');
-							App.methods.popupIMEI();
+							return '001';
+							//App.methods.popupIMEI();
 						}
 					}, 
 					function(e){
 						console.log('error = ' + e);
 						App.dialog.alert('Something went wrong');
+						return '002';
 					}, 
 					'json'
 					);
