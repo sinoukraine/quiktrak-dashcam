@@ -170,7 +170,7 @@ var App = new Framework7({
 							let mySSID = JSON.stringify(response).substr(1,mySSID.length -2);							
 							
 							var pattern = /[0-9]/;
-							if ((pattern.test(mySSID)) {
+							if (pattern.test(mySSID)) {
 								$$('.open-dashcam-page input').val(mySSID);
 							}
 							
