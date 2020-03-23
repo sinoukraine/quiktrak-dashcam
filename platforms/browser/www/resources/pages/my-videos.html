@@ -137,24 +137,6 @@
 				
 				
                 self.$app.preloader.show();
-				self.$app.methods.getRecordPhoto().then(response => {				
-					//console.log(response);
-					self.$app.methods.setInStorage({name: 'normalList', data: response});
-                    self.$setState({
-                        ShowNormalList: true,
-                    });
-                    self.$app.utils.nextFrame(()=>{
-                        self.initNormalList(response);
-                    });					
-					self.$app.preloader.hide(); 	
-				}, error => {
-					self.$app.preloader.hide(); 
-					console.log('Please check connect to Dashcam');
-                    //self.$app.dialog.alert('Something wrong.');
-				});
-				
-				
-				self.$app.preloader.show();
 				self.$app.methods.getRecordVideo().then(response => {	
 					//self.methods.setPhotoList({list: response.mp4data});	
 					self.$app.methods.setInStorage({name: 'videoList', data: response});
@@ -169,10 +151,29 @@
 					self.$app.preloader.hide(); 
 					console.log('Please check connect to Dashcam');
                     //self.$app.dialog.alert('No Dashcam connected');
+					self.$app.dialog.alert('No Dashcam connected');
 				});
+				
+				//self.$app.preloader.show();
+				self.$app.methods.getRecordPhoto().then(response => {				
+					//console.log(response);
+					self.$app.methods.setInStorage({name: 'normalList', data: response});
+                    self.$setState({
+                        ShowNormalList: true,
+                    });
+                    self.$app.utils.nextFrame(()=>{
+                        self.initNormalList(response);
+                    });					
+					self.$app.preloader.hide(); 	
+				}, error => {
+					self.$app.preloader.hide(); 
+					console.log('Please check connect to Dashcam');
+                    //self.$app.dialog.alert('Something wrong.'); 
+				});
+				
 			
 			
-			self.$app.preloader.show();
+			//self.$app.preloader.show();
 				self.$app.methods.getRecordEvent().then(response => {				
 					//console.log(response);
 					self.$app.methods.setInStorage({name: 'eventList', data: response});

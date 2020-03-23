@@ -167,11 +167,14 @@ var App = new Framework7({
 						  WifiWizard2.getConnectedSSID().then(response => {	
 							//App.dialog.alert(JSON.stringify(response));	
 
-							let mySSID = JSON.stringify(response);
-							$$('.open-dashcam-page input').val(mySSID);
-							//mySSID.substr(1,mySSID.length -2)
-							/*var pattern = /AUTO-VOX/i;
-							var pattern1 = /M-/i;
+							let mySSID = JSON.stringify(response).substr(1,mySSID.length -2);							
+							
+							var pattern = /[0-9]/;
+							if ((pattern.test(mySSID)) {
+								$$('.open-dashcam-page input').val(mySSID);
+							}
+							
+							/*var pattern1 = /M-/i;
 							var pattern2 = /ATGA/i;
 							
 							if ((pattern.test(mySSID) || pattern1.test(mySSID) || pattern2.test(mySSID))) {	
