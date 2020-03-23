@@ -172,7 +172,7 @@ var App = new Framework7({
 							}
 						  });
 						  
-						  WifiWizard2.getConnectedSSID().then(response => {	
+						  /*WifiWizard2.getConnectedSSID().then(response => {	
 							//App.dialog.alert(JSON.stringify(response));	
 
 							let mySSID = JSON.stringify(response).substr(1,mySSID.length -2);							
@@ -180,7 +180,7 @@ var App = new Framework7({
 							var pattern = /[0-9]/;
 							if (pattern.test(mySSID)) {
 								$$('.open-dashcam-page input').val(mySSID);
-							}
+							}*/
 							
 							/*var pattern1 = /M-/i;
 							var pattern2 = /ATGA/i;
@@ -198,7 +198,7 @@ var App = new Framework7({
 								 }, 2000);
 								//	
 							}*/					
-						});	
+						//});	
 						  
 						  $$('body').on('click', '.scanBarCode', function() {
 							let input = $$(this).siblings('input');
@@ -663,6 +663,7 @@ var App = new Framework7({
 								
 								resolve(result);
 							}, function(error) {
+								reject();
 								//App.dialog.alert('error: ' + JSON.stringify(error));
 								console.error("ftp: ls error=" + error);
 							});
@@ -677,6 +678,7 @@ var App = new Framework7({
 							});*/
 
 						}, function(error) {
+							reject();
 							console.error("ftp: connect error=" + error);
 							//App.dialog.alert("ftp: connect error=" + error);
 						});
@@ -704,6 +706,7 @@ var App = new Framework7({
 									//console.debug("ftp: upload percent=" + percent * 100 + "%");
 								}
 							}, function(error) {
+								reject();
 								self.$app.dialog.alert('error: ' + JSON.stringify(error));
 								console.error("ftp: ls error=" + error);
 							});
@@ -718,6 +721,7 @@ var App = new Framework7({
 							});*/
 
 						}, function(error) {
+							reject();
 							console.error("ftp: connect error=" + error);
 							self.$app.dialog.alert("ftp: connect error=" + error);
 						});
@@ -768,9 +772,11 @@ var App = new Framework7({
 								if (data == 1) {
 									//console.info("ftp: upload finish");
 								} else {
+
 									//console.debug("ftp: upload percent=" + percent * 100 + "%");
 								}
 							}, function(error) {
+								reject();
 								self.$app.dialog.alert('error: ' + JSON.stringify(error));
 								console.error("ftp: ls error=" + error);
 							});
@@ -785,6 +791,7 @@ var App = new Framework7({
 							});*/
 
 						}, function(error) {
+							reject();
 							console.error("ftp: connect error=" + error);
 							self.$app.dialog.alert("ftp: connect error=" + error);
 						});
@@ -844,6 +851,7 @@ var App = new Framework7({
 									//console.debug("ftp: upload percent=" + percent * 100 + "%");
 								}
 							}, function(error) {
+								reject();
 								self.$app.dialog.alert('error: ' + JSON.stringify(error));
 								console.error("ftp: ls error=" + error);
 							});
@@ -858,6 +866,7 @@ var App = new Framework7({
 							});*/
 
 						}, function(error) {
+							reject();
 							console.error("ftp: connect error=" + error);
 							self.$app.dialog.alert("ftp: connect error=" + error);
 						});
