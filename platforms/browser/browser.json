@@ -19,6 +19,10 @@
                         {
                             "xml": "<feature name=\"CordovaHttpPlugin\"><param name=\"browser-package\" value=\"CordovaHttpPlugin\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"browser-package\" value=\"BarcodeScanner\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -103,6 +107,9 @@
             "PACKAGE_NAME": "com.atga.dashcam"
         },
         "cordova-plugin-ftp": {
+            "PACKAGE_NAME": "com.quiktrak.quiktrak-dashcam"
+        },
+        "kaiquecruz-phonegap-plugin-barcodescanner-custom": {
             "PACKAGE_NAME": "com.quiktrak.quiktrak-dashcam"
         }
     },
@@ -494,6 +501,20 @@
             "clobbers": [
                 "cordova.plugin.ftp"
             ]
+        },
+        {
+            "file": "plugins/kaiquecruz-phonegap-plugin-barcodescanner-custom/www/barcodescanner.js",
+            "id": "kaiquecruz-phonegap-plugin-barcodescanner-custom.BarcodeScanner",
+            "pluginId": "kaiquecruz-phonegap-plugin-barcodescanner-custom",
+            "clobbers": [
+                "cordova.plugins.barcodeScanner"
+            ]
+        },
+        {
+            "file": "plugins/kaiquecruz-phonegap-plugin-barcodescanner-custom/src/browser/BarcodeScannerProxy.js",
+            "id": "kaiquecruz-phonegap-plugin-barcodescanner-custom.BarcodeScannerProxy",
+            "pluginId": "kaiquecruz-phonegap-plugin-barcodescanner-custom",
+            "runs": true
         }
     ],
     "plugin_metadata": {
@@ -513,6 +534,7 @@
         "es6-promise-plugin": "4.2.2",
         "cordova-plugin-rtsp-vlc": "3.0.5",
         "cordova-plugin-file-opener2": "2.2.1",
-        "cordova-plugin-ftp": "1.1.1"
+        "cordova-plugin-ftp": "1.1.1",
+        "kaiquecruz-phonegap-plugin-barcodescanner-custom": "6.0.5"
     }
 }

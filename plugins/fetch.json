@@ -144,5 +144,13 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "kaiquecruz-phonegap-plugin-barcodescanner-custom": {
+        "source": {
+            "type": "registry",
+            "id": "kaiquecruz-phonegap-plugin-barcodescanner-custom"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

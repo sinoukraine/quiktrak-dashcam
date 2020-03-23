@@ -8,17 +8,17 @@ a:active, a:focus, a:hover{
 	color: #e3072b;
 }
 
-.popup-close{
-	color: #e3072b !important;
+.dialog-button{
+	color: #e3072b;
 }
 
 .btn-cs {
     width: 100%;
     max-width: 300px;
-    height: 57px;
+    height: 52px;
     background: linear-gradient(to right, #e3072b, #e3072b);
     color: white;
-    font-size: 19px;
+    font-size: 16px;
     text-transform: uppercase;
     text-align: center;
     border-radius: 30px;
@@ -45,7 +45,7 @@ a:active, a:focus, a:hover{
 }
 
 .color-theme {
-    color: #6F86D6;
+    color: #e3072b;
 }
 
 .color-red {
@@ -70,16 +70,16 @@ input[type='radio']:checked {
 }
 
 label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
-    background-color: #6F86D6 !important;
-    border-color: #6F86D6 !important;
+    background-color: #e3072b !important;
+    border-color: #e3072b !important;
 }
 
 .ios .toggle input[type=checkbox]:checked+.toggle-icon {
-    background-color: #6F86D6 !important;
+    background-color: #e3072b !important;
 }
 
 .md .toggle input[type=checkbox]:checked+.toggle-icon:after {
-    background-color: #6F86D6 !important;
+    background-color: #e3072b !important;
 }
 
 .border-left {
@@ -516,7 +516,7 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
 
 .setting-page .icon-right {
     font-size: 16px;
-    color: #6F86D6;
+    color: #e3072b;
 }
 
 .setting-page .navbar .icon-left {
@@ -594,7 +594,7 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
 }
 
 .wifi-page input[name="wifiPassword"] {
-    color: #6F86D6;
+    color: #e3072b;
 }
 
 .wifi-page .list .item-media {
@@ -631,7 +631,7 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
 .faq-list .icon-right {
     font-size: 19px;
     margin-top: 6px;
-    color: #6F86D6;
+    color: #e3072b;
 }
 
 .faq-list a {
@@ -794,16 +794,16 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
 }
 
 label.check-item input[type=checkbox]:checked~.check-item {
-    background-color: #6F86D6 !important;
-    border-color: #6F86D6 !important;
+    background-color: #e3072b !important;
+    border-color: #e3072b !important;
 }
 
 .ios .toggle input[type=checkbox]:checked+.toggle-icon {
-    background-color: #6F86D6 !important;
+    background-color: #e3072b !important;
 }
 
 .md .toggle input[type=checkbox]:checked+.toggle-icon:after {
-    background-color: #6F86D6 !important;
+    background-color: #e3072b !important;
 }
 
 .check-item .f7-icons{
@@ -928,7 +928,11 @@ label.check-item input[type=checkbox]:checked~.check-item {
 .open-dashcam-page .item-inner {
 	line-height: 2.5;
     font-size: 16px;
-	width: 100vw;
+	width: 100%;
+}
+
+.open-dashcam-page .item-label {
+	padding-left: 15px;
 }
 
 .open-dashcam-page .list-block .item-content {
@@ -947,4 +951,14 @@ label.check-item input[type=checkbox]:checked~.check-item {
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
+}
+
+.open-dashcam-page .item-input-wrap{
+	padding-top: 2px;
+	width: 100%;
+}
+
+.open-dashcam-page input{
+	border-bottom: 1px solid #e3e3e3;
+	width: calc(100% - 20px);
 }

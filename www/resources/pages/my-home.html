@@ -83,48 +83,6 @@ dashcam and click the LIVE button.</p>
 					//App.dialog.alert('Something wrong.');						
 				//}					
 			},
-			sendCmd: function(){		
-				var self = this;    
-				
-				let data = {
-						"Majortoken": "a5b4a26a-053b-4fd8-9b90-19f4c6588146",
-						"minortoken": "5f23466a-407c-4b0b-97aa-0914b9e46360",
-						"imei": "0357730090913204",
-						"cmd": "WIFI,ON",
-				}
-				
-				let url = "https://api.m2mglobaltech.com/Quiktrak/V1/Device/GprsCommand";
-				
-				App.request.post(
-					url, 
-					data, 
-					function (result) {
-						console.log(result);
-					}, 
-					function(e){
-						console.log('error = ' + e);
-					}, 
-					'json'
-					);
-				/*
-				$.ajax({
-					async: true,
-					crossDomain: true,
-					url: "https://api.m2mglobaltech.com/Quiktrak/V1/Device/GprsCommand",
-					method: "POST",
-					headers: {
-						"content-type": "application/x-www-form-urlencoded"
-					},
-					processData: false,
-					data: JSON.stringify(data),
-					success: function (result) {
-						console.log(result);
-					},
-					error: function(XMLHttpRequest, textStatus, errorThrown){
-						console.log('can not connect: txt = '+textStatus+' err = '+errorThrown);
-					}
-				});	*/
-			},
 			openLive: function(){		
 				var self = this;    
 					self.$app.preloader.show();
@@ -151,7 +109,7 @@ dashcam and click the LIVE button.</p>
 				var self = this;    
 				var page = page.$el.find('.page-content'); 
 				
-				self.sendCmd();
+				
 				
 				/*
 				//self.$app.preloader.show();

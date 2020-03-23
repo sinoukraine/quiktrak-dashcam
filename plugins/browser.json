@@ -51,6 +51,9 @@
         },
         "cordova-plugin-ftp": {
             "PACKAGE_NAME": "com.quiktrak.quiktrak-dashcam"
+        },
+        "kaiquecruz-phonegap-plugin-barcodescanner-custom": {
+            "PACKAGE_NAME": "com.quiktrak.quiktrak-dashcam"
         }
     },
     "dependent_plugins": {

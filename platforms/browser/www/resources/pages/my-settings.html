@@ -13,23 +13,23 @@
 		<div class="page-content">
 			<div class="list-block no-hairlines setting-list">
 				<ul class="left-padding right-padding no-padding-top no-padding-bottom">
-					<li class="item-content no-padding">
+					<!--<li class="item-content no-padding">
 						<a href="#" class="my-mac-address item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
 							<span>
 								Dashcam Name
 							</span>
 							<i class="f7-icons icon-right"></i>
 						</a>
-					</li>
+					</li>-->
 					<li class="item-content no-padding">
-						<a href="/my-wifi-settings/" class="my-wifi-settings item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
+						<a href="/my-wifi-settings/" class="my-wifi-settings item-inner not-empty-state display-flex align-items-center justify-content-space-between ">
 							<span>
 								Wi-Fi Settings
 							</span>
 							<i class="f7-icons icon-right"></i>
 						</a>
 					</li>
-					<!----><li class="item-content no-padding">
+					<!--<li class="item-content no-padding">
 						<a href="/my-manage-card/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
 							<span>
 								Manage SD card
@@ -43,7 +43,6 @@
 								<span>Resolution</span>
 								<i class="f7-icons icon-right"></i>
 							</a>
-							<!--<p class="item-bottom-text">Two options: Full HD 1080P/Full HD 720P</p>-->
 						</div>
 					</li>
 					<li class="item-content">
@@ -111,7 +110,7 @@
 							</a>
 							
 						</div>
-					</li>-->
+					</li>
 					
 					<li class="item-content">
 						<div class="item-inner not-empty-state border-bottom">
@@ -134,11 +133,6 @@
 									<input type="range" name="rangeInput" min="0" max="4" value="2" step="1" >
 								</div>
 							</div>
-							<!--<div class="block no-margin overflow-hidde">
-								<div class="range-slider range-slider-tracking-interval">
-									<input type="range" name="rangeInput" min="0" max="4" value="0" step="1">
-								</div>
-							</div>-->
 						</div>
 					</li>
 					<li class="item-content">
@@ -157,7 +151,6 @@
 								</span>
 								<i class="f7-icons icon-right"></i>
 							</a>
-							<!--<p class="item-bottom-text">Device has English/Russian language options, you can switch it according to your demand</p>-->
 						</div>
 					</li>					
 					<li class="item-content">
@@ -168,23 +161,7 @@
 							<i class="f7-icons icon-right"></i>
 						</a>
 					</li>
-					<!--
-					<li class="item-content no-padding">
-						<a href="/my-settings-service/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
-							<span>
-								After Sales Service
-							</span>
-							<i class="f7-icons icon-right"></i>
-						</a>
-					</li>
-					<li class="item-content no-padding">
-						<a href="/my-settings-note/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
-							<span>
-								Note
-							</span>
-							<i class="f7-icons icon-right"></i>
-						</a>
-					</li>-->
+					-->
 				</ul>
             </div>
         </div>
@@ -354,7 +331,7 @@
 					console.log(month_hex);
 					//var datetime_hex = (year_hex + month_hex + day_hex + hours_hex + minutes_hex + seconds_hex).toUpperCase();
 				*/
-				var rangeEl = page.$el.find('.range-slider-valume-interval');
+				/*var rangeEl = page.$el.find('.range-slider-valume-interval');
                 //var trackingPeriodEl = myPage.$el.find('input[name="tracking-period"]'); 
                 //var upgradeNowButtonEl = myPage.$el.find('.upgradeNowButton');
                 var range = App.range.create({
@@ -370,10 +347,7 @@
 							}
 							//App.dialog.alert('FFF000000100000070030001' + volume);
 							self.feedCommand('FFF000000100000070030001' + volume);
-                            /*trackingIntervalParams.value = val;
-                            trackingIntervalParams.trackingPeriod = page.$el.find('[name="tracking-period"]:checked').val();
-
-                            self.updateTrackingHint(trackingIntervalParams);*/
+                         
                         }
                     }
                 });
@@ -394,12 +368,12 @@
 				self.socket.onData = function(data) {
 
 				
-					/*let convertedData = data.reduce((acc, item) => {
+					let convertedData = data.reduce((acc, item) => {
 					  let code = item.toString(16);
 					  let formattedCode = ('0' + code).slice(-2);
 					  return acc + formattedCode;
 					}, '');
-					App.dialog.alert(convertedData);*/
+					App.dialog.alert(convertedData);
 					
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 				};
@@ -410,17 +384,14 @@
 				};
 				self.socket.onClose = function(hasError) {
 					self.$app.preloader.hide();
-					
-					/*self.$setState({
-						IsConnect: false,
-					});	*/
+			
 					
 					App.dialog.alert('Set successfully.');
 				  // invoked after connection close
 				};		
 				
 				//init start data
-				
+				*/
 				/*
 				var currentVolume = self.$app.methods.getFromStorage("settingVolume");
 				
@@ -433,7 +404,7 @@
                         CheckedSoundOn: false,
                     });
 				}
-*/
+
 
 				var currentSoundOn = self.$app.methods.getFromStorage("settingSoundOn");
 				
@@ -515,10 +486,7 @@
 							self.$app.dialog.alert('Something wrong.');
 							self.$app.methods.openCam();					
 						 }, 2000);
-						//
-						
-							
-										
+						//	
 					}					
 				});	
 				
@@ -533,7 +501,7 @@
 					self.$setState({
                         WiFiRouterIp: JSON.stringify(response),
                     });						
-				});	
+				});	*/
 				
 				myPage.on('click', '.my-mac-address', self.navigateMacAddress);
 				//myPage.on('click', '.my-wifi-settings', self.navigateIp);

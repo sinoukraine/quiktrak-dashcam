@@ -35,7 +35,7 @@ var App = new Framework7({
     tapHold: false, //enable tap hold events
 	theme: 'auto',
     root: '#app',
-    name: 'DashCam',
+    name: 'QT DashCam',
     id: 'com.quiktrak.dashcam',
 	  touch: {
 		tapHold: true //enable tap hold events
@@ -50,8 +50,21 @@ var App = new Framework7({
     },
     on: {
         init: function() {
+			App.methods.popupIMEI();
+			//App.dialog.alert('Please ');
+            // console.log('App initialized');
+        },
+        pageInit: function() {
+            // console.log('Page initialized');
+        },
+		photoBrowser: {
+			type: 'popup',
+		  }
+    },
+	methods: {     
+		popupIMEI: function(){
 			// Create dynamic Popup
-			var currentHintState = App.methods.getFromStorage("downloadPlayer");
+			var currentHintState = App.methods.getFromStorage("setIMEI");
 			
 			/*App.methods.setInStorage({name: 'currentResolution', data: '1080p'});	
 			App.methods.setInStorage({name: 'settingSoundOn', data: 'on'});	
@@ -72,7 +85,7 @@ var App = new Framework7({
 					}
 				}, function(e){});;*/
 						
-				//if(currentHintState != '1'){
+				if(!currentHintState.length){
 					
 					var dynamicPopup = App.popup.create({
 					  content: '<div class="page open-dashcam-page popup">'+
@@ -80,30 +93,54 @@ var App = new Framework7({
 							'	<div class="navbar-inner">'+
 							'		<div class="title">QT DashCam</div>'+
 							'	</div>'+
-							'</div>'+
-
-							'<div class="toolbar toolbar-bottom">'+
+							'</div>'+										
+						   ' <div class="toolbar toolbar-bottom">'+
+							'    <div class="toolbar-inner">'+
+							 '       <a class="btn-cs" href="#" id="connectCam">'+
+							  '          Ok'+
+							   '     </a>'+
+							   ' </div>'+
+							'</div>'+/*
+							'<div class="toolbar toolbar-bottom">'+ popup-close
 							'	<div class="toolbar-inner item-title open-title">'+
 							'		<a class="link popup-close " href="#">'+
 							'			Ok'+
 							'		</a>'+
 							'	</div>'+
-							'</div>'+
-
+							'</div>'+*/
 							'<div class="page-content">'+
 							'	<div class="block" align="center">'+
 							'		<img src="resources/images/qr.png" width="140px">'+							
 								'</div>'+
-								'<div class="list-block media-list no-hairlines-between no-hairlines sliding active arrow-up">'+
-								'	<ul>'+
+								'<div class="list-block media-list inline-labels no-hairlines-md no-hairlines-between no-hairlines sliding active arrow-up">'+
+								/*'	<ul>'+
 								'		<li class="item-content">'+
-								'			<div class="item-inner">'+
+								'			<div class="item-inner ">'+
 								'				<div class="item-title label">Please enter your IMEI number:</div>'+
-								'				<div class="item-input scan-imei-block">'+
+								
+								'  </div>'+
+								
+								'		</li>'+
+								'	</ul>'+		*/
+								'	<ul>'+	
+								'		<li>'+	
+								'  <div class="item-inner">'+ 
+								'  <div class="item-media">'+	
+								//'	<i class="icon demo-list-icon"></i>'+	
+								'  </div>'+	
+								'	<div class="item-title item-label">IMEI</div>'+
+								'	<div class="item-input-wrap scan-imei-block">'+
+								'	  <input type="text" placeholder="IMEI" name="IMEI" value="" maxlength="200">'+
+								'					<img src="resources/images/barcode.svg" class="barcode-icon scanBarCode">'+
+								//'	  <span class="input-clear-button"></span>'+
+								'	</div>'+
+								'  </div>'+
+	  
+								/*'				<div class="item-input scan-imei-block">'+
 								'					<input type="text" placeholder="IMEI" name="IMEI" value="" maxlength="200" class="">'+
 								'					<img src="resources/images/barcode.svg" class="barcode-icon scanBarCode">'+
-								'				</div>'+
-								'			</div>'+
+								'				</div>'+*/
+								//'			</div>'+
 								'		</li>'+
 								'	</ul>'+								
 								'</div>'+
@@ -114,6 +151,43 @@ var App = new Framework7({
 					  on: {
 						open: function (popup) {
 						  console.log('Popup open');
+						  
+						  $$('body').on('click', '#connectCam', function() {
+							let imei = $$('.open-dashcam-page input').val();
+							
+							if(imei.length){
+								App.methods.setInStorage({name: 'setIMEI', data: imei});
+								App.methods.sendCmd("WIFI,ON");
+								dynamicPopup.close();
+							}else{
+								App.dialog.alert('Please, fill in IMEI field');							
+							}
+						  });
+						  
+						  WifiWizard2.getConnectedSSID().then(response => {	
+							//App.dialog.alert(JSON.stringify(response));	
+
+							let mySSID = JSON.stringify(response);
+							$$('.open-dashcam-page input').val(mySSID);
+							//mySSID.substr(1,mySSID.length -2)
+							/*var pattern = /AUTO-VOX/i;
+							var pattern1 = /M-/i;
+							var pattern2 = /ATGA/i;
+							
+							if ((pattern.test(mySSID) || pattern1.test(mySSID) || pattern2.test(mySSID))) {	
+								self.$setState({
+									CamName: mySSID.substr(1,mySSID.length -2),
+								});			
+							}else{
+								self.$app.preloader.show();
+								setTimeout(function () { // Prepend new list element	
+									self.$app.preloader.hide();							
+									self.$app.dialog.alert('Something wrong.');
+									self.$app.methods.openCam();					
+								 }, 2000);
+								//	
+							}*/					
+						});	
 						  
 						  $$('body').on('click', '.scanBarCode', function() {
 							let input = $$(this).siblings('input');
@@ -143,7 +217,6 @@ var App = new Framework7({
 
 							}
 						});
-
 
 						function openBarCodeReader(input) {
 							//console.log(input);
@@ -181,8 +254,7 @@ var App = new Framework7({
 								App.dialog.alert('Your device does not support this function');
 							}
 						}
-
-						  App.methods.setInStorage({name: 'downloadPlayer', data: '1'});	
+	
 						},
 						opened: function (popup) {
 						  console.log('Popup opened');
@@ -190,22 +262,10 @@ var App = new Framework7({
 					  }
 					});
 					
-					dynamicPopup.open();
-					
-					
+					dynamicPopup.open();					
 			 
-				//}
-			//App.dialog.alert('Please ');
-            // console.log('App initialized');
-        },
-        pageInit: function() {
-            // console.log('Page initialized');
-        },
-		photoBrowser: {
-			type: 'popup',
-		  }
-    },
-	methods: {        
+				}
+		},
         capitalize: function(s) {
             if (typeof s !== 'string') return ''
             return s.charAt(0).toUpperCase() + s.slice(1)
@@ -236,14 +296,14 @@ var App = new Framework7({
             }
             return newArry;
         },		
-		sendCmd: function(){		
-				var self = this;    
+		sendCmd: function(myCMD){	 
+                var imei = App.methods.getFromStorage("setIMEI");
 				
 				let data = {
 						"Majortoken": "a5b4a26a-053b-4fd8-9b90-19f4c6588146",
 						"minortoken": "5f23466a-407c-4b0b-97aa-0914b9e46360",
-						"imei": "0357730090913204",
-						"cmd": "WIFI,ON",
+						"imei": imei,
+						"cmd": myCMD,
 				}
 				
 				let url = "https://api.m2mglobaltech.com/Quiktrak/V1/Device/GprsCommand";
@@ -253,9 +313,16 @@ var App = new Framework7({
 					data, 
 					function (result) {
 						console.log(result);
+						if(result.MajorCode == '000'){
+							
+						}else{
+							App.dialog.alert('IMEI number is incorrect');
+							App.methods.popupIMEI();
+						}
 					}, 
 					function(e){
 						console.log('error = ' + e);
+						App.dialog.alert('Something went wrong');
 					}, 
 					'json'
 					);
@@ -265,8 +332,8 @@ var App = new Framework7({
             var str = '';
             if (name) {
                 switch (name){
-                    case 'downloadPlayer':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.DOWNLOADPLAYER");
+                    case 'setIMEI':
+                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.SETIMEI");
                         if(str) {
                             ret = JSON.parse(str);
                         }
@@ -392,8 +459,8 @@ var App = new Framework7({
             let self = this;
             if (typeof(params) == 'object' && params.name && params.data) {
                 switch (params.name){
-                    case 'downloadPlayer':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.DOWNLOADPLAYER", JSON.stringify(params.data));
+                    case 'setIMEI':
+                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETIMEI", JSON.stringify(params.data));
                     break; 
                     case 'settingSurveillance':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGSURVEILLANCE", JSON.stringify(params.data));
