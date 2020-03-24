@@ -559,7 +559,7 @@ var App = new Framework7({
 		getGPSData: function(resolve, reject){
 			
 			return new Promise((resolve, reject) => {				
-				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+				window.cordova.plugin.ftp.connect('192.168.43.1:7000', 'admin', 'admin', function(ok) {
 					
 					/*window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/GENERAL/', function(result) {
 								//self.$app.dialog.alert(JSON.stringify(data));
