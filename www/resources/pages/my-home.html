@@ -129,7 +129,7 @@ dashcam and click the LIVE button.</p>
 				var self = this;    
 				var page = page.$el.find('.page-content'); 
 				
-				self.getGPS();
+				
 				
 				/*
 				//self.$app.preloader.show();
@@ -172,8 +172,8 @@ dashcam and click the LIVE button.</p>
 				
 				myPage.on('click', '#connectCam', function(e){
 					//self.feedCommand('FFF0000001000000800F0000');		
-
-					App.dialog.alert('This feature is in development.');
+					self.getGPS();
+					//App.dialog.alert('This feature is in development.');
 				});
 				
 
