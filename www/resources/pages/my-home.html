@@ -102,14 +102,34 @@ dashcam and click the LIVE button.</p>
 								self.$app.preloader.hide();		
 								self.$app.dialog.alert('Please check DashCam connection and turn on location permission on your device');						
 							});
-			},
+			},		
+            getGPS: function(){					
+				var self = this;  
+				
+                self.$app.preloader.show();
+				self.$app.methods.getGPSData().then(response => {
+					/*self.$app.methods.setInStorage({name: 'mediaVideoList', data: response});
+                    self.$setState({
+                        ShowVideosList: true,
+                    });
+                    self.$app.utils.nextFrame(()=>{
+                        self.initVideosList(response);
+                    });	*/					
+					self.$app.preloader.hide(); 	
+					self.$app.dialog.alert(response);
+				}, error => {
+					self.$app.preloader.hide(); 
+					console.log('Please check connect to Dashcam');
+					self.$app.dialog.alert('gps err');
+				});
+			}
 		},
         on: {
             pageInit: function (e, page) {  
 				var self = this;    
 				var page = page.$el.find('.page-content'); 
 				
-				
+				self.getGPS();
 				
 				/*
 				//self.$app.preloader.show();

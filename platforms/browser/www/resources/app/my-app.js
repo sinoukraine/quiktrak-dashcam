@@ -556,6 +556,33 @@ var App = new Framework7({
 			let error = function (e) { alert('Something went wrong:' + e); };
 			window.permissions.hasPermission(window.permissions.WRITE_EXTERNAL_STORAGE, success, error);
 		},*/
+		getGPSData: function(resolve, reject){
+			
+			return new Promise((resolve, reject) => {				
+				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+					
+					/*window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/GENERAL/', function(result) {
+								//self.$app.dialog.alert(JSON.stringify(data));
+								resolve(result);
+								if (data == 1) {
+									//console.info("ftp: upload finish");
+								} else {
+									//console.debug("ftp: upload percent=" + percent * 100 + "%");
+								}
+							}, function(error) {
+								reject();
+								self.$app.dialog.alert('error: ' + JSON.stringify(error));
+								console.error("ftp: ls error=" + error);
+							});*/
+							
+					resolve(ok);
+				}, function(error) {
+					console.error("ftp: connect error=" + error);
+					reject();
+					//App.dialog.alert("ftp: connect error=" + error);
+				});
+			});
+		},
 		downloadMedia: function(date, type, resolve, reject){ 		
 			
 			var folderDate = date.substr(0, 10);
