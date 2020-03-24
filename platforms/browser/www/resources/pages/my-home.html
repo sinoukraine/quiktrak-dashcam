@@ -66,8 +66,8 @@ dashcam and click the LIVE button.</p>
 					//macAddress = macAddress.substr(1,macAddress.length -2);
 					//App.dialog.alert(self.phoneMacAddress);
 					self.socket.open(
-					  "test.m2mdata.co",
-					  40500,
+					  "192.168.43.1",
+					  7000,
 					  function() {		
 						//self.writeToCam("FFF0275D0100000010010006" + macAddress);
 						App.dialog.alert("connected");
@@ -120,7 +120,7 @@ dashcam and click the LIVE button.</p>
 				}, error => {
 					self.$app.preloader.hide(); 
 					console.log('Please check connect to Dashcam');
-					self.$app.dialog.alert('gps err');
+					self.$app.dialog.alert(error);
 				});
 			}
 		},
@@ -131,7 +131,7 @@ dashcam and click the LIVE button.</p>
 				
 				
 				
-				/*
+				
 				//self.$app.preloader.show();
 				self.socket = new Socket();	
 				
@@ -141,7 +141,7 @@ dashcam and click the LIVE button.</p>
 					  let formattedCode = ('0' + code).slice(-2);
 					  return acc + formattedCode;
 					}, '');
-					//App.dialog.alert(convertedData);
+					App.dialog.alert(convertedData);
 					self.parseHex(convertedData);
 					
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
@@ -158,7 +158,7 @@ dashcam and click the LIVE button.</p>
 					App.dialog.alert('Operation success');
 				  // invoked after connection close
 				};		
-				*/
+				
 				
 				var myPage = $$('.cam');
 				
@@ -171,8 +171,8 @@ dashcam and click the LIVE button.</p>
 				});*/
 				
 				myPage.on('click', '#connectCam', function(e){
-					//self.feedCommand('FFF0000001000000800F0000');		
-					self.getGPS();
+					self.feedCommand('FFF0000001000000800F0000');		
+					//self.getGPS();
 					//App.dialog.alert('This feature is in development.');
 				});
 				
