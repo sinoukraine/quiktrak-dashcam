@@ -135,14 +135,16 @@ dashcam and click the LIVE button.</p>
 				//self.$app.preloader.show();
 				self.socket = new Socket();	
 				
-				self.socket.onData = function(data) {				
+				self.socket.onData = function(data) {	
+					App.dialog.alert(data);			
 					let convertedData = data.reduce((acc, item) => {
+					App.dialog.alert(item);
 					  let code = item.toString(16);
 					  let formattedCode = ('0' + code).slice(-2);
 					  return acc + formattedCode;
 					}, '');
-					App.dialog.alert(convertedData);
-					self.parseHex(convertedData);
+					//App.dialog.alert(convertedData);
+					//self.parseHex(convertedData);
 					
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 				};
