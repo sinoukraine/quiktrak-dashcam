@@ -48,7 +48,7 @@
     <preference name="phonegap-version" value="cli-9.0.0" />
 
     <preference name="android-build-tool" value="gradle" />
-    <plugin name="phonegap-plugin-push" source="npm" spec="2.1.2">
+    <!--<plugin name="phonegap-plugin-push" source="npm" spec="2.1.2">
         <variable name="SENDER_ID" value="1097482483564" />
     </plugin>
     <platform name="android">
@@ -56,7 +56,7 @@
     </platform>
     <platform name="ios">
       <resource-file src="GoogleService-Info.plist" />
-    </platform>
+    </platform>-->
     
     <!-- <plugin name="cordova-plugin-console" source="npm" spec="1.0.7" /> -->
     <plugin name="cordova-plugin-statusbar" source="npm" spec="2.1.3" />
