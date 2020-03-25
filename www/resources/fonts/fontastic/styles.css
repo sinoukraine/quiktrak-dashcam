@@ -1,19 +1,19 @@
 @charset "UTF-8";
 
 @font-face {
-  font-family: "untitled-font-10";
-  src:url("fonts/untitled-font-10.eot");
-  src:url("fonts/untitled-font-10.eot?#iefix") format("embedded-opentype"),
-    url("fonts/untitled-font-10.woff") format("woff"),
-    url("fonts/untitled-font-10.ttf") format("truetype"),
-    url("fonts/untitled-font-10.svg#untitled-font-10") format("svg");
+  font-family: "blink";
+  src:url("fonts/blink.eot");
+  src:url("fonts/blink.eot?#iefix") format("embedded-opentype"),
+    url("fonts/blink.woff") format("woff"),
+    url("fonts/blink.ttf") format("truetype"),
+    url("fonts/blink.svg#blink") format("svg");
   font-weight: normal;
   font-style: normal;
 
 }
 
 [data-icon]:before {
-  font-family: "untitled-font-10" !important;
+  font-family: "blink" !important;
   content: attr(data-icon);
   font-style: normal !important;
   font-weight: normal !important;
@@ -27,7 +27,7 @@
 
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
-  font-family: "untitled-font-10" !important;
+  font-family: "blink" !important;
   font-style: normal !important;
   font-weight: normal !important;
   font-variant: normal !important;
@@ -38,72 +38,132 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-about:before {
+.icon-header-alarm:before {
   content: "\61";
 }
-.icon-after:before {
+.icon-header-alarm2:before {
   content: "\62";
 }
-.icon-basket:before {
+.icon-header-apply:before {
   content: "\63";
 }
-.icon-busket:before {
+.icon-header-arrow-back:before {
   content: "\64";
 }
-.icon-cam:before {
+.icon-header-delete:before {
   content: "\65";
 }
-.icon-close:before {
+.icon-header-edit:before {
   content: "\66";
 }
-.icon-cancel:before {
+.icon-header-menu:before {
   content: "\67";
 }
-.icon-done:before {
+.icon-header-pause:before {
   content: "\68";
 }
-.icon-download:before {
+.icon-header-play:before {
   content: "\69";
 }
-.icon-faq:before {
+.icon-header-refresh:before {
   content: "\6a";
 }
-.icon-gallery:before {
+.icon-menu-alarms:before {
   content: "\6b";
 }
-.icon-info:before {
+.icon-menu-home:before {
   content: "\6c";
 }
-.icon-left:before {
+.icon-menu-profile:before {
   content: "\6d";
 }
-.icon-speed:before {
+.icon-menu-signout:before {
   content: "\6e";
 }
-.icon-sort:before {
-  content: "\6f";
-}
-.icon-setting-2:before {
+.icon-other-arrow:before {
   content: "\70";
 }
-.icon-setting:before {
+.icon-other-layers:before {
   content: "\71";
 }
-.icon-right:before {
+.icon-other-remove:before {
   content: "\72";
 }
-.icon-pass:before {
+.icon-status-address:before {
   content: "\73";
 }
-.icon-note:before {
+.icon-status-cell:before {
   content: "\74";
 }
-.icon-menu:before {
+.icon-status-date:before {
   content: "\75";
 }
-.icon-main:before {
+.icon-status-engine-hours:before {
   content: "\76";
 }
-.icon-loc:before {
+.icon-status-geofence:before {
   content: "\77";
+}
+.icon-status-gps:before {
+  content: "\78";
+}
+.icon-status-power:before {
+  content: "\7a";
+}
+.icon-status-stationary-time:before {
+  content: "\41";
+}
+.icon-status-voltage:before {
+  content: "\42";
+}
+.icon-status-speed:before {
+  content: "\43";
+}
+.icon-status-temperature:before {
+  content: "\44";
+}
+.icon-status-battery:before {
+  content: "\45";
+}
+.icon-status-fuel:before {
+  content: "\46";
+}
+.icon-status-circle:before {
+  content: "\47";
+}
+.icon-other-eye:before {
+  content: "\48";
+}
+.icon-status-log:before {
+  content: "\79";
+}
+.icon-status-heading:before {
+  content: "\49";
+}
+.icon-other-call:before {
+  content: "\4a";
+}
+.icon-sort:before {
+  content: "\4b";
+}
+.icon-menu-support:before {
+  content: "\4c";
+}
+.icon-other-report-theft:before {
+  content: "\4d";
+}
+.icon-other-user-manual:before {
+  content: "\6f";
+}
+.icon-hint:before {
+  content: "\4e";
+}
+.icon-other-menu-geofence:before {
+  content: "\4f";
+}
+.icon-other-menu:before {
+  content: "\50";
+}
+.icon-other-route:before {
+  content: "\51";
 }

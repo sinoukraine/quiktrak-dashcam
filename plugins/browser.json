@@ -54,6 +54,9 @@
         },
         "kaiquecruz-phonegap-plugin-barcodescanner-custom": {
             "PACKAGE_NAME": "com.quiktrak.quiktrak-dashcam"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.rveye.app"
         }
     },
     "dependent_plugins": {

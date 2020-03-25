@@ -1,28 +1,25 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget 
-	version="1.0.0" 
-	android-versionCode="1" 
-	ios-CFBundleVersion="1"
-	id="com.quiktrak.quiktrak-dashcam" 
-	xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android" defaultlocale="en-US" ><!--com.dashcam.app  xmlns:hardwareAccelerated="true"-->
+  version="1.0.1"
+  android-versionCode="1" 
+  ios-CFBundleVersion="1" 
+  id="com.rveye.app" 
+  xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android" defaultlocale="en-US" >
     <name>QT DashCam</name>
     <description>
-        QT DashCam
+       DashCam Tracker
     </description>
-    <author email="info@atga.com.au" href="http://quiktrak.com.au">
-        Sinopacific Co Limited
+    <author email="support@sinopacific.co" href="http://sinopacific.co">
+       Sinopacific Co Limited
     </author>
-    <content src="index.html" />	
-	<access origin="*"  allows-arbitrary-loads-for-media='true' allows-arbitrary-loads-in-web-content='true' allows-local-networking='true' />
-	
+    <content src="index.html" />
+    <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-	<allow-navigation href="http://192.168.43.1/*"/>	
-	<allow-navigation href="ftp://192.168.43.1/*"/>
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
@@ -31,12 +28,12 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <platform name="android">
-  	  <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
-  	      <application android:usesCleartextTraffic="true" />
-  	  </edit-config>
-  	</platform>
-	
-    <preference name="loadUrlTimeoutValue" value="700000" />
+	  <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
+	      <application android:usesCleartextTraffic="true" />
+	  </edit-config>
+	</platform>
+
+    <preference name="load-url-timeout" value="140000" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="Orientation" value="portrait" />
     <preference name="android-minSdkVersion" value="19" />
@@ -47,65 +44,34 @@
     <preference name="StatusBarOverlaysWebView" value="false" />
     <!-- <preference name="StatusBarBackgroundColor" value="#333" /> -->
     <preference name="StatusBarStyle" value="blacktranslucent" />
+    <!-- <preference name="phonegap-version" value="cli-7.1.0" /> -->
     <preference name="phonegap-version" value="cli-9.0.0" />
-	
-	<!--<preference name="Fullscreen" value="false" />
-	<preference name="AllowInlineMediaPlayback" value="true"/>-->
-	<preference name="AndroidPersistentFileLocation" value="Internal" /><!--Compatibility-->		
-    <plugin name="cordova-plugin-statusbar" source="npm" spec="2.1.3" /> <!-- needed -->  
-	
-	
-	    
-    <!--
-    <plugin name="phonegap-plugin-push" source="npm" spec="2.1.2">  
+
+    <preference name="android-build-tool" value="gradle" />
+    <plugin name="phonegap-plugin-push" source="npm" spec="2.1.2">
         <variable name="SENDER_ID" value="1097482483564" />
     </plugin>
     <platform name="android">
-      <resource-file src="google-services.json" target="google-services.json" />
+      <resource-file src="google-services.json" target="app/google-services.json" />
     </platform>
     <platform name="ios">
-      <resource-file src="GoogleService-Info.plist" /> 
+      <resource-file src="GoogleService-Info.plist" />
     </platform>
-	-->
     
-	
-    <!--ios<plugin name="cordova-plugin-console" source="npm" spec="1.0.7" />--><!-- needed -->  
-	
-     <plugin name="kaiquecruz-phonegap-plugin-barcodescanner-custom" source="npm" />       
-	<plugin name="cordova-plugin-file" source="npm" />  
-	<plugin name="cordova-plugin-file-opener2" source="npm" />
-    <plugin name="cordova-plugin-device" source="npm" spec="2.0.2" /><!-- needed -->  
-    <plugin name="cordova-plugin-buildinfo" source="npm" spec="2.0.2" />    <!-- needed -->  
-    <plugin name="cordova-plugin-dialogs" source="npm" spec="1.2.1" /><!-- needed -->  
-    <plugin name="cordova-plugin-whitelist" source="npm" spec="1.2.1" /><!-- needed -->  
-    <plugin name="cordova-plugin-splashscreen" source="npm" spec="5.0.2" /><!-- needed -->  
-    <plugin name="cordova-plugin-camera" source="npm" spec="4.0.3"  /><!-- needed -->  
-    <plugin spec="https://github.com/phonegap/phonegap-mobile-accessibility.git" source="git" /><!-- needed -->  
+    <!-- <plugin name="cordova-plugin-console" source="npm" spec="1.0.7" /> -->
+    <plugin name="cordova-plugin-statusbar" source="npm" spec="2.1.3" />
+    <plugin name="cordova-plugin-device" source="npm" spec="2.0.2" />
+    <plugin name="cordova-plugin-buildinfo" source="npm" spec="2.0.2" />    
+    <plugin name="cordova-plugin-dialogs" source="npm" spec="1.2.1" />
+    <plugin name="cordova-plugin-whitelist" source="npm" spec="1.2.1" />
+    <plugin name="cordova-plugin-splashscreen" source="npm" spec="5.0.2" />
+    <plugin name="cordova-plugin-camera" source="npm" spec="4.0.3"  />
+    <plugin spec="https://github.com/phonegap/phonegap-mobile-accessibility.git" source="git" />
+<!--     <plugin name="cordova-android-support-gradle-release" source="npm" /> -->
+<!--     <plugin name="cordova-android-firebase-gradle-release" source="npm" /> -->
     <plugin name="cordova-launch-review" source="npm" spec="3.1.1" />
-	<plugin name="cordova-plugin-advanced-http" source="npm" spec="2.0.9" />
-	<plugin name="cordova-plugin-android-permissions" source="npm"  spec="1.0.2" />
-	<!--<plugin name="com.tlantic.plugins.socket" source="npm" spec="0.3.2" />-->
-	<!--ios<plugin spec="https://github.com/Tlantic/cdv-socket-plugin"  source="git"  />	-->
-	<plugin spec="https://github.com/blocshop/sockets-for-cordova"  source="git"  />
-	<plugin spec="https://github.com/mohamed-salah/MacAddress.git"  source="git"  />
-		
-	
-	
-	<plugin spec="https://github.com/parsonsmatt/WifiWizard.git"  source="git"  />	
-    <!--<plugin spec="https://github.com/gitawego/cordova-screenshot.git" source="git"  />-->
-    <!--<plugin spec="https://github.com/nchutchind/cordova-plugin-streaming-media" source="git"  />-->
-	<plugin spec="https://github.com/dawsonloudon/VideoPlayer.git"  source="git" />
-    <!--<plugin spec="https://github.com/jaeger25/Html5Video.git" source="git"  />-->
-    <plugin spec="https://github.com/apache/cordova-plugin-file-transfer" source="git"  />
-    <plugin spec="https://github.com/alatvanas9/cordova-mediascanner-plugin" source="git"  />
-    <plugin spec="https://github.com/tripflex/WifiWizard2#e38a734" source="git"  />
-    <plugin spec="https://github.com/cdibened/PDFViewer.git" source="git"  />
-    <!--<plugin spec="https://github.com/xfally/cordova-plugin-ftp" source="git"  />-->
-	<plugin name="cordova-plugin-ftp" source="npm" spec="1.1.1" />
-	
-   <!-- <plugin spec="https://github.com/disono/cordova-rtmp-rtsp-stream" source="git"  />-->
-	
-	
+    <plugin name="cordova-plugin-inappbrowser" source="npm" spec="3.0.0"  />
+    
 
     <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
         <string>You can take a photo of your asset using camera and upload it into the app</string>
@@ -122,6 +88,7 @@
     <config-file platform="ios" target="*-Info.plist" parent="ITSAppUsesNonExemptEncryption">
         <false/>
     </config-file>  
+
 
     <platform name="android">
         <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />
