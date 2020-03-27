@@ -1769,3 +1769,40 @@ tossing
 		padding-right: 5px;
 	}
 	
+	.connect_block_top img{
+		text-align: center;
+		width: 100%;
+		max-width: 140px;
+	}
+	
+	.connection-info{
+		color: #e3072b;
+		font-weight: bold;
+		margin: 0px;
+	}
+	
+	.note-info-label{
+		color: #757575;
+		font-size: 12px;
+	}
+	
+	.note-info-text{
+		color: #212121;
+		font-size: 14px;
+	}
+	
+	.connect-block{
+		bottom: 0px;
+		position: absolute;
+		padding: 20px;
+		width: calc(100% - 40px);
+		height: 50px;
+	}
+	
+	.color-green{
+		color: rgb(29,188,12);
+	}
+	
+	.bg-green{
+		background-color:rgb(29,188,12);
+	}
