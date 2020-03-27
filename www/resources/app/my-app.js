@@ -4470,6 +4470,8 @@ $$(document).on('click', '#btnConnect', function() {
 								$$(document).find('.connection-info').addClass('color-green');
 								$$(document).find('#btnConnect').addClass('display-none');
 								$$(document).find('#btnGoToSD').removeClass('display-none');
+								$$(document).find('.connection-note').removeClass('display-none');
+								$$(document).find('.connection-note-error').addClass('display-none');
 								clearInterval(intervalForReply);
 							});
 						}, 10000);	

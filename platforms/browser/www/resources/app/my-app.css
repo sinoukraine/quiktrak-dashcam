@@ -1799,10 +1799,22 @@ tossing
 		height: 50px;
 	}
 	
+	.color-red{
+		color: #e3072b;
+	}
+	
 	.color-green{
 		color: rgb(29,188,12);
 	}
 	
+	.bg-red{
+		background-color: #e3072b;
+	}
+	
 	.bg-green{
 		background-color:rgb(29,188,12);
+	}
+	
+	.display-none{
+		display: none;
 	}
