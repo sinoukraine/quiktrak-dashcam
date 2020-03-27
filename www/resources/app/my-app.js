@@ -694,15 +694,60 @@ $$(document).on('click', '.item_folder', function(){
 $$(document).on('click', '.dwnl-file', function(){ 
     TargetAsset.FILE_NAME = $$(this).data("name");  
 	downloadFile(TargetAsset.FILE_NAME, TargetAsset.FOLDER_TYPE).then(response => {					
-					App.hidePreloader(); 		
-					$$('.view-main #demo-inline-progressbar').addClass('display-none');
+					//App.hidePreloader(); 		
+					$$('#demo-inline-progressbar').addClass('display-none');
 					App.alert('File uploaded');
 					showMediaFile(response);
 				}, error => {
-					App.hidePreloader(); 
+					//App.hidePreloader(); 
                     App.alert('File not uploaded. Try again');
 				});
 });
+
+function showMediaFile(fileName){
+					
+				
+				var fullPathToFilePrivate = 'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/'+fileName;
+				var externalDirEntry;
+				
+				window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function success(dirEntry) {
+					externalDirEntry = dirEntry;
+				},function (e) {
+					self.$app.dialog.alert('error dir '+JSON.stringify(e));
+				});
+				
+				window.resolveLocalFileSystemURL(fullPathToFilePrivate, function onSuccess(fileEntry)
+				{
+					
+					fileEntry.copyTo(externalDirEntry, 'myfile.mp4',
+						function(e)
+						{
+							viewFile(e.nativeURL);
+						},
+						function()
+						{
+							App.alert('copying FAILED');
+						});
+				}, function (e) { App.alert(JSON.stringify(e)); });
+			}
+			
+			function viewFile(url){
+				if (cordova && cordova.plugins.fileOpener2) {
+					cordova.plugins.fileOpener2.open(
+						url, // You can also use a Cordova-style file uri: cdvfile://localhost/persistent/Downloads/starwars.pdf
+						'video/mp4',
+						{
+							error: function (e) {
+								App.alert('Error status: ' + e.status + ' - Error message: ' + e.message);
+							},
+							success: function () {
+								
+								console.log('file opened successfully');
+							}
+						}
+					);
+				}
+			}
 
 function downloadFile(date, type, resolve, reject){ 		
 			
@@ -750,10 +795,12 @@ function downloadFile(date, type, resolve, reject){
 										$$('.view-main #demo-inline-progressbar').removeClass('display-none');
 										//$$('.view-main #demo-inline-progressbar').attr('data-progress', parseInt((result * 100), 10).toString(10));
 										
-										var pcnt = +result * 100;
+										var progress = +result * 100;
 										
 										//App.progressbar.set('#demo-inline-progressbar', pcnt);
-										
+										var progressbar = $$('#demo-inline-progressbar');
+										App.setProgressbar(progressbar, progress);
+	
 										if (result == 1) {
 											resolve(fileName);
 										} else {
