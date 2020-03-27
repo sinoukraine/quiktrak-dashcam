@@ -72,7 +72,7 @@
     <plugin name="cordova-launch-review" source="npm" spec="3.1.1" />
     <plugin name="cordova-plugin-inappbrowser" source="npm" spec="3.0.0"  />
     <plugin name="cordova-plugin-ftp" source="npm" spec="1.1.1" />
-	
+	<plugin name="cordova-open-native-settings" source="npm" spec="1.5.2" />
 
     <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
         <string>You can take a photo of your asset using camera and upload it into the app</string>
