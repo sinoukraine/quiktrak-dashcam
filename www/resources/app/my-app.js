@@ -16,6 +16,7 @@ window.NULL = null;
 window.COM_TIMEFORMAT = 'YYYY-MM-DD HH:mm:ss';
 window.COM_TIMEFORMAT2 = 'YYYY-MM-DDTHH:mm:ss';
 window.COM_TIMEFORMAT3 = 'YYYY-MM-DDTHH:MM';
+month_names_short = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 UTCOFFSET = moment().utcOffset();
 
 function setUserinfo(user){localStorage.setItem("COM.QUIKTRAK.LIVE.USERINFO", JSON.stringify(user));}
@@ -420,52 +421,25 @@ virtualAssetList = App.virtualList('.assets_list', {
             ret +=      '<div class="item-media">'+assetImg+'</div>';
             ret +=      '<div class="item-inner">';
             ret +=          '<div class="item-title-row">';
-            ret +=              '<div class="item-title">' + item.Name + '</div>';
+            ret +=              '<div class="item-title line-height-3">' + item.IMEI + '</div>';
             ret +=              '<div class="item-after">';
-           /* ret +=                  '<i id="geolock-state'+item.IMEI+'" class="icon-other_lock '+assetFeaturesStatus.geolock.state+'"></i>';*/
-            ret +=                  '<i id="signal-state'+item.IMEI+'" class="f7-icons icon-status-cell '+assetFeaturesStatus.GSM.state+'"></i>';
-            ret +=                  '<i id="satellite-state'+item.IMEI+'" class="f7-icons icon-status-gps '+assetFeaturesStatus.GPS.state+'"></i>';
+            ret +=                  '<i id="signal-state'+item.IMEI+'" class="f7-icons line-height-3 icon-live-signal '+assetFeaturesStatus.GSM.state+'"></i>';
+            ret +=                  '<i id="satellite-state'+item.IMEI+'" class="f7-icons line-height-3 icon-live-satellite '+assetFeaturesStatus.GPS.state+'"></i>';
             ret +=              '</div>';
             ret +=          '</div>';
-            ret +=          '<div id="status-state'+item.IMEI+'" class="item-subtitle '+assetFeaturesStatus.status.state+'"><i class="f7-icons icon-status-circle icon-status-fix"></i><span id="status-value'+item.IMEI+'">'+assetFeaturesStatus.status.value+'</span></div>';
-            /*ret +=          '<div class="item-text">';
-            ret +=              '<div class="row no-gutter">';                            
-                                if (assetFeaturesStatus.speed) {
-            ret +=                  '<div class="col-50">';
-            ret +=                     '<i class="f7-icons color-gray icon-status-speed asset_list_icon"></i>';
-            ret +=                     '<span id="speed-value'+item.IMEI+'">'+assetFeaturesStatus.speed.value+'</span>'; 
-            ret +=                  '</div>';
-                                }
-                                if (assetFeaturesStatus.voltage) {
-            ret +=                  '<div class="col-50">';
-            ret +=                     '<i class="f7-icons color-gray icon-status-voltage asset_list_icon"></i>';           
-            ret +=                     '<span id="voltage-value'+item.IMEI+'">'+assetFeaturesStatus.voltage.value+'</span>';
-            ret +=                  '</div>';
-                                }  
-                                if (assetFeaturesStatus.battery) {
-            ret +=                  '<div class="col-50">';
-            ret +=                     '<i class="f7-icons color-gray icon-status-battery asset_list_icon"></i>';
-            ret +=                     '<span id="battery-value'+item.IMEI+'">'+assetFeaturesStatus.battery.value+'</span>';
-            ret +=                  '</div>';
-                                }  
-                                if (assetFeaturesStatus.temperature) {
-            ret +=                  '<div class="col-50">';
-            ret +=                     '<i class="f7-icons color-gray icon-status-temperature asset_list_icon"></i>';
-            ret +=                     '<span id="temperature-value'+item.IMEI+'">'+assetFeaturesStatus.temperature.value+'</span>';
-            ret +=                  '</div>';
-                                }
-                                if (assetFeaturesStatus.fuel) {
-            ret +=                  '<div class="col-50">';
-            ret +=                     '<i class="f7-icons color-gray icon-status-fuel asset_list_icon"></i>';
-            ret +=                     '<span id="fuel-value'+item.IMEI+'">'+assetFeaturesStatus.fuel.value+'</span>'; 
-            ret +=                  '</div>';
-                                }           
-            ret +=              '</div>';
-            ret +=          '</div>';*/
+            ret +=          '<div id="status-state'+item.IMEI+'" class="item-subtitle '+assetFeaturesStatus.status.state+'"><i class="f7-icons font-size-16 icon-live-address text-color-lightgray vertical-align-middle color-light-grey"></i><span data-id="address-value-'+item.IMEI+'" class="size-12 vertical-align-middle margin-left-half text-color-black address-line"></span></div>';
+            
             ret +=      '</div>';                   
             ret +=  '</li>';
 
-
+			let latlng = {
+                lat: POSINFOASSETLIST[item.IMEI].posInfo.lat,
+                lng: POSINFOASSETLIST[item.IMEI].posInfo.lng
+            };
+								
+			Protocol.Helper.getAddressByGeocoder(latlng, function(address) {
+				$("[data-id='address-value-"+item.IMEI+"']").text(address);
+			});
             
         }else{
             ret +=  '<li class="item-link item-content item_asset" data-imei="' + item.IMEI + '" data-id="' + item.Id + '" title="No data">';                    
@@ -613,9 +587,9 @@ $$('#menu li').on('click', function () {
                 loadAlarmsAssetsPage();      
             }
             break; 
-        /*case 'menuSupport':                    
-            loadPageSupport(); 
-            break;  */   
+		case 'menuConnect':
+            loadConnectAssetsPage();           
+            break; 
         case 'menuUserManual':
             showUserGuide();
             break;
@@ -699,6 +673,130 @@ $$('.assets_list').on('click', '.item_asset', function(){
 
     loadStatusPage();
 });
+
+
+$$(document).on('click', '.item_connect', function(){ 
+	TargetAsset.ASSET_IMEI = $$(this).data("imei");  
+    TargetAsset.ASSET_ID = $$(this).data("id"); 
+    TargetAsset.ASSET_IMG = '';        
+    var assetList = getAssetList();  
+    var asset = assetList[TargetAsset.ASSET_IMEI];  
+
+    loadConnectPage();
+});
+
+$$(document).on('click', '.item_folder', function(){ 
+	TargetAsset.ASSET_IMEI = $$(this).data("imei");  
+    TargetAsset.ASSET_ID = $$(this).data("id"); 
+    TargetAsset.ASSET_IMG = '';        
+    var assetList = getAssetList();  
+    var asset = assetList[TargetAsset.ASSET_IMEI];  
+
+    loadFilesPage();
+});
+
+$$(document).on('click', '.dwnl-file', function(){ 
+	let fileName = $(this).attr('data-name');
+	/*downloadFile(fileName, folderType).then(response => {	
+				
+					self.$app.preloader.hide(); 		
+					$$('.view-main #demo-inline-progressbar').addClass('display-none');
+					self.$app.alert('File uploaded');
+					self.showMediaFile(response);
+				}, error => {
+					self.$app.preloader.hide(); 
+					console.log('Please check connect to Dashcam');
+                    //self.$app.alert('Something wrong.');
+				});*/
+});
+/*
+function downloadFile(date, type, resolve, reject){ 		
+			
+			var folderDate = date.substr(0, 10);
+			var folder = type + "_" + folderDate;
+			var fileName = date;			
+			
+			return new Promise((resolve, reject) => {
+				
+				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+						
+						var permissions = cordova.plugins.permissions;
+						
+						permissions.hasPermission(permissions.MANAGE_EXTERNAL_STORAGE, 
+							function(status) {
+								downloadMediaFile();
+							}, 
+							function() {
+								permissions.requestPermission(permissions.MANAGE_EXTERNAL_STORAGE, function(b) {
+									downloadMediaFile();
+								});
+							}
+						);
+						
+						function downloadMediaFile(){
+							var networkState = navigator.connection.type;
+							if (networkState == Connection.NONE) {
+								return;
+							} else {
+								
+								window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
+
+								function fileSystemSuccess(fileSystem) {
+									
+									
+									var rootdir = fileSystem.root;
+									var fp = rootdir.toURL(); 
+									
+									
+									var lp = "file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/" + fileName;//'file:///storage/emulated/0/Download/' + fileName;'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/files/' + folder + '/' + fileName;
+									
+									var rp = '/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+folderDate+'/'+fileName;
+									
+									window.cordova.plugin.ftp.download(lp, rp, function(result) {												
+										$$('.view-main #demo-inline-progressbar').removeClass('display-none');
+										//$$('.view-main #demo-inline-progressbar').attr('data-progress', parseInt((result * 100), 10).toString(10));
+										
+										var pcnt = +result * 100;
+										
+										App.progressbar.set('#demo-inline-progressbar', pcnt);
+										
+										if (result == 1) {
+											resolve(fileName);
+										} else {
+											//App.alert("ftp: dwnl=" + result * 100 + "%");
+										}
+									}, function(error) {
+										console.error("ftp: ls error=" + error);									
+										App.alert("Something went wrong");
+									});
+								}
+
+								function onDirectorySuccess(parent) {
+									// Directory created successfuly
+									//App.alert('dir success');
+								}
+
+								function onDirectoryFail(error) {
+									//Error while creating directory
+									App.alert("Unable to create new directory: " + error.code);
+								}
+
+								function fileSystemFail(evt) {
+									//Unable to access file system
+									App.alert(evt.target.error.code);
+								}
+							}
+						}
+						
+						console.info("ftp: connect ok=" + ok);
+							
+
+					}, function(error) {
+						console.error("ftp: connect error=" + error);
+						App.alert("ftp: connect error=" + error);
+					});				
+				});   			
+}*/
 
 $$(document).on('change', '.leaflet-control-layers-selector[type="radio"]', function(){    
     if (TargetAsset.ASSET_IMEI) {        
@@ -1402,6 +1500,303 @@ App.onPageInit('alarms.assets', function (page) {
        
 
 });
+
+
+
+
+App.onPageInit('connect.assets', function (page) {
+
+    var assetListContainer = $$(page.container).find('.connectAssetList');
+    var searchForm = $$('.searchbarConnectAssets');
+    var assetList = getAssetList();   
+    var newAssetlist = [];
+    var keys = Object.keys(assetList);
+
+    $.each(keys, function( index, value ) {    
+        assetList[value].Selected = false;    
+        newAssetlist.push(assetList[value]);       
+    });
+    
+    newAssetlist.sort(function(a,b){
+        if(a.Name < b.Name) return -1;
+        if(a.Name > b.Name) return 1;
+        return 0;
+    }); 
+
+    //console.log(newAssetlist);
+    
+    var virtualConnectAssetsList = App.virtualList('.connectAssetList', { 
+        items: newAssetlist,
+        height: 88,
+        searchAll: function (query, items) {           
+            var foundItems = [];        
+            for (var i = 0; i < items.length; i++) {           
+                // Check if title contains query string
+                if (items[i].Name.toLowerCase().indexOf(query.toLowerCase().trim()) >= 0) foundItems.push(i);
+            }
+            // Return array with indexes of matched items
+            return foundItems; 
+        },         
+        /*searchByItem: function (query, index, item) {
+            // Check if title contains query string
+            //if (item.title.indexOf(query.trim()) >= 0) {
+            if (item.Name.toLowerCase().indexOf(query.toLowerCase().trim()) >= 0) {
+                return true; //item matches query
+            }
+            else {
+                return false; //item doesn't match
+            }
+        },*/
+        renderItem: function (index, item) {
+            var ret = '';
+            //var assetImg = getAssetImg(item, {'assetList':true}); 
+			var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
+			
+			
+            ret +=  '<li data-index="'+index+'" class=" item_connect">';
+            //ret +=      '<a href="./resources/pages/my-mac-address">';
+            ret +=      '<label class="label-checkbox item-content no-fastclick">';
+              ret +=          '<div class="item-media">'+assetImg+'</div>';
+            ret +=          '<div class="item-inner">';
+            ret +=              '<div class="item-title-row">';
+            ret +=                  '<div class="item-title ">' + item.IMEI + '</div>';
+            ret +=                  '<div class="item-after">';
+            ret +=                      '<i class="material-icons md-36">keyboard_arrow_right</i>';
+            ret +=                  '</div>';
+            ret +=              '</div>';
+            ret +=          '</div>';
+            ret +=      '</label>';
+            //ret +=      '</a>';
+            ret +=  '</li>';
+            
+            return  ret;
+        }
+    }); 
+
+
+
+    var searchbarAlarmsAssets = App.searchbar(searchForm, {
+        searchList: '.connectAssetList',
+        searchIn: '.connectAssetList .item-title',
+        found: '.list-block-search-connect-assets',
+        notFound: '.connect-assets-search-nothing-found',
+        onDisable: function(s){
+          /*  $(s.container).slideUp();*/
+        }
+    });
+    
+    $$(page.container).find('.button_search').on('click', function(){        
+        $('.searchbarConnectAssets').slideDown(400, function(){
+            $$('.searchbar input').focus();
+        });                
+    });
+
+    
+       
+
+});
+
+
+
+
+
+
+App.onPageInit('media.folders', function (page) {	
+	//self.$app.preloader.show();
+		getRecordFront().then(response => {	
+					//self.methods.setPhotoList({list: response.mp4data});	
+					/*self.$app.methods.setInStorage({name: 'videoList', data: response});
+                    self.$setState({
+                        ShowVideoList: true,
+                    });
+                    self.$app.utils.nextFrame(()=>{
+                        self.initVideoList(response);
+                    });					
+					self.$app.preloader.hide();*/
+
+					var assetListContainer = $$(page.container).find('.mediaFolderList');
+	
+					/*var searchForm = $$('.searchbarConnectAssets');
+					var assetList = getAssetList();   
+					var newAssetlist = [];
+					var keys = Object.keys(assetList);
+
+					$.each(keys, function( index, value ) {    
+						assetList[value].Selected = false;    
+						newAssetlist.push(assetList[value]);       
+					});
+					
+					newAssetlist.sort(function(a,b){
+						if(a.Name < b.Name) return -1;
+						if(a.Name > b.Name) return 1;
+						return 0;
+					}); */
+
+					//console.log(newAssetlist);
+					
+					var virtualConnectAssetsList = App.virtualList('.mediaFolderList', { 
+						items: response,
+						height: 92.67,
+						/*searchAll: function (query, items) {           
+							var foundItems = [];        
+							for (var i = 0; i < items.length; i++) {           
+								// Check if title contains query string
+								if (items[i].Name.toLowerCase().indexOf(query.toLowerCase().trim()) >= 0) foundItems.push(i);
+							}
+							// Return array with indexes of matched items
+							return foundItems; 
+						},      */   
+						/*searchByItem: function (query, index, item) {
+							// Check if title contains query string
+							//if (item.title.indexOf(query.trim()) >= 0) {
+							if (item.Name.toLowerCase().indexOf(query.toLowerCase().trim()) >= 0) {
+								return true; //item matches query
+							}
+							else {
+								return false; //item doesn't match
+							}
+						},*/
+						renderItem: function (index, item) {
+							var ret = '';
+							//var assetImg = getAssetImg(item, {'assetList':true}); 
+							var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
+							
+							ret +=  '<li data-index="'+index+'" class=" item_folder">';
+							//ret +=      '<a href="./resources/pages/my-mac-address">';
+							
+							ret += '	<div class="item-media"><img src="./resources/images/folder_1.svg" width="45"/></div>';
+										ret += '	<div class="item-inner">';
+										ret += '	  <div class="item-title-row">';
+										ret += '		<div class="item-title">'+item.name+'</div>';
+										ret += '		<div class="item-after"><i class="material-icons md-36">play_circle_outline</i></div>';
+										ret += '	  </div>';
+										ret += '	  <div class="item-subtitle">media folder</div>';
+										ret += '	  <div class="item-text">'+item.modifiedDate+'</div>';
+										ret += '	</div>';
+										
+							/*
+							ret +=      '<label class="label-checkbox item-content no-fastclick">';
+							  ret +=          '<div class="item-media">'+assetImg+'</div>';
+							ret +=          '<div class="item-inner">';
+							ret +=              '<div class="item-title-row">';
+							ret +=                  '<div class="item-title ">' + item.IMEI + '</div>';
+							ret +=                  '<div class="item-after">';
+							ret +=                      '<i class="material-icons md-36">keyboard_arrow_right</i>';
+							ret +=                  '</div>';
+							ret +=              '</div>';
+							ret +=          '</div>';
+							ret +=      '</label>';
+							//ret +=      '</a>';*/
+							ret +=  '</li>';
+							
+							return  ret;
+						}
+					}); 
+					
+				}, error => {
+					self.$app.preloader.hide(); 
+					console.log('Please check connect to Dashcam');
+                    //self.$app.alert('No Dashcam connected');
+					self.$app.alert('No Dashcam connected');
+		});
+				
+    
+});
+
+function getRecordFront(resolve, reject) {	
+	return new Promise((resolve, reject) => {
+				
+				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+						//window.cordova.plugin.ftp.connect('192.168.43.1:10011', '357730090913204', '99999999', function(ok) {
+						//window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
+						// /storage/sdcard0/DVRMEDIA/Remote/PHOTO
+							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/USB/', function(result) {
+								//self.$app.alert(JSON.stringify(data));
+								resolve(result);
+							}, function(error) {
+								reject();
+								//self.$app.alert('error: ' + JSON.stringify(error));
+								//console.error("ftp: ls error=" + error);
+							});
+
+						}, function(error) {
+							reject();
+							//console.error("ftp: connect error=" + error);
+							//self.$app.alert("ftp: connect error=" + error);
+						});
+						
+	});     
+}		
+
+App.onPageInit('media.files', function (page) {
+
+    var assetListContainer = $$(page.container).find('.mediaFileList');
+    var searchForm = $$('.searchbarConnectAssets');
+    var assetList = getAssetList();   
+    var newAssetlist = [];
+    var keys = Object.keys(assetList);
+
+    $.each(keys, function( index, value ) {    
+        assetList[value].Selected = false;    
+        newAssetlist.push(assetList[value]);       
+    });
+    
+    newAssetlist.sort(function(a,b){
+        if(a.Name < b.Name) return -1;
+        if(a.Name > b.Name) return 1;
+        return 0;
+    }); 
+
+    //console.log(newAssetlist);
+    
+    var virtualConnectAssetsList = App.virtualList('.mediaFileList', { 
+        items: newAssetlist,
+        height: 92.67,
+        searchAll: function (query, items) {           
+            var foundItems = [];        
+            for (var i = 0; i < items.length; i++) {           
+                // Check if title contains query string
+                if (items[i].Name.toLowerCase().indexOf(query.toLowerCase().trim()) >= 0) foundItems.push(i);
+            }
+            // Return array with indexes of matched items
+            return foundItems; 
+        },         
+        /*searchByItem: function (query, index, item) {
+            // Check if title contains query string
+            //if (item.title.indexOf(query.trim()) >= 0) {
+            if (item.Name.toLowerCase().indexOf(query.toLowerCase().trim()) >= 0) {
+                return true; //item matches query
+            }
+            else {
+                return false; //item doesn't match
+            }
+        },*/
+        renderItem: function (index, item) {
+            var ret = '';
+            //var assetImg = getAssetImg(item, {'assetList':true}); 
+			var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
+			
+            ret +=  '<li data-index="'+index+'" data-name="'+item.name+'" class=" item_file dwnl-file">';
+            //ret +=      '<a href="./resources/pages/my-mac-address">';
+			
+			ret += '	<div class="item-media"><img src="./resources/images/file_1.svg" width="45"/></div>';
+						ret += '	<div class="item-inner">';
+						ret += '	  <div class="item-title-row">';
+						ret += '		<div class="item-title">111</div>';
+						ret += '		<div class="item-after"><i class="material-icons md-36">play_circle_outline</i></div>';
+						ret += '	  </div>';
+						ret += '	  <div class="item-subtitle">media file</div>';
+						ret += '	  <div class="item-text">54545</div>';
+						ret += '	</div>';
+						
+            ret +=  '</li>';
+            
+            return  ret;
+        }
+    }); 
+});
+
+
 
 App.onPageInit('alarms.select', function (page) {
 	var alarm = $$(page.container).find('input[name = "checkbox-alarm"]');
@@ -2910,13 +3305,13 @@ App.onPageInit('asset.playback.show', function (page) {
     
     startPlayback.on('click', function(){
         if (playbackTimer) {
-            $$(startPlaybackIco).removeClass('icon-header-pause'); 
+            $$(startPlaybackIco).removeClass('icon-header-stop'); 
             $$(startPlaybackIco).addClass('icon-header-play'); 
 
             clearInterval(playbackTimer);
             playbackTimer = false;               
         }else{
-            $$(startPlaybackIco).removeClass('icon-header-play');
+            $$(startPlaybackIco).removeClass('icon-header-stop');
             $$(startPlaybackIco).addClass('icon-header-pause');        
             
             var interval = 1000 / rangeInputSpeed.val();
@@ -3379,6 +3774,15 @@ function loadAlarmsAssetsPage(){
                 });
 }
 
+function loadConnectAssetsPage(){
+    mainView.router.load({
+                    url:'resources/templates/connect.assets.html',                     
+                    context:{
+                                  
+                    }
+                });
+}
+
 function loadPageTheftReport() {
     var assetList = getAssetList();
     var asset = assetList[TargetAsset.ASSET_IMEI];
@@ -3502,39 +3906,17 @@ function loadResetPwdPage(){
 }*/
 
 function getAssetImg(params, imgFor){
+	
     var assetImg = '';
     if (params && imgFor.assetList) {
         var pattern = /^IMEI_/i;   
         if (params.Icon && pattern.test(params.Icon)) {
             assetImg = '<img class="item_asset_img" src="http://upload.quiktrak.co/Attachment/images/'+params.Icon+'?v='+ new Date().getTime()+'" alt="">';
         }else if (params.Name) {
-            params.Name = $.trim(params.Name);
-            var splitted = params.Name.split(' ');                
-            if (splitted.length > 1) {
-                var one = '';
-                var two = '';
-                for (var i = 0; i < splitted.length; i++) {                 
-                    if (splitted[i] && splitted[i][0]) {
-                        if (!one || !two) {
-                            if (!one) {
-                                one = splitted[i][0];
-                            }else{
-                                two = splitted[i][0];
-                                break;
-                            }
-                        }
-                    }
-                }               
-                assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l text-color-black">'+one+two+'</div></div>';            
-            }else{
-                assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l text-color-black">'+params.Name[0]+params.Name[1]+'</div></div>';            
-            }
-            
-        }else if(params.IMEI){
-            assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l text-color-black">'+params.IMEI[0]+params.IMEI[1]+'</div></div>';
-        }
+            assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><img src="resources/images/cam.svg" class="menu-icon"></center></div></div>';
+		}
     }else{
-        assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l text-color-black">?</div></div>';
+        assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><img src="resources/images/cam.svg" class="menu-icon"></center></div></div>';
     }   
     return assetImg;
 }
@@ -3918,7 +4300,10 @@ function loadStatusPage(){
         var deirectionCardinal = Protocol.Helper.getDirectionCardinal(direct);
         var time = LANGUAGE.COM_MSG11;
         if (asset.posInfo.positionTime) {
-            time = asset.posInfo.positionTime.format(window.COM_TIMEFORMAT);
+            
+			var date = asset.posInfo.positionTime.toDate();
+			//time = asset.posInfo.positionTime.format(window.COM_TIMEFORMAT);
+			time = date.getDate() + '/' + month_names_short[date.getMonth()] + ' ' + ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2);
         }
         var assetGeofence = getAssetGeofenceState({imei:TargetAsset.ASSET_IMEI});
 
@@ -3994,11 +4379,11 @@ function loadStatusPage(){
             assetStats.geofence = 'On';                 
         }      
 
-
+		//console.log(asset);
         mainView.router.load({
             url:'resources/templates/asset.status.html',
             context:{
-                Name: asset.Name,                           
+                Name: asset.IMEI,                           
                 Time: time,
                 Direction: deirectionCardinal+' ('+direct+'&deg;)', 
                 Speed: speed,                    
@@ -4035,6 +4420,94 @@ function loadStatusPage(){
         App.alert(LANGUAGE.PROMPT_MSG007);
     }
         
+    
+}
+
+
+
+
+function loadConnectPage(){
+   
+        mainView.router.load({
+            url:'resources/templates/connect.wifi.html',
+            context:{
+            }
+        }); 
+               
+    
+}
+
+
+function loadFilesPage(){
+   
+        mainView.router.load({
+            url:'resources/templates/media.files.html',
+            context:{
+            }
+        }); 
+               
+    
+}
+
+$$('body').on('click', '#btnConnect', function() {
+	//let imei = $$('.open-dashcam-page input').val();
+	//loadMediaFolders();						
+	//App.methods.setInStorage({name: 'setIMEI', data: imei});
+								
+	sendCmd("WIFI,ON", "0357730090913204").then(response => {
+		if(response == '000'){
+			//dynamicPopup.close();
+			loadMediaFolders();
+		}
+	}, error => {
+		App.alert('Connection failed');	
+	});					
+	
+});
+
+function sendCMD(myCMD, imei, resolve, reject){	 
+                //var imei = App.methods.getFromStorage("setIMEI");
+				
+				let data = {
+						"Majortoken": "a5b4a26a-053b-4fd8-9b90-19f4c6588146",
+						"minortoken": "5f23466a-407c-4b0b-97aa-0914b9e46360",
+						"imei": imei,
+						"cmd": myCMD,
+				}
+				
+				let url = "https://api.m2mglobaltech.com/Quiktrak/V1/Device/GprsCommand";
+				return new Promise((resolve, reject) => {
+				App.request.post(
+					url, 
+					data, 
+					function (result) {
+						if(result.MajorCode == '000'){
+							resolve(result.MajorCode);
+						}else{
+							App.alert('IMEI number is incorrect');
+							reject();
+							//App.methods.popupIMEI();
+						}
+					}, 
+					function(e){
+						console.log('error = ' + e);
+						App.alert('Something went wrong');
+						reject();
+					}, 
+					'json'
+					);
+				});
+}
+
+
+function loadMediaFolders(){
+   
+        mainView.router.load({
+            url:'resources/templates/media.folders.html',
+            context:{
+            }
+        }); 
+               
     
 }
 
@@ -4386,7 +4859,7 @@ function loadAlarmPage(params) {
     mainView.router.load({
         url: 'resources/templates/asset.alarm.html',
         context: {
-            Name: POSINFOASSETLIST[TargetAsset.ASSET_IMEI].Name,
+            Name: TargetAsset.ASSET_IMEI,//POSINFOASSETLIST[TargetAsset.ASSET_IMEI].Name,
             alarm: alarms.alarm.state,
             accOff: alarms.accOff.state,
             accOn: alarms.accOn.state,
@@ -4433,7 +4906,7 @@ function loadPlaybackPage(){
 	mainView.router.load({
         url:'resources/templates/asset.playback.html',
         context:{
-            Name: asset.Name, 
+            Name: asset.IMEI, 
         }
     });
 }
@@ -4778,7 +5251,7 @@ function loadTrackPage(params){
         mainView.router.load({
             url:details.templateUrl,
             context:{
-                Name: details.name,                           
+                Name: TargetAsset.ASSET_IMEI,                           
                 Time: details.time,
                 Direction: details.direction, 
                 Mileage: details.mileage,
@@ -4921,7 +5394,7 @@ function updateAssetData(parameters){
     if (container.children('.progressbar, .progressbar-infinite').length) return; //don't run all this if there is a current progressbar loading
     App.showProgressbar(container);
 
-    JSON1.request(url, function(result){ 
+    JSON1.request(url, function(result){
                                
             if (result.MajorCode == '000' ) {               
                 if (result.Data) {
@@ -5105,7 +5578,7 @@ function getHisPosArray(from, to){
                     mainView.router.load({
                     url:'resources/templates/asset.playback.show.html',
                         context:{
-                            Name: asset.Name,
+                            Name: asset.IMEI,
                             Time: time,
                             //Direction: direct,
                             Mileage: mileage,
@@ -5300,7 +5773,9 @@ function updateAssetsListStats(){
                     
 
                     if (asset.posInfo.positionTime) {
-                        statusPageContainer.find('.position_time').html(asset.posInfo.positionTime.format(window.COM_TIMEFORMAT));
+                        //statusPageContainer.find('.position_time').html(asset.posInfo.positionTime.format(window.COM_TIMEFORMAT));
+						var date = asset.posInfo.positionTime.toDate();
+						time = date.getDate() + '/' + month_names_short[date.getMonth()] + ' ' + ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2);
                     }
                     statusPageContainer.find('.position_speed').html(Protocol.Helper.getSpeedValue(asset.Unit, asset.posInfo.speed) + ' ' + Protocol.Helper.getSpeedUnit(asset.Unit));  
                     statusPageContainer.find('.position_direction').html(deirectionCardinal+' ('+direct+'&deg;)');

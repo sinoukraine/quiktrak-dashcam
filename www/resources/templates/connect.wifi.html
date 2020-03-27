@@ -1,0 +1,52 @@
+<div class="page status_page" data-page="connect.wifi">
+	<div class="navbar bg-boatwatch ">
+        <div class="navbar-inner">
+            <div class="left">
+            	<a href="#" class="link back "> <i class="icon icon-header-arrow-back" ></i></a>
+            </div>
+            <div class="left navbar_title ">{{@global.LANGUAGE.ALARM_MSG33}}</div>
+            <!--<div class="right">
+            	<a href="#" class="link buttonAssetEdit"><i class="icon icon-header-edit"></i></a>              	
+            </div>-->
+        </div>
+    </div>
+    
+    <div class="page-content with-bottom-button">
+
+    	<div class="content-block status_block_top">
+    		<div class="row no-gutter">
+			    <div class="col-100 open-gsm">
+                    <i class="f7-icons icon-status-date color-light-grey"></i>
+                    <p class="font-size-16 color-grey">{{@global.LANGUAGE.ASSET_STATUS_MSG00}}</p>  
+                    <p class="font-size-14 item-after position_time">{{Time}}</p>
+                </div>                    
+			</div>
+    	</div>
+
+        <div class="list-block media-list status_block_list">                
+            <ul class="row no-gap">                     
+                <li class="item-content open-address col-100">
+                    <div class="item-media state-0"><i class="f7-icons icon-live-address color-light-grey"></i></div>
+                    <div class="item-inner">                     
+                        <div class="item-text display_address">{{Address}}</div> 
+                        <div class="item-subtext position_coords">{{Coords}}</div>              
+                    </div>
+                </li>     
+				<li class="item-content open-address col-100">
+                    <div class="item-media state-0"><i class="f7-icons icon-live-address color-light-grey"></i></div>
+                    <div class="item-inner">                     
+                        <div class="item-text display_address">{{Address}}</div> 
+                        <div class="item-subtext position_coords">{{Coords}}</div>              
+                    </div>
+                </li> 
+            </ul>     
+			     
+        </div>      
+                <div class="content-block ">
+                  <button type="submit" class="button button-big login-submit button-fill bg-boatwatch btn_login text-color-white" style="" id="btnConnect">{{@global.LANGUAGE.LOGIN_MSG04}}</button>
+                </div>
+        
+    	
+
+    </div>
+</div>

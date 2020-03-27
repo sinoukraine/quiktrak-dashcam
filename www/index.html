@@ -23,10 +23,10 @@
     <!-- Icons -->
     <link rel="stylesheet" href="resources/fonts/framework7-icons.css">
     <!--  <link rel="stylesheet" href="resources/fonts/icomoon/icomoon.css">
-        <link rel="stylesheet" href="resources/fonts/ownicons/iconfont.css"> -->
-         <link rel="stylesheet" href="resources/fonts/fontastic/styles.css">
-   
-
+    <link rel="stylesheet" href="resources/fonts/ownicons/iconfont.css"> -->
+    <link rel="stylesheet" href="resources/fonts/fontastic/styles.css">
+    <link rel="stylesheet" href="resources/fonts/fontastic4/styles.css">
+	<link rel="stylesheet" href="resources/app/icons.css">  
     
     <!-- Path to your custom app styles-->
 	
@@ -65,7 +65,7 @@
                         <div class="item-inner">
                           <div class="item-input">                          
                             <input type="password" placeholder="{{@global.LANGUAGE.LOGIN_MSG03}}" id="password" name="password" value="" />
-                            <i class="f7-icons icon-other-eye toggle-password"></i>
+                            <i class="f7-icons icon-other-view-password toggle-password"></i>
                           </div>
                         </div>
                       </div>
@@ -91,90 +91,70 @@
     <!-- Left panel -->
     <script id="template_Popover_Menu" type="text/template7">
       <!-- Left panel -->
-      <div class="panel panel-left panel-reveal">
+      <div class="panel panel-left panel-reveal panel-resizable">
         <div class="menu_wrapper">
           <div class="menu_header">
             <div class="header_container">
-              <div class="custom_caption color-white">
-                {{@global.LANGUAGE.MENU_MSG07}}:
-              </div>
-              <div class="custom_divider"></div>
-              <div class="header_row color-white">
-                {{@global.LANGUAGE.MENU_MSG08}}: <a href="https://www.rv-eye.co" target="_blank" class="external color-white">www.rv-eye.co</a>
-              </div>              
-              <div class="header_row color-white">
-                {{@global.LANGUAGE.MENU_MSG10}}: <a href="tel:8339243500" target="_blank" class="external color-white">(833) 924-3500 [24/7]</a>
+              <div class="item-inner no-padding no-border">
+                <a class="logoLink" href="#">
+                 <img class="logoMenu" class="" src="resources/images/logo.png" alt="logo">
+                </a>
               </div>
             </div>           
           </div>
           <div class="list-block no-hairlines-between menu" id="menu">
             <div class="list-group no-hairlines ">
               <ul>
-                <li class="item-content list-panel-all close-panel item-link" id="menuHome">
-                  <div class="item-media color-gray">                
-                    <i class="f7-icons icon-menu-home"></i>
-                  </div>
-                  <div class="item-inner">
-                    <div class="item-title">{{@global.LANGUAGE.MENU_MSG00}}</div>
-                  </div>
-                </li>
-               <!--  <li class="item-content list-panel-all close-panel item-link" id="menuGeofence">
-                 <div class="item-media color-gray">
-                   <i class="f7-icons icon-menu-home"></i>
-                 </div>
-                 <div class="item-inner">
-                   <div class="item-title">{{@global.LANGUAGE.MENU_MSG01}}</div>
-                 </div>
-               </li>  -->
-                <li class="item-content list-panel-all close-panel item-link" id="menuAlarms">
-                    <div class="item-media color-gray">
-                        <i class="f7-icons icon-menu-alarms"></i>
-                    </div>
-                    <div class="item-inner">
-                        <div class="item-title">{{@global.LANGUAGE.ALARM_MSG06}}</div>
-                    </div>
-                </li>  
-                <li class="item-content list-panel-all close-panel item-link" id="menuProfile">
-                  <div class="item-media color-gray">
-                    <i class="f7-icons icon-menu-profile"></i>
-                  </div>
-                  <div class="item-inner">
-                    <div class="item-title">{{@global.LANGUAGE.MENU_MSG03}}</div>
-                  </div>
-                </li> 
-                <li class="item-content list-panel-all close-panel item-link" id="menuUserManual">
-                    <div class="item-media color-gray">
-                        <i class="f7-icons icon-other-user-manual"></i>
-                    </div>
-                    <div class="item-inner">
-                        <div class="item-title">{{@global.LANGUAGE.MENU_MSG12}}</div>
-                    </div>
-                </li> 
-               <!--  <li class="item-content list-panel-all close-panel item-link" id="menuSupport">
-                                                       <div class="item-media color-gray">
-                                                           <i class="f7-icons icon-menu-support"></i>
-                                                       </div>
-                                                       <div class="item-inner">
-                                                           <div class="item-title">{{@global.LANGUAGE.MENU_MSG06}}</div>
-                                                       </div>
-                                                   </li>      -->                                    
-                <li class="item-content list-panel-all close-panel" id="menuLogout"> 
-                  <div class="item-media color-gray">
-                    <i class="f7-icons icon-menu-signout"></i>
-                  </div>
-                  <div class="item-inner">
-                    <div class="item-title">{{@global.LANGUAGE.MENU_MSG04}}</div>
-                  </div> 
-                </li>            
+				<li class="item-content list-panel-all close-panel no-padding margin-bottom" id="menuHome">
+                            <div class="item-media">
+                                <img src="resources/images/cam.svg" class="menu-icon">
+                            </div>
+                            <div class="item-inner no-border">
+                                <div class="item-text">
+                                    <div class="item-title">Tracking</div>
+                                </div>
+                            </div>
+                        </li>
+                <li class="item-content list-panel-all close-panel no-padding margin-bottom" id="menuConnect">
+                            <div class="item-media">
+								<i class="material-icons md-36 menu-sd-icon">wifi</i>
+                                <!--<i class="material-icons md-36 menu-sd-icon">sd_storage</i>-->
+                            </div>
+                            <div class="item-inner no-border">
+                                <div class="item-text">
+                                    <div class="item-title">Connect to Dashcam</div>
+                                </div>
+                            </div>
+                        </li>
+                <li class="item-content list-panel-all close-panel no-padding margin-bottom" id="menuProfile">
+                            <div class="item-media">
+                                <img src="resources/images/settings.svg" class="menu-settings-icon">
+                            </div>
+                            <div class="item-inner no-border">
+                                <div class="item-text">
+                                    <div class="item-title">Profile</div>
+                                </div>
+                            </div>
+                        </li>
+						<li class="item-content list-panel-all close-panel no-padding margin-bottom" id="menuLogout">
+                            <div class="item-media">
+                                 <i class="f7-icons icon-menu-logout menu-logout-icon"></i>
+                            </div>
+                            <div class="item-inner no-border">
+                                <div class="item-text">
+                                    <div class="item-title">Logout</div>
+                                </div>
+                            </div>
+                        </li>           
               </ul>
             </div>
           </div>
-          <div class="menu_bottom">
+          <!--<div class="menu_bottom">
             <a href="tel:8339243500" target="_blank" class="external button button-fill button-big call-button text-color-black">
             	<i class="f7-icons icon-other-call"></i>
             	{{@global.LANGUAGE.MENU_MSG11}}
         	</a>
-          </div>
+          </div>-->
         </div>
         
       </div>
@@ -199,10 +179,10 @@
                                     <a href="#" class="link icon-only open-panel "> <i class="icon icon-header-menu"></i></a>
                                 </div>
                                 <div class="left navbar_title navbar_title_index">{{@global.LANGUAGE.MENU_MSG00}}</div>
-                                <div class="right">   
+                                <!--<div class="right">   
                                 	<a href="#" class="link sorting_button" ><i class="icon icon-sort"></i></a>                                                                  
                                     <a href="#" class="link notification_button" ><i class="icon icon-header-alarm"></i></a>
-                                </div>
+                                </div>-->
                             </div>
                             
                         </div>       
