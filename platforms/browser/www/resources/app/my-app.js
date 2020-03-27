@@ -693,20 +693,24 @@ $$(document).on('click', '.item_folder', function(){
 
 $$(document).on('click', '.dwnl-file', function(){ 
     TargetAsset.FILE_NAME = $$(this).data("name");  
+	//App.hidePreloader();
+	var progressbar = $$('#demo-inline-progressbar');
+	App.setProgressbar(progressbar, 'red');
 	downloadFile(TargetAsset.FILE_NAME, TargetAsset.FOLDER_TYPE).then(response => {					
-					//App.hidePreloader(); 		
+					App.hidePreloader(); 		
+					App.hideProgressbar(progressbar);
 					$$('#demo-inline-progressbar').addClass('display-none');
-					App.alert('File uploaded');
+					//App.alert('File uploaded');
 					showMediaFile(response);
 				}, error => {
-					//App.hidePreloader(); 
+					App.hidePreloader(); 
                     App.alert('File not uploaded. Try again');
 				});
 });
 
 function showMediaFile(fileName){
 					
-				App.alert(fileName);
+				//App.alert(fileName);
 				var fullPathToFilePrivate = 'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/'+fileName;
 				var externalDirEntry;
 				
@@ -731,7 +735,7 @@ function showMediaFile(fileName){
 				}, function (e) { App.alert(JSON.stringify(e)); });
 			}
 			
-			function viewFile(url){App.alert(url);
+			function viewFile(url){//App.alert(url);
 				if (cordova && cordova.plugins.fileOpener2) {
 					cordova.plugins.fileOpener2.open(
 						url, // You can also use a Cordova-style file uri: cdvfile://localhost/persistent/Downloads/starwars.pdf
