@@ -692,20 +692,18 @@ $$(document).on('click', '.item_folder', function(){
 });
 
 $$(document).on('click', '.dwnl-file', function(){ 
-	let fileName = $(this).attr('data-name');
-	/*downloadFile(fileName, folderType).then(response => {	
-				
+    TargetAsset.FILE_NAME = $$(this).data("name");  
+	downloadFile(TargetAsset.FILE_NAME, TargetAsset.FOLDER_TYPE).then(response => {					
 					App.hidePreloader(); 		
 					$$('.view-main #demo-inline-progressbar').addClass('display-none');
-					self.$app.alert('File uploaded');
-					self.showMediaFile(response);
+					App.alert('File uploaded');
+					showMediaFile(response);
 				}, error => {
 					App.hidePreloader(); 
-					console.log('Please check connect to Dashcam');
-                    //self.$app.alert('Something wrong.');
-				});*/
+                    App.alert('File not uploaded. Try again');
+				});
 });
-/*
+
 function downloadFile(date, type, resolve, reject){ 		
 			
 			var folderDate = date.substr(0, 10);
@@ -754,7 +752,7 @@ function downloadFile(date, type, resolve, reject){
 										
 										var pcnt = +result * 100;
 										
-										App.progressbar.set('#demo-inline-progressbar', pcnt);
+										//App.progressbar.set('#demo-inline-progressbar', pcnt);
 										
 										if (result == 1) {
 											resolve(fileName);
@@ -792,7 +790,7 @@ function downloadFile(date, type, resolve, reject){
 						App.alert("ftp: connect error=" + error);
 					});				
 				});   			
-}*/
+}
 
 $$(document).on('change', '.leaflet-control-layers-selector[type="radio"]', function(){    
     if (TargetAsset.ASSET_IMEI) {        
