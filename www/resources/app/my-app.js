@@ -99,7 +99,7 @@ function onDeviceReady(){
     //getPlusInfo(); 
 
 	//logout();
-	App.alert('prelogin');
+	//App.alert('prelogin');
     if (!inBrowser) {
         if(getUserinfo().MinorToken) {
             //login(); 
