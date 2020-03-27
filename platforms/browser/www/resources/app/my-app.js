@@ -4455,7 +4455,9 @@ $$('body').on('click', '#btnConnect', function() {
 	//App.methods.setInStorage({name: 'setIMEI', data: imei});
 								
 	sendCmd("WIFI,ON", "0357730090913204").then(response => {
+		App.alert('Connection success');
 		if(response == '000'){
+			App.alert('000');
 			//dynamicPopup.close();
 			loadMediaFolders();
 		}
