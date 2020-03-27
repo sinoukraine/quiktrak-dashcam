@@ -4459,7 +4459,22 @@ $$(document).on('click', '#btnConnect', function() {
 		if(response == '000'){
 			//App.alert('000');
 			//dynamicPopup.close();
-			loadMediaFolders();
+			//loadMediaFolders();
+			if (window.cordova && window.cordova.plugins.settings) {
+				console.log('openNativeSettingsTest is active');
+				window.cordova.plugins.settings.open("wifi", function() {
+						console.log('opened settings');
+					},
+					function () {
+						console.log('failed to open settings');
+						App.alert('WIFI failed');
+					}
+				);
+				
+			} else {
+				console.log('openNativeSettingsTest is not active!');
+				App.alert('WIFI error');	
+			}
 		}
 	}, error => {
 		App.alert('Connection failed');	

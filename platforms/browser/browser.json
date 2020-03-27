@@ -114,6 +114,9 @@
         },
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.rveye.app"
+        },
+        "cordova-open-native-settings": {
+            "PACKAGE_NAME": "com.quiktrak.quiktrak-dashcam"
         }
     },
     "dependent_plugins": {},
@@ -908,6 +911,14 @@
             "id": "cordova-plugin-inappbrowser.InAppBrowserProxy",
             "pluginId": "cordova-plugin-inappbrowser",
             "runs": true
+        },
+        {
+            "file": "plugins/cordova-open-native-settings/www/settings.js",
+            "id": "cordova-open-native-settings.Settings",
+            "pluginId": "cordova-open-native-settings",
+            "clobbers": [
+                "cordova.plugins.settings"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -929,6 +940,7 @@
         "cordova-plugin-file-opener2": "2.2.1",
         "cordova-plugin-ftp": "1.1.1",
         "kaiquecruz-phonegap-plugin-barcodescanner-custom": "6.0.5",
-        "cordova-plugin-inappbrowser": "3.0.0"
+        "cordova-plugin-inappbrowser": "3.0.0",
+        "cordova-open-native-settings": "1.5.2"
     }
 }

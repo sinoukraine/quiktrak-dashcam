@@ -57,6 +57,9 @@
         },
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.rveye.app"
+        },
+        "cordova-open-native-settings": {
+            "PACKAGE_NAME": "com.quiktrak.quiktrak-dashcam"
         }
     },
     "dependent_plugins": {

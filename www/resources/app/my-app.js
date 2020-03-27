@@ -4470,6 +4470,7 @@ $$(document).on('click', '#btnConnect', function() {
 						App.alert('WIFI failed');
 					}
 				);
+				
 			} else {
 				console.log('openNativeSettingsTest is not active!');
 				App.alert('WIFI error');	
