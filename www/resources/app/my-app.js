@@ -2,7 +2,7 @@ var storage;
 var fail;
 var uid;
 var intervalForReply;
-var selectedIMEI;
+var isWifi;
 try {
     uid = new Date;
     (storage = window.localStorage).setItem(uid, uid);
@@ -686,12 +686,8 @@ $$(document).on('click', '.item_connect', function(){
 });
 
 $$(document).on('click', '.item_folder', function(){ 
-	TargetAsset.ASSET_IMEI = $$(this).data("imei");  
-    TargetAsset.ASSET_ID = $$(this).data("id"); 
-    TargetAsset.ASSET_IMG = '';        
-    var assetList = getAssetList();  
-    var asset = assetList[TargetAsset.ASSET_IMEI];  
-
+	TargetAsset.FOLDER_TYPE = $$(this).data("type");  
+    TargetAsset.FOLDER_NAME = $$(this).data("name");  
     loadFilesPage();
 });
 
@@ -1625,32 +1621,13 @@ App.onPageInit('media.folders', function (page) {
 					var virtualConnectAssetsList = App.virtualList('.mediaFolderList', { 
 						items: response,
 						height: 92.67,
-						/*searchAll: function (query, items) {           
-							var foundItems = [];        
-							for (var i = 0; i < items.length; i++) {           
-								// Check if title contains query string
-								if (items[i].Name.toLowerCase().indexOf(query.toLowerCase().trim()) >= 0) foundItems.push(i);
-							}
-							// Return array with indexes of matched items
-							return foundItems; 
-						},      */   
-						/*searchByItem: function (query, index, item) {
-							// Check if title contains query string
-							//if (item.title.indexOf(query.trim()) >= 0) {
-							if (item.Name.toLowerCase().indexOf(query.toLowerCase().trim()) >= 0) {
-								return true; //item matches query
-							}
-							else {
-								return false; //item doesn't match
-							}
-						},*/
+					
 						renderItem: function (index, item) {
 							var ret = '';
-							//var assetImg = getAssetImg(item, {'assetList':true}); 
 							var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
 							
-										ret +=  '<li data-index="'+index+'" class=" item_folder">';							
-										ret += '	<div class="item-media"><img src="./resources/images/SVG/folder.svg" width="45"/></div>';
+										ret +=  '<li data-index="'+index+'" data-name="'+item.name+'" data-type="USB" class=" item_folder">';							
+										ret += '<div class="item-media"><img src="./resources/images/SVG/folder.svg" width="45"/></div>';
 										ret += '	<div class="item-inner">';
 										ret += '	  <div class="item-title-row">';
 										ret += '		<div class="item-title"><b>'+item.name+'</b></div>';
@@ -1667,37 +1644,8 @@ App.onPageInit('media.folders', function (page) {
 					
 				}, error => {
 					
-					App.alert('No Dashcam connected');
+					App.alert('Please check WiFi connection');
 					
-					/*var virtualConnectAssetsList = App.virtualList('.mediaFolderList', { 
-						items: [{"d":1},{"d":2}],
-						height: 92.67,
-						
-						renderItem: function (index, item) {
-							var ret = '';
-							//var assetImg = getAssetImg(item, {'assetList':true}); 
-							var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
-							
-							ret +=  '<li data-index="'+index+'" class=" item_folder">';
-							//ret +=      '<a href="./resources/pages/my-mac-address">';
-							
-							ret += '	<div class="item-media"><img src="./resources/images/SVG/folder.svg" width="45"/></div>';
-										ret += '	<div class="item-inner">';
-										ret += '	  <div class="item-title-row">';
-										ret += '		<div class="item-title"><b>2020_03_16</b></div>';//item.name
-										ret += '		<div class="item-after"><i class="material-icons md-36 color-blue">play_circle_outline</i></div>';
-										ret += '	  </div>';
-										ret += '	  <div class="item-subtitle">media folder</div>';
-										ret += '	  <div class="item-text">2020-03-16 07:50:00 GMT +02:00</div>';//item.modifiedDate
-										ret += '	</div>';
-										
-							
-							ret +=  '</li>';
-							
-							return  ret;
-						}
-					}); 
-					*/
 					
 					
 		});
@@ -1709,95 +1657,93 @@ function getRecordFront(resolve, reject) {
 	return new Promise((resolve, reject) => {
 				
 				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
-						//window.cordova.plugin.ftp.connect('192.168.43.1:10011', '357730090913204', '99999999', function(ok) {
-						//window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
-						// /storage/sdcard0/DVRMEDIA/Remote/PHOTO
 							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/USB/', function(result) {
-								//self.$app.alert(JSON.stringify(data));
-								resolve(result);
+									resolve(result);
 							}, function(error) {
 								reject();
-								//self.$app.alert('error: ' + JSON.stringify(error));
-								//console.error("ftp: ls error=" + error);
-							});
+								});
 
 						}, function(error) {
 							reject();
-							//console.error("ftp: connect error=" + error);
-							//self.$app.alert("ftp: connect error=" + error);
 						});
 						
 	});     
-}		
+}
 
+function getRecordFiles(date, type, resolve, reject){ 		
+			return new Promise((resolve, reject) => {
+				
+				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+							
+							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+date, function(result) {
+								resolve(result);
+							}, function(error) {
+								reject();
+							});
+							
+
+						}, function(error) {
+							reject();
+						});
+				
+			});   			
+		}
+
+		
 App.onPageInit('media.files', function (page) {
+		getRecordFiles(TargetAsset.FOLDER_NAME, TargetAsset.FOLDER_TYPE).then(response => {	
+			var assetListContainer = $$(page.container).find('.mediaFileList');
+	
+					/*var searchForm = $$('.searchbarConnectAssets');
+					var assetList = getAssetList();   
+					var newAssetlist = [];
+					var keys = Object.keys(assetList);
 
-    var assetListContainer = $$(page.container).find('.mediaFileList');
-    var searchForm = $$('.searchbarConnectAssets');
-    var assetList = getAssetList();   
-    var newAssetlist = [];
-    var keys = Object.keys(assetList);
+					$.each(keys, function( index, value ) {    
+						assetList[value].Selected = false;    
+						newAssetlist.push(assetList[value]);       
+					});
+					
+					newAssetlist.sort(function(a,b){
+						if(a.Name < b.Name) return -1;
+						if(a.Name > b.Name) return 1;
+						return 0;
+					}); */
 
-    $.each(keys, function( index, value ) {    
-        assetList[value].Selected = false;    
-        newAssetlist.push(assetList[value]);       
-    });
+					var virtualConnectAssetsList = App.virtualList('.mediaFileList', { 
+						items: response,
+						height: 92.67,
+					
+						renderItem: function (index, item) {
+							var ret = '';
+							var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
+							
+							ret +=  '<li data-index="'+index+'" data-name="'+item.name+'" class=" item_file dwnl-file">';
+							ret += '	<div class="item-media"><img src="./resources/images/SVG/videofile.svg" width="45"/></div>';
+							ret += '	<div class="item-inner">';
+							ret += '	  <div class="item-title-row">';
+							ret += '		<div class="item-title"><b>'+item.name+'</b></div>';
+							ret += '		<div class="item-after"><i class="material-icons md-36 color-green">play_for_work</i></div>';
+							ret += '	  </div>';
+							ret += '	  <div class="item-subtitle">size: '+item.size+'</div>';
+							ret += '	  <div class="item-text">'+item.modifiedDate+'</div>';
+							ret += '	</div>';						
+							ret +=  '</li>';
+							
+							return  ret;
+						}
+					}); 
+					
+				}, error => {
+					
+					App.alert('Please check WiFi connection');
+					
+					
+					
+		});
+				
     
-    newAssetlist.sort(function(a,b){
-        if(a.Name < b.Name) return -1;
-        if(a.Name > b.Name) return 1;
-        return 0;
-    }); 
-
-    //console.log(newAssetlist);
-    
-    var virtualConnectAssetsList = App.virtualList('.mediaFileList', { 
-        items: newAssetlist,
-        height: 92.67,
-        searchAll: function (query, items) {           
-            var foundItems = [];        
-            for (var i = 0; i < items.length; i++) {           
-                // Check if title contains query string
-                if (items[i].Name.toLowerCase().indexOf(query.toLowerCase().trim()) >= 0) foundItems.push(i);
-            }
-            // Return array with indexes of matched items
-            return foundItems; 
-        },         
-        /*searchByItem: function (query, index, item) {
-            // Check if title contains query string
-            //if (item.title.indexOf(query.trim()) >= 0) {
-            if (item.Name.toLowerCase().indexOf(query.toLowerCase().trim()) >= 0) {
-                return true; //item matches query
-            }
-            else {
-                return false; //item doesn't match
-            }
-        },*/
-        renderItem: function (index, item) {
-            var ret = '';
-            //var assetImg = getAssetImg(item, {'assetList':true}); 
-			var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
-			
-            ret +=  '<li data-index="'+index+'" data-name="'+item.name+'" class=" item_file dwnl-file">';
-            //ret +=      '<a href="./resources/pages/my-mac-address">';
-			
-			ret += '	<div class="item-media"><img src="./resources/images/SVG/videofile.svg" width="45"/></div>';
-						ret += '	<div class="item-inner">';
-						ret += '	  <div class="item-title-row">';
-						ret += '		<div class="item-title"><b>2020_03_16</b></div>';
-						ret += '		<div class="item-after"><i class="material-icons md-36 color-green">play_for_work</i></div>';
-						ret += '	  </div>';
-						ret += '	  <div class="item-subtitle">size: 12122324</div>';
-						ret += '	  <div class="item-text">2020-03-16 07:50:00 GMT +02:00</div>';
-						ret += '	</div>';
-						
-            ret +=  '</li>';
-            
-            return  ret;
-        }
-    }); 
 });
-
 
 
 App.onPageInit('connect.wifi', function (page) {
@@ -1815,7 +1761,7 @@ App.onPageInit('connect.wifi', function (page) {
 		//						App.hidePreloader();
 							}, function(error) {
 								$$(document).find('.connection-img').attr('src', './resources/images/SVG/connection-red.svg');
-								$$(document).find('.connection-info').html('Connection failed');
+								$$(document).find('.connection-info').html('Not Connected');
 								$$(document).find('.connection-info').removeClass('color-green');
 								$$(document).find('#btnGoToSD').addClass('display-none');
 								$$(document).find('#btnConnect').removeClass('display-none');
@@ -2199,6 +2145,10 @@ App.onPageInit('alarms.select', function (page) {
 App.onPageBeforeRemove('alarms.select', function(page) {
     // fix to close modal calendar if it was opened and default back button pressed
     App.closeModal('.custom-picker');
+});
+
+App.onPageBeforeRemove('connect.wifi', function(page) {
+    clearInterval(intervalForReply);
 });
 
 
@@ -4468,10 +4418,22 @@ function loadConnectPage(){
 
 
 function loadFilesPage(){
-   
+   var videoTitle = 'Videos';
+			switch(TargetAsset.FOLDER_TYPE){
+					case 'USB':
+						videoTitle = 'Front Videos';
+					break;
+					case 'EVENT':
+						videoTitle = 'Event Videos';					
+					break;
+					default:
+						videoTitle = 'Inward Videos';					
+				}
+				
         mainView.router.load({
             url:'resources/templates/media.files.html',
             context:{
+				Name: videoTitle
             }
         });           
     
@@ -4497,7 +4459,7 @@ $$(document).on('click', '#btnConnect', function() {
 					function () {
 						console.log('failed to open settings');						
 						App.alert('WIFI failed');
-						//loadMediaFolders();
+						loadMediaFolders();
 					}
 				);
 				
