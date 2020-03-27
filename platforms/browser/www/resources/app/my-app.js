@@ -1661,7 +1661,7 @@ App.onPageInit('media.folders', function (page) {
 							ret +=  '<li data-index="'+index+'" class=" item_folder">';
 							//ret +=      '<a href="./resources/pages/my-mac-address">';
 							
-							ret += '	<div class="item-media"><img src="./resources/images/folder_1.svg" width="45"/></div>';
+							ret += '	<div class="item-media"><img src="./resources/images/SVG/folder.svg" width="45"/></div>';
 										ret += '	<div class="item-inner">';
 										ret += '	  <div class="item-title-row">';
 										ret += '		<div class="item-title">'+item.name+'</div>';
@@ -4455,7 +4455,7 @@ $$(document).on('click', '#btnConnect', function() {
 	//let imei = $$('.open-dashcam-page input').val();
 	//App.methods.setInStorage({name: 'setIMEI', data: imei});
 										
-	
+	App.showPreloader();
 	sendCMD("WIFI,ON", "0357730090913204").then(response => {
 		//App.alert('Connection success');
 		if(response == '000'){
@@ -4473,21 +4473,25 @@ $$(document).on('click', '#btnConnect', function() {
 								$$(document).find('.connection-note').removeClass('display-none');
 								$$(document).find('.connection-note-error').addClass('display-none');
 								clearInterval(intervalForReply);
+								App.hidePreloader();
 							});
 						}, 10000);	
 					},
 					function () {
 						console.log('failed to open settings');
+						App.hidePreloader();
 						App.alert('WIFI failed');
 					}
 				);
 				
 			} else {
 				console.log('openNativeSettingsTest is not active!');
+				App.hidePreloader();
 				App.alert('WIFI error');	
 			}
 		}
 	}, error => {
+		App.hidePreloader();
 		App.alert('Connection failed');	
 	});			
 });
