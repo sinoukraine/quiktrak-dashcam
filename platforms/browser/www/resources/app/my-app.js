@@ -2,6 +2,7 @@ var storage;
 var fail;
 var uid;
 var intervalForReply;
+var selectedIMEI;
 try {
     uid = new Date;
     (storage = window.localStorage).setItem(uid, uid);
@@ -97,6 +98,8 @@ function onDeviceReady(){
 
     getPlusInfo(); 
 
+	logout();
+	/*
     if (!inBrowser) {
         if(getUserinfo().MinorToken) {
             //login(); 
@@ -105,7 +108,7 @@ function onDeviceReady(){
         else {
             logout();
         } 
-    }
+    }*/
 
     document.addEventListener("backbutton", backFix, false); 
     document.addEventListener("resume", onAppResume, false);
@@ -678,7 +681,7 @@ $$('.assets_list').on('click', '.item_asset', function(){
 
 $$(document).on('click', '.item_connect', function(){ 
 	TargetAsset.ASSET_IMEI = $$(this).data("imei");  
-    
+    console.log(TargetAsset.ASSET_IMEI);
     loadConnectPage();
 });
 
@@ -696,12 +699,12 @@ $$(document).on('click', '.dwnl-file', function(){
 	let fileName = $(this).attr('data-name');
 	/*downloadFile(fileName, folderType).then(response => {	
 				
-					self.$app.preloader.hide(); 		
+					App.hidePreloader(); 		
 					$$('.view-main #demo-inline-progressbar').addClass('display-none');
 					self.$app.alert('File uploaded');
 					self.showMediaFile(response);
 				}, error => {
-					self.$app.preloader.hide(); 
+					App.hidePreloader(); 
 					console.log('Please check connect to Dashcam');
                     //self.$app.alert('Something wrong.');
 				});*/
@@ -1550,7 +1553,7 @@ App.onPageInit('connect.assets', function (page) {
 			var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
 			
 			
-            ret +=  '<li data-index="'+index+'" class=" item_connect">';
+            ret +=  '<li data-index="'+index+'" class=" item_connect" data-imei="' + item.IMEI + '">';
             //ret +=      '<a href="./resources/pages/my-mac-address">';
             ret +=      '<label class="label-checkbox item-content no-fastclick">';
               ret +=          '<div class="item-media">'+assetImg+'</div>';
@@ -1599,19 +1602,9 @@ App.onPageInit('connect.assets', function (page) {
 
 
 App.onPageInit('media.folders', function (page) {	
-	//self.$app.preloader.show();
+	//App.showPreloader();
 		getRecordFront().then(response => {	
-					//self.methods.setPhotoList({list: response.mp4data});	
-					/*self.$app.methods.setInStorage({name: 'videoList', data: response});
-                    self.$setState({
-                        ShowVideoList: true,
-                    });
-                    self.$app.utils.nextFrame(()=>{
-                        self.initVideoList(response);
-                    });					
-					self.$app.preloader.hide();*/
-
-					var assetListContainer = $$(page.container).find('.mediaFolderList');
+			var assetListContainer = $$(page.container).find('.mediaFolderList');
 	
 					/*var searchForm = $$('.searchbarConnectAssets');
 					var assetList = getAssetList();   
@@ -1629,8 +1622,6 @@ App.onPageInit('media.folders', function (page) {
 						return 0;
 					}); */
 
-					//console.log(newAssetlist);
-					
 					var virtualConnectAssetsList = App.virtualList('.mediaFolderList', { 
 						items: response,
 						height: 92.67,
@@ -1658,43 +1649,57 @@ App.onPageInit('media.folders', function (page) {
 							//var assetImg = getAssetImg(item, {'assetList':true}); 
 							var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
 							
-							ret +=  '<li data-index="'+index+'" class=" item_folder">';
-							//ret +=      '<a href="./resources/pages/my-mac-address">';
-							
-							ret += '	<div class="item-media"><img src="./resources/images/SVG/folder.svg" width="45"/></div>';
+										ret +=  '<li data-index="'+index+'" class=" item_folder">';							
+										ret += '	<div class="item-media"><img src="./resources/images/SVG/folder.svg" width="45"/></div>';
 										ret += '	<div class="item-inner">';
 										ret += '	  <div class="item-title-row">';
-										ret += '		<div class="item-title">'+item.name+'</div>';
-										ret += '		<div class="item-after"><i class="material-icons md-36">play_circle_outline</i></div>';
+										ret += '		<div class="item-title"><b>'+item.name+'</b></div>';
+										ret += '		<div class="item-after"><i class="material-icons md-36 color-blue">play_circle_outline</i></div>';
 										ret += '	  </div>';
 										ret += '	  <div class="item-subtitle">media folder</div>';
 										ret += '	  <div class="item-text">'+item.modifiedDate+'</div>';
 										ret += '	</div>';
-										
-							/*
-							ret +=      '<label class="label-checkbox item-content no-fastclick">';
-							  ret +=          '<div class="item-media">'+assetImg+'</div>';
-							ret +=          '<div class="item-inner">';
-							ret +=              '<div class="item-title-row">';
-							ret +=                  '<div class="item-title ">' + item.IMEI + '</div>';
-							ret +=                  '<div class="item-after">';
-							ret +=                      '<i class="material-icons md-36">keyboard_arrow_right</i>';
-							ret +=                  '</div>';
-							ret +=              '</div>';
-							ret +=          '</div>';
-							ret +=      '</label>';
-							//ret +=      '</a>';*/
-							ret +=  '</li>';
+										ret +=  '</li>';
 							
 							return  ret;
 						}
 					}); 
 					
 				}, error => {
-					self.$app.preloader.hide(); 
-					console.log('Please check connect to Dashcam');
-                    //self.$app.alert('No Dashcam connected');
-					self.$app.alert('No Dashcam connected');
+					
+					App.alert('No Dashcam connected');
+					
+					/*var virtualConnectAssetsList = App.virtualList('.mediaFolderList', { 
+						items: [{"d":1},{"d":2}],
+						height: 92.67,
+						
+						renderItem: function (index, item) {
+							var ret = '';
+							//var assetImg = getAssetImg(item, {'assetList':true}); 
+							var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
+							
+							ret +=  '<li data-index="'+index+'" class=" item_folder">';
+							//ret +=      '<a href="./resources/pages/my-mac-address">';
+							
+							ret += '	<div class="item-media"><img src="./resources/images/SVG/folder.svg" width="45"/></div>';
+										ret += '	<div class="item-inner">';
+										ret += '	  <div class="item-title-row">';
+										ret += '		<div class="item-title"><b>2020_03_16</b></div>';//item.name
+										ret += '		<div class="item-after"><i class="material-icons md-36 color-blue">play_circle_outline</i></div>';
+										ret += '	  </div>';
+										ret += '	  <div class="item-subtitle">media folder</div>';
+										ret += '	  <div class="item-text">2020-03-16 07:50:00 GMT +02:00</div>';//item.modifiedDate
+										ret += '	</div>';
+										
+							
+							ret +=  '</li>';
+							
+							return  ret;
+						}
+					}); 
+					*/
+					
+					
 		});
 				
     
@@ -1776,14 +1781,14 @@ App.onPageInit('media.files', function (page) {
             ret +=  '<li data-index="'+index+'" data-name="'+item.name+'" class=" item_file dwnl-file">';
             //ret +=      '<a href="./resources/pages/my-mac-address">';
 			
-			ret += '	<div class="item-media"><img src="./resources/images/file_1.svg" width="45"/></div>';
+			ret += '	<div class="item-media"><img src="./resources/images/SVG/videofile.svg" width="45"/></div>';
 						ret += '	<div class="item-inner">';
 						ret += '	  <div class="item-title-row">';
-						ret += '		<div class="item-title">111</div>';
-						ret += '		<div class="item-after"><i class="material-icons md-36">play_circle_outline</i></div>';
+						ret += '		<div class="item-title"><b>2020_03_16</b></div>';
+						ret += '		<div class="item-after"><i class="material-icons md-36 color-green">play_for_work</i></div>';
 						ret += '	  </div>';
-						ret += '	  <div class="item-subtitle">media file</div>';
-						ret += '	  <div class="item-text">54545</div>';
+						ret += '	  <div class="item-subtitle">size: 12122324</div>';
+						ret += '	  <div class="item-text">2020-03-16 07:50:00 GMT +02:00</div>';
 						ret += '	</div>';
 						
             ret +=  '</li>';
@@ -4441,8 +4446,7 @@ function loadFilesPage(){
             url:'resources/templates/media.files.html',
             context:{
             }
-        }); 
-               
+        });           
     
 }
 
@@ -4454,17 +4458,16 @@ $$(document).on('click', '#btnGoToSD', function() {
 $$(document).on('click', '#btnConnect', function() {
 	//let imei = $$('.open-dashcam-page input').val();
 	//App.methods.setInStorage({name: 'setIMEI', data: imei});
-										
-	App.showPreloader();
-	sendCMD("WIFI,ON", "0357730090913204").then(response => {
-		//App.alert('Connection success');
-		if(response == '000'){
-			//loadMediaFolders();
-			
+	//"0357730090913204"									
+	
+	sendCMD("WIFI,ON", TargetAsset.ASSET_IMEI).then(response => {
+		if(response == '000'){			
 			if (window.cordova && window.cordova.plugins.settings) {
-				window.cordova.plugins.settings.open("wifi", function() {				
+				window.cordova.plugins.settings.open("wifi", function() {
+						
 						intervalForReply = setInterval(function () {		
 							window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+								App.showPreloader();
 								$$(document).find('.connection-img').attr('src', './resources/images/SVG/connection.svg');
 								$$(document).find('.connection-info').html('Connection Established');
 								$$(document).find('.connection-info').addClass('color-green');
@@ -4478,20 +4481,20 @@ $$(document).on('click', '#btnConnect', function() {
 						}, 10000);	
 					},
 					function () {
-						console.log('failed to open settings');
-						App.hidePreloader();
+						console.log('failed to open settings');						
 						App.alert('WIFI failed');
+						//loadMediaFolders();
 					}
 				);
 				
 			} else {
 				console.log('openNativeSettingsTest is not active!');
-				App.hidePreloader();
+				//App.hidePreloader();
 				App.alert('WIFI error');	
 			}
 		}
 	}, error => {
-		App.hidePreloader();
+		//App.hidePreloader();
 		App.alert('Connection failed');	
 	});			
 });

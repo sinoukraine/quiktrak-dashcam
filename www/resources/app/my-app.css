@@ -1807,6 +1807,10 @@ tossing
 		color: rgb(29,188,12);
 	}
 	
+	.color-blue{
+		color: rgb(63,169,245)
+	}
+	
 	.bg-red{
 		background-color: #e3072b;
 	}
@@ -1818,3 +1822,5 @@ tossing
 	.display-none{
 		display: none;
 	}
+	
+	
