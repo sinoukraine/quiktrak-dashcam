@@ -94,12 +94,12 @@ function onDeviceReady(){
     }   
 
     
-    setupPush();
+    //setupPush();
 
-    getPlusInfo(); 
+    //getPlusInfo(); 
 
-	logout();
-	/*
+	//logout();
+	App.alert('prelogin');
     if (!inBrowser) {
         if(getUserinfo().MinorToken) {
             //login(); 
@@ -108,7 +108,7 @@ function onDeviceReady(){
         else {
             logout();
         } 
-    }*/
+    }
 
     document.addEventListener("backbutton", backFix, false); 
     document.addEventListener("resume", onAppResume, false);
@@ -1796,6 +1796,33 @@ App.onPageInit('media.files', function (page) {
             return  ret;
         }
     }); 
+});
+
+
+
+App.onPageInit('connect.wifi', function (page) {
+	intervalForReply = setInterval(function () {		
+		window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+		//						App.showPreloader();
+								$$(document).find('.connection-img').attr('src', './resources/images/SVG/connection.svg');
+								$$(document).find('.connection-info').html('Connection Established');
+								$$(document).find('.connection-info').addClass('color-green');
+								$$(document).find('#btnConnect').addClass('display-none');
+								$$(document).find('#btnGoToSD').removeClass('display-none');
+								$$(document).find('.connection-note').removeClass('display-none');
+								$$(document).find('.connection-note-error').addClass('display-none');
+								//clearInterval(intervalForReply);
+		//						App.hidePreloader();
+							}, function(error) {
+								$$(document).find('.connection-img').attr('src', './resources/images/SVG/connection-red.svg');
+								$$(document).find('.connection-info').html('Connection failed');
+								$$(document).find('.connection-info').removeClass('color-green');
+								$$(document).find('#btnGoToSD').addClass('display-none');
+								$$(document).find('#btnConnect').removeClass('display-none');
+								$$(document).find('.connection-note-error').removeClass('display-none');
+								$$(document).find('.connection-note').addClass('display-none');
+							});
+	}, 10000);	
 });
 
 
@@ -4465,20 +4492,7 @@ $$(document).on('click', '#btnConnect', function() {
 			if (window.cordova && window.cordova.plugins.settings) {
 				window.cordova.plugins.settings.open("wifi", function() {
 						
-						intervalForReply = setInterval(function () {		
-							window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
-								App.showPreloader();
-								$$(document).find('.connection-img').attr('src', './resources/images/SVG/connection.svg');
-								$$(document).find('.connection-info').html('Connection Established');
-								$$(document).find('.connection-info').addClass('color-green');
-								$$(document).find('#btnConnect').addClass('display-none');
-								$$(document).find('#btnGoToSD').removeClass('display-none');
-								$$(document).find('.connection-note').removeClass('display-none');
-								$$(document).find('.connection-note-error').addClass('display-none');
-								clearInterval(intervalForReply);
-								App.hidePreloader();
-							});
-						}, 10000);	
+						
 					},
 					function () {
 						console.log('failed to open settings');						
@@ -4498,6 +4512,10 @@ $$(document).on('click', '#btnConnect', function() {
 		App.alert('Connection failed');	
 	});			
 });
+
+function turnOnWifi(){
+	
+}
 
 function sendCMD(myCMD, imei, resolve, reject){	 
                 //var imei = App.methods.getFromStorage("setIMEI");
