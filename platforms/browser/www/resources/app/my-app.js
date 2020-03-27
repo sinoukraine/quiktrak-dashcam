@@ -697,7 +697,7 @@ $$(document).on('click', '.dwnl-file', function(){
 					//App.hidePreloader(); 		
 					$$('#demo-inline-progressbar').addClass('display-none');
 					App.alert('File uploaded');
-					showMediaFile(response);
+					//showMediaFile(response);
 				}, error => {
 					//App.hidePreloader(); 
                     App.alert('File not uploaded. Try again');
@@ -787,7 +787,11 @@ function downloadFile(date, type, resolve, reject){
 									var fp = rootdir.toURL(); 
 									
 									
-									var lp = "file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/" + fileName;//'file:///storage/emulated/0/Download/' + fileName;'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/files/' + folder + '/' + fileName;
+									var lp = "file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/" + fileName;
+									
+									var lp = "Android/data/com.quiktrak.quiktrak_dashcam/" + fileName;
+									
+									//'file:///storage/emulated/0/Download/' + fileName;'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/files/' + folder + '/' + fileName;
 									
 									var rp = '/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+folderDate+'/'+fileName;
 									
@@ -798,8 +802,8 @@ function downloadFile(date, type, resolve, reject){
 										var progress = +result * 100;
 										
 										//App.progressbar.set('#demo-inline-progressbar', pcnt);
-										var progressbar = $$('#demo-inline-progressbar');
-										App.setProgressbar(progressbar, progress);
+										//var progressbar = $$('#demo-inline-progressbar');
+										//App.setProgressbar(progressbar, progress);
 	
 										if (result == 1) {
 											resolve(fileName);
