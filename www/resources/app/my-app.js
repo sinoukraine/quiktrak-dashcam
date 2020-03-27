@@ -706,14 +706,14 @@ $$(document).on('click', '.dwnl-file', function(){
 
 function showMediaFile(fileName){
 					
-				
+				App.alert(fileName);
 				var fullPathToFilePrivate = 'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/'+fileName;
 				var externalDirEntry;
 				
 				window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function success(dirEntry) {
 					externalDirEntry = dirEntry;
 				},function (e) {
-					self.$app.dialog.alert('error dir '+JSON.stringify(e));
+					App.alert('error dir '+JSON.stringify(e));
 				});
 				
 				window.resolveLocalFileSystemURL(fullPathToFilePrivate, function onSuccess(fileEntry)
@@ -731,7 +731,7 @@ function showMediaFile(fileName){
 				}, function (e) { App.alert(JSON.stringify(e)); });
 			}
 			
-			function viewFile(url){
+			function viewFile(url){App.alert(url);
 				if (cordova && cordova.plugins.fileOpener2) {
 					cordova.plugins.fileOpener2.open(
 						url, // You can also use a Cordova-style file uri: cdvfile://localhost/persistent/Downloads/starwars.pdf
