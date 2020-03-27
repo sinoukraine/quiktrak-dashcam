@@ -4449,7 +4449,7 @@ function loadFilesPage(){
     
 }
 
-$$('body').on('click', '#btnConnect', function() {
+$$(document).on('click', '#btnConnect', function() {
 	//let imei = $$('.open-dashcam-page input').val();
 	//loadMediaFolders();						
 	//App.methods.setInStorage({name: 'setIMEI', data: imei});
