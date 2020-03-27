@@ -1,6 +1,7 @@
 var storage;
 var fail;
 var uid;
+var intervalForReply;
 try {
     uid = new Date;
     (storage = window.localStorage).setItem(uid, uid);
@@ -677,11 +678,7 @@ $$('.assets_list').on('click', '.item_asset', function(){
 
 $$(document).on('click', '.item_connect', function(){ 
 	TargetAsset.ASSET_IMEI = $$(this).data("imei");  
-    TargetAsset.ASSET_ID = $$(this).data("id"); 
-    TargetAsset.ASSET_IMG = '';        
-    var assetList = getAssetList();  
-    var asset = assetList[TargetAsset.ASSET_IMEI];  
-
+    
     loadConnectPage();
 });
 
@@ -4453,7 +4450,8 @@ $$(document).on('click', '#btnConnect', function() {
 	//let imei = $$('.open-dashcam-page input').val();
 	//loadMediaFolders();						
 	//App.methods.setInStorage({name: 'setIMEI', data: imei});
-								
+										
+	
 	sendCMD("WIFI,ON", "0357730090913204").then(response => {
 		//App.alert('Connection success');
 		if(response == '000'){
@@ -4464,6 +4462,10 @@ $$(document).on('click', '#btnConnect', function() {
 				console.log('openNativeSettingsTest is active');
 				window.cordova.plugins.settings.open("wifi", function() {
 						console.log('opened settings');
+						
+						intervalForReply = setInterval(function () {		
+							window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {App.alert('wifi on');clearInterval(intervalForReply);});
+						}, 10000);	
 					},
 					function () {
 						console.log('failed to open settings');
@@ -4478,8 +4480,7 @@ $$(document).on('click', '#btnConnect', function() {
 		}
 	}, error => {
 		App.alert('Connection failed');	
-	});					
-	
+	});			
 });
 
 function sendCMD(myCMD, imei, resolve, reject){	 
