@@ -655,6 +655,16 @@ $$(document).on('click', 'a.tab-link', function(e){
             case 'resetPwd':
                 loadResetPwdPage();
                 break;
+				
+            case 'media.folder':
+                loadMediaFolders();
+                break;
+            case 'media.inward':
+                loadMediaInwards();
+                break;
+            case 'media.event':
+                loadMediaEvents();
+                break;
         }
     }
     
@@ -1711,6 +1721,40 @@ function getRecordFront(resolve, reject) {
 				
 				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
 							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/USB/', function(result) {
+									resolve(result);
+							}, function(error) {
+								reject();
+								});
+
+						}, function(error) {
+							reject();
+						});
+						
+	});     
+}
+
+function getRecordInward(resolve, reject) {	
+	return new Promise((resolve, reject) => {
+				
+				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/GENERAL/', function(result) {
+									resolve(result);
+							}, function(error) {
+								reject();
+								});
+
+						}, function(error) {
+							reject();
+						});
+						
+	});     
+}
+
+function getRecordEvent(resolve, reject) {	
+	return new Promise((resolve, reject) => {
+				
+				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/EVENT/', function(result) {
 									resolve(result);
 							}, function(error) {
 								reject();
@@ -4578,6 +4622,86 @@ function loadMediaFolders(){
         }); 
                
     
+}
+
+function loadMediaInwards(){
+   
+    getRecordInward().then(response => {	
+			var assetListContainer = $$(page.container).find('.mediaFolderList');
+	
+
+					var virtualConnectAssetsList = App.virtualList('.mediaFolderList', { 
+						items: response,
+						height: 92.67,
+					
+						renderItem: function (index, item) {
+							var ret = '';
+							var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
+							
+										ret +=  '<li data-index="'+index+'" data-name="'+item.name+'" data-type="GENERAL" class=" item_folder">';							
+										ret += '<div class="item-media"><img src="./resources/images/SVG/folder.svg" width="45"/></div>';
+										ret += '	<div class="item-inner">';
+										ret += '	  <div class="item-title-row">';
+										ret += '		<div class="item-title"><b>'+item.name+'</b></div>';
+										ret += '		<div class="item-after"><i class="material-icons md-36 color-blue">play_circle_outline</i></div>';
+										ret += '	  </div>';
+										ret += '	  <div class="item-subtitle">media folder</div>';
+										ret += '	  <div class="item-text">'+item.modifiedDate+'</div>';
+										ret += '	</div>';
+										ret +=  '</li>';
+							
+							return  ret;
+						}
+					}); 
+					
+				}, error => {
+					
+					App.alert('Please check WiFi connection');
+					
+					
+					
+		});
+				
+}
+
+function loadMediaEvents(){
+   
+        getRecordEvents().then(response => {	
+			var assetListContainer = $$(page.container).find('.mediaFolderList');
+	
+
+					var virtualConnectAssetsList = App.virtualList('.mediaFolderList', { 
+						items: response,
+						height: 92.67,
+					
+						renderItem: function (index, item) {
+							var ret = '';
+							var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
+							
+										ret +=  '<li data-index="'+index+'" data-name="'+item.name+'" data-type="EVENT" class=" item_folder">';							
+										ret += '<div class="item-media"><img src="./resources/images/SVG/folder.svg" width="45"/></div>';
+										ret += '	<div class="item-inner">';
+										ret += '	  <div class="item-title-row">';
+										ret += '		<div class="item-title"><b>'+item.name+'</b></div>';
+										ret += '		<div class="item-after"><i class="material-icons md-36 color-blue">play_circle_outline</i></div>';
+										ret += '	  </div>';
+										ret += '	  <div class="item-subtitle">media folder</div>';
+										ret += '	  <div class="item-text">'+item.modifiedDate+'</div>';
+										ret += '	</div>';
+										ret +=  '</li>';
+							
+							return  ret;
+						}
+					}); 
+					
+				}, error => {
+					
+					App.alert('Please check WiFi connection');
+					
+					
+					
+		});
+				
 }
 
 function changeGeolockState(params){
