@@ -4454,10 +4454,10 @@ $$(document).on('click', '#btnConnect', function() {
 	//loadMediaFolders();						
 	//App.methods.setInStorage({name: 'setIMEI', data: imei});
 								
-	sendCmd("WIFI,ON", "0357730090913204").then(response => {
-		App.alert('Connection success');
+	sendCMD("WIFI,ON", "0357730090913204").then(response => {
+		//App.alert('Connection success');
 		if(response == '000'){
-			App.alert('000');
+			//App.alert('000');
 			//dynamicPopup.close();
 			loadMediaFolders();
 		}
@@ -4478,8 +4478,10 @@ function sendCMD(myCMD, imei, resolve, reject){
 				}
 				
 				let url = "https://api.m2mglobaltech.com/Quiktrak/V1/Device/GprsCommand";
+				
 				return new Promise((resolve, reject) => {
-				App.request.post(
+				JSON1.requestPost(
+				//App.request.post(
 					url, 
 					data, 
 					function (result) {
