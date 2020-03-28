@@ -656,7 +656,7 @@ $$(document).on('click', 'a.tab-link', function(e){
                 loadResetPwdPage();
                 break;
 				
-            case 'media.folder':
+            case 'media.folders':
                 loadMediaFolders();
                 break;
             case 'media.inward':
@@ -1714,6 +1714,87 @@ App.onPageInit('media.folders', function (page) {
 		});
 				
     
+});
+
+
+
+App.onPageInit('media.inwards', function (page) {	
+    getRecordInward().then(response => {	
+			var assetListContainer = $$(page.container).find('.mediaFolderList');
+	
+
+					var virtualConnectAssetsList = App.virtualList('.mediaFolderList', { 
+						items: response,
+						height: 92.67,
+					
+						renderItem: function (index, item) {
+							var ret = '';
+							var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
+							
+										ret +=  '<li data-index="'+index+'" data-name="'+item.name+'" data-type="GENERAL" class=" item_folder">';							
+										ret += '<div class="item-media"><img src="./resources/images/SVG/folder.svg" width="45"/></div>';
+										ret += '	<div class="item-inner">';
+										ret += '	  <div class="item-title-row">';
+										ret += '		<div class="item-title"><b>'+item.name+'</b></div>';
+										ret += '		<div class="item-after"><i class="material-icons md-36 color-blue">play_circle_outline</i></div>';
+										ret += '	  </div>';
+										ret += '	  <div class="item-subtitle">media folder</div>';
+										ret += '	  <div class="item-text">'+item.modifiedDate+'</div>';
+										ret += '	</div>';
+										ret +=  '</li>';
+							
+							return  ret;
+						}
+					}); 
+					
+				}, error => {
+					
+					App.alert('Please check WiFi connection');
+					
+							
+		});
+					
+					
+		});
+				
+				
+				
+App.onPageInit('media.events', function (page) {
+        getRecordEvents().then(response => {	
+			var assetListContainer = $$(page.container).find('.mediaFolderList');
+	
+
+					var virtualConnectAssetsList = App.virtualList('.mediaFolderList', { 
+						items: response,
+						height: 92.67,
+					
+						renderItem: function (index, item) {
+							var ret = '';
+							var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
+							
+										ret +=  '<li data-index="'+index+'" data-name="'+item.name+'" data-type="EVENT" class=" item_folder">';							
+										ret += '<div class="item-media"><img src="./resources/images/SVG/folder.svg" width="45"/></div>';
+										ret += '	<div class="item-inner">';
+										ret += '	  <div class="item-title-row">';
+										ret += '		<div class="item-title"><b>'+item.name+'</b></div>';
+										ret += '		<div class="item-after"><i class="material-icons md-36 color-blue">play_circle_outline</i></div>';
+										ret += '	  </div>';
+										ret += '	  <div class="item-subtitle">media folder</div>';
+										ret += '	  <div class="item-text">'+item.modifiedDate+'</div>';
+										ret += '	</div>';
+										ret +=  '</li>';
+							
+							return  ret;
+						}
+					}); 
+					
+				}, error => {
+					
+					App.alert('Please check WiFi connection');
+					
+					
+					
+		});
 });
 
 function getRecordFront(resolve, reject) {	
@@ -4625,83 +4706,21 @@ function loadMediaFolders(){
 }
 
 function loadMediaInwards(){
-   
-    getRecordInward().then(response => {	
-			var assetListContainer = $$(page.container).find('.mediaFolderList');
-	
-
-					var virtualConnectAssetsList = App.virtualList('.mediaFolderList', { 
-						items: response,
-						height: 92.67,
-					
-						renderItem: function (index, item) {
-							var ret = '';
-							var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
-							
-										ret +=  '<li data-index="'+index+'" data-name="'+item.name+'" data-type="GENERAL" class=" item_folder">';							
-										ret += '<div class="item-media"><img src="./resources/images/SVG/folder.svg" width="45"/></div>';
-										ret += '	<div class="item-inner">';
-										ret += '	  <div class="item-title-row">';
-										ret += '		<div class="item-title"><b>'+item.name+'</b></div>';
-										ret += '		<div class="item-after"><i class="material-icons md-36 color-blue">play_circle_outline</i></div>';
-										ret += '	  </div>';
-										ret += '	  <div class="item-subtitle">media folder</div>';
-										ret += '	  <div class="item-text">'+item.modifiedDate+'</div>';
-										ret += '	</div>';
-										ret +=  '</li>';
-							
-							return  ret;
-						}
-					}); 
-					
-				}, error => {
-					
-					App.alert('Please check WiFi connection');
-					
-					
-					
-		});
-				
+     mainView.router.load({
+            url:'resources/templates/media.inwards.html',
+            context:{
+            }
+        }); 
+		
 }
 
 function loadMediaEvents(){
-   
-        getRecordEvents().then(response => {	
-			var assetListContainer = $$(page.container).find('.mediaFolderList');
-	
-
-					var virtualConnectAssetsList = App.virtualList('.mediaFolderList', { 
-						items: response,
-						height: 92.67,
-					
-						renderItem: function (index, item) {
-							var ret = '';
-							var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
-							
-										ret +=  '<li data-index="'+index+'" data-name="'+item.name+'" data-type="EVENT" class=" item_folder">';							
-										ret += '<div class="item-media"><img src="./resources/images/SVG/folder.svg" width="45"/></div>';
-										ret += '	<div class="item-inner">';
-										ret += '	  <div class="item-title-row">';
-										ret += '		<div class="item-title"><b>'+item.name+'</b></div>';
-										ret += '		<div class="item-after"><i class="material-icons md-36 color-blue">play_circle_outline</i></div>';
-										ret += '	  </div>';
-										ret += '	  <div class="item-subtitle">media folder</div>';
-										ret += '	  <div class="item-text">'+item.modifiedDate+'</div>';
-										ret += '	</div>';
-										ret +=  '</li>';
-							
-							return  ret;
-						}
-					}); 
-					
-				}, error => {
-					
-					App.alert('Please check WiFi connection');
-					
-					
-					
-		});
-				
+     mainView.router.load({
+            url:'resources/templates/media.events.html',
+            context:{
+            }
+        }); 
+		
 }
 
 function changeGeolockState(params){
