@@ -1760,11 +1760,11 @@ tossing
 		line-height: 2.2;
 	}
 	
-	.mediaFolderList ul li, .mediaFileList ul li{
+	.mediaFolderList ul li, .mediaFileList ul li, .mediaInwardList ul li, .mediaEventList ul li{
 		display: flex;
 	}
 	
-	.mediaFolderList .item-media, .mediaFileList .item-media{
+	.mediaFolderList .item-media, .mediaFileList .item-media, .mediaInwardList .item-media, .mediaEventList .item-media{
 		padding-left: 20px;
 		padding-right: 5px;
 	}

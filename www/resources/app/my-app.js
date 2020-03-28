@@ -659,10 +659,10 @@ $$(document).on('click', 'a.tab-link', function(e){
             case 'media.folders':
                 loadMediaFolders();
                 break;
-            case 'media.inward':
+            case 'media.inwards':
                 loadMediaInwards();
                 break;
-            case 'media.event':
+            case 'media.events':
                 loadMediaEvents();
                 break;
         }
@@ -1720,10 +1720,10 @@ App.onPageInit('media.folders', function (page) {
 
 App.onPageInit('media.inwards', function (page) {	
     getRecordInward().then(response => {	
-			var assetListContainer = $$(page.container).find('.mediaFolderList');
+			var assetListContainer = $$(page.container).find('.mediaInwardList');
 	
 
-					var virtualConnectAssetsList = App.virtualList('.mediaFolderList', { 
+					var virtualConnectAssetsList = App.virtualList('.mediaInwardList', { 
 						items: response,
 						height: 92.67,
 					
@@ -1760,11 +1760,11 @@ App.onPageInit('media.inwards', function (page) {
 				
 				
 App.onPageInit('media.events', function (page) {
-        getRecordEvents().then(response => {	
-			var assetListContainer = $$(page.container).find('.mediaFolderList');
+        getRecordEvent().then(response => {	
+			var assetListContainer = $$(page.container).find('.mediaEventList');
 	
 
-					var virtualConnectAssetsList = App.virtualList('.mediaFolderList', { 
+					var virtualConnectAssetsList = App.virtualList('.mediaEventList', { 
 						items: response,
 						height: 92.67,
 					
