@@ -7095,14 +7095,14 @@ function downloadFile(date, type, resolve, reject){
 									var fp = rootdir.toURL(); */
 									
 									
-									var lp = cordova.file.documentsDirectory + '/Download/' + fileName;
+									var lp = cordova.file.documentsDirectory + 'Download/' + fileName;
 									//file:///data/user/0/com.quiktrak.quiktrak_dashcam/
 									//var lp = "Android/data/com.quiktrak.quiktrak_dashcam/" + fileName;
 									
 									//'file:///storage/emulated/0/Download/' + fileName;'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/files/' + folder + '/' + fileName;
 									
 									var rp = '/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+folderDate+'/'+fileName;
-									
+									App.alert(lp);
 									window.cordova.plugin.ftp.download(lp, rp, function(result) {												
 										$$('.view-main #demo-inline-progressbar').removeClass('display-none');
 										//$$('.view-main #demo-inline-progressbar').attr('data-progress', parseInt((result * 100), 10).toString(10));
