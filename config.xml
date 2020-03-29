@@ -58,9 +58,9 @@
       <resource-file src="GoogleService-Info.plist" />
     </platform>-->
     
-     <plugin name="kaiquecruz-phonegap-plugin-barcodescanner-custom" source="npm" />       
+  <!--   <plugin name="kaiquecruz-phonegap-plugin-barcodescanner-custom" source="npm" />       
 	<plugin name="cordova-plugin-file" source="npm" />  
-	<plugin name="cordova-plugin-file-opener2" source="npm" />
+	<plugin name="cordova-plugin-file-opener2" source="npm" />-->
     <!-- <plugin name="cordova-plugin-console" source="npm" spec="1.0.7" /> -->
     <plugin name="cordova-plugin-statusbar" source="npm" spec="2.1.3" />
     <plugin name="cordova-plugin-device" source="npm" spec="2.0.2" />
@@ -74,11 +74,11 @@
 <!--     <plugin name="cordova-android-firebase-gradle-release" source="npm" /> -->
     <plugin name="cordova-launch-review" source="npm" spec="3.1.1" />
     <plugin name="cordova-plugin-inappbrowser" source="npm" spec="3.0.0"  />
-    <plugin name="cordova-plugin-ftp" source="npm" spec="1.1.1" />
+  <!--  <plugin name="cordova-plugin-ftp" source="npm" spec="1.1.1" />
 	<plugin name="cordova-open-native-settings" source="npm" spec="1.5.2" />
 	<plugin name="cordova-plugin-android-permissions" source="npm"  spec="1.0.2" />
 	<plugin spec="https://github.com/apache/cordova-plugin-file-transfer" source="git"  />
-    <plugin spec="https://github.com/cdibened/PDFViewer.git" source="git"  />
+    <plugin spec="https://github.com/cdibened/PDFViewer.git" source="git"  />-->
    
     <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
         <string>You can take a photo of your asset using camera and upload it into the app</string>
