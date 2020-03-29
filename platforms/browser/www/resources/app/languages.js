@@ -120,7 +120,7 @@ window.LanguagePackages= {
 		"LOGIN_MSG04": "Login",
 		"LOGIN_MSG05": "Forgot password?",
 		"MENU_MSG00": "My Assets",
-		"MENU_MSG01": "Geofence",
+		"MENU_MSG01": "Connect to DashCam",
 		"MENU_MSG02": "Recharge Credits",
 		"MENU_MSG03": "Profile",
 		"MENU_MSG04": "Sign Out",

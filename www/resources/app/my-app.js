@@ -245,8 +245,8 @@ var App = new Framework7({
     swipePanel: 'left', 
     allowDuplicateUrls: true,    
     sortable: false,    
-    modalTitle: 'RV Eye',
-    notificationTitle: 'RV Eye',
+    modalTitle: 'QT DashCam',
+    notificationTitle: 'QT DashCam',
     precompileTemplates: true,
     template7Pages: true,
     onAjaxStart: function(xhr){
@@ -403,14 +403,15 @@ virtualAssetList = App.virtualList('.assets_list', {
     items: [
     ],
     height: function (item) {
-        var asset = POSINFOASSETLIST[item.IMEI];        
+        /*var asset = POSINFOASSETLIST[item.IMEI];        
         var assetFeaturesStatus = Protocol.Helper.getAssetStateInfo(asset);        
         var height = 99; 
         if (assetFeaturesStatus && assetFeaturesStatus.voltage && assetFeaturesStatus.fuel || assetFeaturesStatus && assetFeaturesStatus.battery && assetFeaturesStatus.fuel || assetFeaturesStatus && assetFeaturesStatus.battery && assetFeaturesStatus.voltage) {
             
             height = 127;
         }
-        //var height = 79; 
+        //var height = 79; */
+		var height = 120; 
         return height; //display the image with 50px height
     },
     // Display the each item using Template7 template parameter
@@ -427,51 +428,27 @@ virtualAssetList = App.virtualList('.assets_list', {
         	ret +=  '<li class="item-link item-content item_asset" data-imei="' + item.IMEI + '" data-id="' + item.Id + '">';                    
             ret +=      '<div class="item-media">'+assetImg+'</div>';
             ret +=      '<div class="item-inner">';
-            ret +=          '<div class="item-title-row">';
-            ret +=              '<div class="item-title">' + item.Name + '</div>';
-            ret +=              '<div class="item-after">';
-           /* ret +=                  '<i id="geolock-state'+item.IMEI+'" class="icon-other_lock '+assetFeaturesStatus.geolock.state+'"></i>';*/
-            ret +=                  '<i id="signal-state'+item.IMEI+'" class="f7-icons icon-status-cell '+assetFeaturesStatus.GSM.state+'"></i>';
-            ret +=                  '<i id="satellite-state'+item.IMEI+'" class="f7-icons icon-status-gps '+assetFeaturesStatus.GPS.state+'"></i>';
+            ret +=          '<div class="item-title-row my-3">';
+            ret +=              '<div class="item-title line-height-3">' + item.IMEI + '</div>';
+            ret +=              '<div class="item-after ">';
+            ret +=                  '<i id="signal-state'+item.IMEI+'" class="f7-icons line-height-3 icon-status-cell '+assetFeaturesStatus.GSM.state+'"></i>';
+            ret +=                  '<i id="satellite-state'+item.IMEI+'" class="f7-icons line-height-3 icon-status-gps '+assetFeaturesStatus.GPS.state+'"></i>';
             ret +=              '</div>';
             ret +=          '</div>';
-            ret +=          '<div id="status-state'+item.IMEI+'" class="item-subtitle '+assetFeaturesStatus.status.state+'"><i class="f7-icons icon-status-circle icon-status-fix"></i><span id="status-value'+item.IMEI+'">'+assetFeaturesStatus.status.value+'</span></div>';
-            ret +=          '<div class="item-text">';
-            ret +=              '<div class="row no-gutter">';                            
-                                if (assetFeaturesStatus.speed) {
-            ret +=                  '<div class="col-50">';
-            ret +=                     '<i class="f7-icons icon-status-speed asset_list_icon"></i>';
-            ret +=                     '<span id="speed-value'+item.IMEI+'">'+assetFeaturesStatus.speed.value+'</span>'; 
-            ret +=                  '</div>';
-                                }
-                                if (assetFeaturesStatus.voltage) {
-            ret +=                  '<div class="col-50">';
-            ret +=                     '<i class="f7-icons icon-status-voltage asset_list_icon"></i>';           
-            ret +=                     '<span id="voltage-value'+item.IMEI+'">'+assetFeaturesStatus.voltage.value+'</span>';
-            ret +=                  '</div>';
-                                }  
-                                if (assetFeaturesStatus.battery) {
-            ret +=                  '<div class="col-50">';
-            ret +=                     '<i class="f7-icons icon-status-battery asset_list_icon"></i>';
-            ret +=                     '<span id="battery-value'+item.IMEI+'">'+assetFeaturesStatus.battery.value+'</span>';
-            ret +=                  '</div>';
-                                }  
-                                if (assetFeaturesStatus.temperature) {
-            ret +=                  '<div class="col-50">';
-            ret +=                     '<i class="f7-icons icon-status-temperature asset_list_icon"></i>';
-            ret +=                     '<span id="temperature-value'+item.IMEI+'">'+assetFeaturesStatus.temperature.value+'</span>';
-            ret +=                  '</div>';
-                                }
-                                if (assetFeaturesStatus.fuel) {
-            ret +=                  '<div class="col-50">';
-            ret +=                     '<i class="f7-icons icon-status-fuel asset_list_icon"></i>';
-            ret +=                     '<span id="fuel-value'+item.IMEI+'">'+assetFeaturesStatus.fuel.value+'</span>'; 
-            ret +=                  '</div>';
-                                }           
-            ret +=              '</div>';
-            ret +=          '</div>';
+            ret +=          '<div id="status-state'+item.IMEI+'" class="item-subtitle '+assetFeaturesStatus.status.state+'"><i class="material-icons md-36 font-size-16 color-light-grey">location_on</i><span data-id="address-value-'+item.IMEI+'" class="size-12 vertical-align-middle margin-left-half text-color-black address-line"></span></div>';
+            
             ret +=      '</div>';                   
             ret +=  '</li>';
+
+			let latlng = {
+                lat: POSINFOASSETLIST[item.IMEI].posInfo.lat,
+                lng: POSINFOASSETLIST[item.IMEI].posInfo.lng
+            };
+								
+			Protocol.Helper.getAddressByGeocoder(latlng, function(address) {
+				$("[data-id='address-value-"+item.IMEI+"']").text(address);
+			});
+            
 
 
             
@@ -3530,39 +3507,17 @@ function loadResetPwdPage(){
 }*/
 
 function getAssetImg(params, imgFor){
+	
     var assetImg = '';
     if (params && imgFor.assetList) {
         var pattern = /^IMEI_/i;   
         if (params.Icon && pattern.test(params.Icon)) {
-            assetImg = '<img class="item_asset_img" src="http://upload.quiktrak.co/Attachment/images/'+params.Icon+'?'+ new Date().getTime()+'" alt="">';
+            assetImg = '<img class="item_asset_img" src="http://upload.quiktrak.co/Attachment/images/'+params.Icon+'?v='+ new Date().getTime()+'" alt="">';
         }else if (params.Name) {
-            params.Name = $.trim(params.Name);
-            var splitted = params.Name.split(' ');                
-            if (splitted.length > 1) {
-                var one = '';
-                var two = '';
-                for (var i = 0; i < splitted.length; i++) {                 
-                    if (splitted[i] && splitted[i][0]) {
-                        if (!one || !two) {
-                            if (!one) {
-                                one = splitted[i][0];
-                            }else{
-                                two = splitted[i][0];
-                                break;
-                            }
-                        }
-                    }
-                }               
-                assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l text-color-black">'+one+two+'</div></div>';            
-            }else{
-                assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l text-color-black">'+params.Name[0]+params.Name[1]+'</div></div>';            
-            }
-            
-        }else if(params.IMEI){
-            assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l text-color-black">'+params.IMEI[0]+params.IMEI[1]+'</div></div>';
-        }
+            assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><img src="resources/images/cam.svg" class="menu-icon"></center></div></div>';
+		}
     }else{
-        assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l text-color-black">?</div></div>';
+        assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><img src="resources/images/cam.svg" class="menu-icon"></center></div></div>';
     }   
     return assetImg;
 }
@@ -6480,3 +6435,213 @@ function getImage(source){
            
 }
 
+
+App.onPageInit('connect.wifi', function (page) {
+	intervalForReply = setInterval(function () {		
+		window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+		//						App.showPreloader();
+								$$(document).find('.connection-img').attr('src', './resources/images/SVG/connection.svg');
+								$$(document).find('.connection-info').html('Connection Established');
+								$$(document).find('.connection-info').addClass('color-green');
+								$$(document).find('#btnConnect').addClass('display-none');
+								$$(document).find('#btnGoToSD').removeClass('display-none');
+								$$(document).find('.connection-note').removeClass('display-none');
+								$$(document).find('.connection-note-error').addClass('display-none');
+								//clearInterval(intervalForReply);
+		//						App.hidePreloader();
+							}, function(error) {
+								$$(document).find('.connection-img').attr('src', './resources/images/SVG/connection-red.svg');
+								$$(document).find('.connection-info').html('Not Connected');
+								$$(document).find('.connection-info').removeClass('color-green');
+								$$(document).find('#btnGoToSD').addClass('display-none');
+								$$(document).find('#btnConnect').removeClass('display-none');
+								$$(document).find('.connection-note-error').removeClass('display-none');
+								$$(document).find('.connection-note').addClass('display-none');
+							});
+	}, 10000);	
+});
+
+
+function loadConnectAssetsPage(){
+    mainView.router.load({
+                    url:'resources/templates/connect.assets.html',                     
+                    context:{
+                                  
+                    }
+                });
+}
+
+
+App.onPageInit('connect.assets', function (page) {
+
+    var assetListContainer = $$(page.container).find('.connectAssetList');
+    var searchForm = $$('.searchbarConnectAssets');
+    var assetList = getAssetList();   
+    var newAssetlist = [];
+    var keys = Object.keys(assetList);
+
+    $.each(keys, function( index, value ) {    
+        assetList[value].Selected = false;    
+        newAssetlist.push(assetList[value]);       
+    });
+    
+    newAssetlist.sort(function(a,b){
+        if(a.Name < b.Name) return -1;
+        if(a.Name > b.Name) return 1;
+        return 0;
+    }); 
+
+    //console.log(newAssetlist);
+    
+    var virtualConnectAssetsList = App.virtualList('.connectAssetList', { 
+        items: newAssetlist,
+        height: 88,
+        searchAll: function (query, items) {           
+            var foundItems = [];        
+            for (var i = 0; i < items.length; i++) {           
+                // Check if title contains query string
+                if (items[i].Name.toLowerCase().indexOf(query.toLowerCase().trim()) >= 0) foundItems.push(i);
+            }
+            // Return array with indexes of matched items
+            return foundItems; 
+        },         
+        /*searchByItem: function (query, index, item) {
+            // Check if title contains query string
+            //if (item.title.indexOf(query.trim()) >= 0) {
+            if (item.Name.toLowerCase().indexOf(query.toLowerCase().trim()) >= 0) {
+                return true; //item matches query
+            }
+            else {
+                return false; //item doesn't match
+            }
+        },*/
+        renderItem: function (index, item) {
+            var ret = '';
+            //var assetImg = getAssetImg(item, {'assetList':true}); 
+			var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
+			
+			
+            ret +=  '<li data-index="'+index+'" class=" item_connect" data-imei="' + item.IMEI + '">';
+            //ret +=      '<a href="./resources/pages/my-mac-address">';
+            ret +=      '<label class="label-checkbox item-content no-fastclick">';
+              ret +=          '<div class="item-media">'+assetImg+'</div>';
+            ret +=          '<div class="item-inner">';
+            ret +=              '<div class="item-title-row">';
+            ret +=                  '<div class="item-title ">' + item.IMEI + '</div>';
+            ret +=                  '<div class="item-after">';
+            ret +=                      '<i class="material-icons md-36">keyboard_arrow_right</i>';
+            ret +=                  '</div>';
+            ret +=              '</div>';
+            ret +=          '</div>';
+            ret +=      '</label>';
+            //ret +=      '</a>';
+            ret +=  '</li>';
+            
+            return  ret;
+        }
+    }); 
+
+
+
+    var searchbarAlarmsAssets = App.searchbar(searchForm, {
+        searchList: '.connectAssetList',
+        searchIn: '.connectAssetList .item-title',
+        found: '.list-block-search-connect-assets',
+        notFound: '.connect-assets-search-nothing-found',
+        onDisable: function(s){
+          /*  $(s.container).slideUp();*/
+        }
+    });
+    
+    $$(page.container).find('.button_search').on('click', function(){        
+        $('.searchbarConnectAssets').slideDown(400, function(){
+            $$('.searchbar input').focus();
+        });                
+    });
+
+
+});
+
+
+$$(document).on('click', '.item_connect', function(){ 
+	TargetAsset.ASSET_IMEI = $$(this).data("imei");  
+    console.log(TargetAsset.ASSET_IMEI);
+    loadConnectPage();
+});
+
+function loadConnectPage(){
+   
+        mainView.router.load({
+            url:'resources/templates/connect.wifi.html',
+            context:{
+            }
+        }); 
+               
+    
+}
+
+$$(document).on('click', '#btnConnect', function() {
+	//let imei = $$('.open-dashcam-page input').val();
+	//App.methods.setInStorage({name: 'setIMEI', data: imei});
+	//"0357730090913204"	 TargetAsset.ASSET_IMEI		
+	
+	sendCMD("WIFI,ON", "0357730090913204").then(response => {
+		if(response == '000'){			
+			if (window.cordova && window.cordova.plugins.settings) {
+				window.cordova.plugins.settings.open("wifi", function() {						
+						//App.alert('WIFI ok');
+					},
+					function () {
+						console.log('failed to open settings');						
+						App.alert('WIFI failed');
+						//loadMediaFolders();
+					}
+				);				
+			} else {
+				console.log('openNativeSettingsTest is not active!');
+				//App.hidePreloader();
+				App.alert('WIFI error');	
+			}
+		}
+	}, error => {
+		//App.hidePreloader();
+		App.alert('Connection failed');	
+	});			
+});
+
+
+function sendCMD(myCMD, imei, resolve, reject){	 
+                //var imei = App.methods.getFromStorage("setIMEI");
+				
+				let data = {
+						"Majortoken": "a5b4a26a-053b-4fd8-9b90-19f4c6588146",
+						"minortoken": "5f23466a-407c-4b0b-97aa-0914b9e46360",
+						"imei": imei,
+						"cmd": myCMD,
+				}
+				
+				let url = "https://api.m2mglobaltech.com/Quiktrak/V1/Device/GprsCommand";
+				
+				return new Promise((resolve, reject) => {
+				JSON1.requestPost(
+				//App.request.post(
+					url, 
+					data, 
+					function (result) {
+						if(result.MajorCode == '000'){
+							resolve(result.MajorCode);
+						}else{
+							App.alert('IMEI number is incorrect');
+							reject();
+							//App.methods.popupIMEI();
+						}
+					}, 
+					function(e){
+						console.log('error = ' + e);
+						App.alert('Something went wrong');
+						reject();
+					}, 
+					'json'
+					);
+				});
+}

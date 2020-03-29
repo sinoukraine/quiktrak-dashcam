@@ -10,7 +10,7 @@
     <!-- Color theme for statusbar -->
     <!-- <meta name="theme-color" content="#2196f3"> -->
     <!-- Your app title -->
-    <title>RV Eye</title>
+    <title>QT DashCam</title>
 
      <!-- Cropper Camer -->
     <link rel="stylesheet" href="resources/plugins/cropper/css/cropper.min.css" type="text/css" charset="utf-8"/>
@@ -25,17 +25,22 @@
     <link rel="stylesheet" href="resources/fonts/framework7-icons.css">
     <!--  <link rel="stylesheet" href="resources/fonts/icomoon/icomoon.css">
         <link rel="stylesheet" href="resources/fonts/ownicons/iconfont.css"> -->
+		
+		 <link rel="stylesheet" href="resources/fonts/fontastic/styles.css">
+    <link rel="stylesheet" href="resources/fonts/fontastic4/styles.css">
+	<link rel="stylesheet" href="resources/app/icons.css">  
          <link rel="stylesheet" href="resources/fonts/fontastic/styles.css">
    
+    <link rel="stylesheet" href="resources/app/font.css">
       <!-- custom radio buttons -->
     <link rel="stylesheet" href="resources/plugins/customRadio/style.css">
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="resources/libraries/leaflet/leaflet.css">
- 
+    <link rel="stylesheet" href="resources/fonts/roboto.css">
     <link rel="stylesheet" href="resources/app/my-app.css">
 
   </head>
-  <body class="theme-bw theme-yellow">
+  <body class="theme-bw theme-red">
     <div class="statusbar-overlay"></div>
     <!-- First, we need to add Panel's overlay that will overlays app while panel is opened -->
     <div class="panel-overlay"></div>
@@ -73,12 +78,12 @@
                       </div>
                     </li> 
                     <li class="forget_pwd_wrapper">       
-                      <a href="resources/templates/forgotPwd.html" class="color-black forgetPwd ">{{@global.LANGUAGE.LOGIN_MSG05}}</a>          
+                      <a href="resources/templates/forgotPwd.html" class="color-white forgetPwd ">{{@global.LANGUAGE.LOGIN_MSG05}}</a>          
                     </li>             
                   </ul>
                 </div>          
                 <div class="content-block ">
-                  <button type="submit" class="button button-big login-submit button-fill bg-boatwatch btn_login text-color-black" style="" id="btnLogin">{{@global.LANGUAGE.LOGIN_MSG04}}</button>
+                  <button type="submit" class="button button-big login-submit button-fill bg-boatwatch btn_login text-color-white" style="" id="btnLogin">{{@global.LANGUAGE.LOGIN_MSG04}}</button>
                 </div>
               </form>
             </div>
@@ -96,27 +101,26 @@
         <div class="menu_wrapper">
           <div class="menu_header">
             <div class="header_container">
-              <div class="custom_caption color-white">
-                {{@global.LANGUAGE.MENU_MSG07}}:
-              </div>
-              <div class="custom_divider"></div>
-              <div class="header_row color-white">
+              <a class="logoLink" href="#">
+                 <img class="logoMenu" class="" src="resources/images/logo.png" alt="logo">
+                </a>
+              <!--<div class="header_row color-white">
                 {{@global.LANGUAGE.MENU_MSG08}}: <a href="https://www.rv-eye.co" target="_blank" class="external color-white">www.rv-eye.co</a>
               </div>              
               <div class="header_row color-white">
                 {{@global.LANGUAGE.MENU_MSG10}}: <a href="tel:8339243500" target="_blank" class="external color-white">(833) 924-3500 [24/7]</a>
-              </div>
+              </div>-->
             </div>           
           </div>
           <div class="list-block no-hairlines-between menu" id="menu">
             <div class="list-group no-hairlines ">
               <ul>
                 <li class="item-content list-panel-all close-panel item-link" id="menuHome">
-                  <div class="item-media color-gray">                
-                    <i class="f7-icons icon-menu-home"></i>
+                  <div class="item-media color-light-gray">                
+                    <img src="resources/images/cam.svg" class="menu-icon">
                   </div>
                   <div class="item-inner">
-                    <div class="item-title">{{@global.LANGUAGE.MENU_MSG00}}</div>
+                    <div class="item-title color-white">{{@global.LANGUAGE.MENU_MSG00}}</div>
                   </div>
                 </li>
                <!--  <li class="item-content list-panel-all close-panel item-link" id="menuGeofence">
@@ -129,39 +133,30 @@
                </li>  -->
 			    <li class="item-content list-panel-all close-panel no-padding margin-bottom" id="menuConnect">
                             <div class="item-media">
-								<i class="material-icons md-36 menu-sd-icon">wifi</i>
+								<i class="material-icons md-36 menu-sd-icon color-light-gray">wifi</i>
                                 <!--<i class="material-icons md-36 menu-sd-icon">sd_storage</i>-->
                             </div>
                             <div class="item-inner no-border">
-                                <div class="item-text">
-                                    <div class="item-title">Connect to Dashcam</div>
-                                </div>
+                                    <div class="item-title color-white">{{@global.LANGUAGE.MENU_MSG01}}</div>
                             </div>
                         </li>
-                <li class="item-content list-panel-all close-panel item-link" id="menuAlarms">
+               <!-- <li class="item-content list-panel-all close-panel item-link" id="menuAlarms">
                     <div class="item-media color-gray">
                         <i class="f7-icons icon-menu-alarms"></i>
                     </div>
                     <div class="item-inner">
                         <div class="item-title">{{@global.LANGUAGE.ALARM_MSG06}}</div>
                     </div>
-                </li>  
+                </li>  -->
                 <li class="item-content list-panel-all close-panel item-link" id="menuProfile">
-                  <div class="item-media color-gray">
-                    <i class="f7-icons icon-menu-profile"></i>
+                  <div class="item-media color-light-gray">
+                    <img src="resources/images/settings.svg" class="menu-settings-icon">
                   </div>
                   <div class="item-inner">
-                    <div class="item-title">{{@global.LANGUAGE.MENU_MSG03}}</div>
+                    <div class="item-title color-white">{{@global.LANGUAGE.MENU_MSG03}}</div>
                   </div>
                 </li> 
-                <li class="item-content list-panel-all close-panel item-link" id="menuUserManual">
-                    <div class="item-media color-gray">
-                        <i class="f7-icons icon-other-user-manual"></i>
-                    </div>
-                    <div class="item-inner">
-                        <div class="item-title">{{@global.LANGUAGE.MENU_MSG12}}</div>
-                    </div>
-                </li>
+                
                 <!-- <li class="item-content list-panel-all close-panel item-link" id="menuSupport">
                                                            <div class="item-media color-gray">
                                                                <i class="f7-icons icon-menu-support"></i>
@@ -172,20 +167,14 @@
                                                        </li> -->                                       
                 <li class="item-content list-panel-all close-panel" id="menuLogout"> 
                   <div class="item-media color-gray">
-                    <i class="f7-icons icon-menu-signout"></i>
+                    <i class="f7-icons icon-menu-signout menu-logout-icon"></i>
                   </div>
                   <div class="item-inner">
-                    <div class="item-title">{{@global.LANGUAGE.MENU_MSG04}}</div>
+                    <div class="item-title color-white">{{@global.LANGUAGE.MENU_MSG04}}</div>
                   </div> 
                 </li>            
               </ul>
             </div>
-          </div>
-          <div class="menu_bottom"> 
-            <a href="tel:8339243500" target="_blank" class="external button button-fill button-big  call-button">
-                <i class="f7-icons icon-other-call"></i>
-                {{@global.LANGUAGE.MENU_MSG11}}
-            </a>
           </div>
         </div>
         
