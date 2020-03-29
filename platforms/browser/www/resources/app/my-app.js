@@ -666,6 +666,16 @@ $$(document).on('click', 'a.tab-link', function(e){
                 break;
             case 'resetPwd':
                 loadResetPwdPage();
+                break;				
+				
+            case 'media.folders':
+                loadMediaFolders();
+                break;
+            case 'media.inwards':
+                loadMediaInwards();
+                break;
+            case 'media.events':
+                loadMediaEvents();
                 break;
         }
     }
@@ -6644,4 +6654,499 @@ function sendCMD(myCMD, imei, resolve, reject){
 					'json'
 					);
 				});
+}
+
+$$(document).on('click', '#btnGoToSD', function() {
+	//let imei = $$('.open-dashcam-page input').val();
+	loadMediaFolders();		
+});
+
+function loadMediaFolders(){
+   
+        mainView.router.load({
+            url:'resources/templates/media.folders.html',
+            context:{
+            }
+        }); 
+               
+    
+}
+
+function loadMediaInwards(){
+     mainView.router.load({
+            url:'resources/templates/media.inwards.html',
+            context:{
+            }
+        }); 
+		
+}
+
+function loadMediaEvents(){
+     mainView.router.load({
+            url:'resources/templates/media.events.html',
+            context:{
+            }
+        }); 
+		
+}
+
+
+
+App.onPageInit('media.folders', function (page) {	
+	//App.showPreloader();
+		getRecordFront().then(response => {	
+			var assetListContainer = $$(page.container).find('.mediaFolderList');
+	
+					/*var searchForm = $$('.searchbarConnectAssets');
+					var assetList = getAssetList();   
+					var newAssetlist = [];
+					var keys = Object.keys(assetList);
+
+					$.each(keys, function( index, value ) {    
+						assetList[value].Selected = false;    
+						newAssetlist.push(assetList[value]);       
+					});
+					
+					newAssetlist.sort(function(a,b){
+						if(a.Name < b.Name) return -1;
+						if(a.Name > b.Name) return 1;
+						return 0;
+					}); */
+
+					var virtualConnectAssetsList = App.virtualList('.mediaFolderList', { 
+						items: response,
+						height: 92.67,
+					
+						renderItem: function (index, item) {
+							var ret = '';
+							var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
+							
+										ret +=  '<li data-index="'+index+'" data-name="'+item.name+'" data-type="USB" class=" item_folder">';							
+										ret += '<div class="item-media"><img src="./resources/images/SVG/folder.svg" width="45"/></div>';
+										ret += '	<div class="item-inner">';
+										ret += '	  <div class="item-title-row">';
+										ret += '		<div class="item-title"><b>'+item.name+'</b></div>';
+										ret += '		<div class="item-after"><i class="material-icons md-36 color-blue">play_circle_outline</i></div>';
+										ret += '	  </div>';
+										ret += '	  <div class="item-subtitle">media folder</div>';
+										ret += '	  <div class="item-text">'+item.modifiedDate+'</div>';
+										ret += '	</div>';
+										ret +=  '</li>';
+							
+							return  ret;
+						}
+					}); 
+					
+				}, error => {
+					
+					App.alert('Please check WiFi connection');
+					
+					
+					
+		});
+				
+    
+});
+
+
+
+App.onPageInit('media.inwards', function (page) {	
+    getRecordInward().then(response => {	
+			var assetListContainer = $$(page.container).find('.mediaInwardList');
+	
+
+					var virtualConnectAssetsList = App.virtualList('.mediaInwardList', { 
+						items: response,
+						height: 92.67,
+					
+						renderItem: function (index, item) {
+							var ret = '';
+							var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
+							
+										ret +=  '<li data-index="'+index+'" data-name="'+item.name+'" data-type="GENERAL" class=" item_folder">';							
+										ret += '<div class="item-media"><img src="./resources/images/SVG/folder.svg" width="45"/></div>';
+										ret += '	<div class="item-inner">';
+										ret += '	  <div class="item-title-row">';
+										ret += '		<div class="item-title"><b>'+item.name+'</b></div>';
+										ret += '		<div class="item-after"><i class="material-icons md-36 color-blue">play_circle_outline</i></div>';
+										ret += '	  </div>';
+										ret += '	  <div class="item-subtitle">media folder</div>';
+										ret += '	  <div class="item-text">'+item.modifiedDate+'</div>';
+										ret += '	</div>';
+										ret +=  '</li>';
+							
+							return  ret;
+						}
+					}); 
+					
+				}, error => {
+					
+					App.alert('Please check WiFi connection');
+					
+							
+		});
+					
+					
+		});
+				
+				
+				
+App.onPageInit('media.events', function (page) {
+        getRecordEvent().then(response => {	
+			var assetListContainer = $$(page.container).find('.mediaEventList');
+	
+
+					var virtualConnectAssetsList = App.virtualList('.mediaEventList', { 
+						items: response,
+						height: 92.67,
+					
+						renderItem: function (index, item) {
+							var ret = '';
+							var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
+							
+										ret +=  '<li data-index="'+index+'" data-name="'+item.name+'" data-type="EVENT" class=" item_folder">';							
+										ret += '<div class="item-media"><img src="./resources/images/SVG/folder.svg" width="45"/></div>';
+										ret += '	<div class="item-inner">';
+										ret += '	  <div class="item-title-row">';
+										ret += '		<div class="item-title"><b>'+item.name+'</b></div>';
+										ret += '		<div class="item-after"><i class="material-icons md-36 color-blue">play_circle_outline</i></div>';
+										ret += '	  </div>';
+										ret += '	  <div class="item-subtitle">media folder</div>';
+										ret += '	  <div class="item-text">'+item.modifiedDate+'</div>';
+										ret += '	</div>';
+										ret +=  '</li>';
+							
+							return  ret;
+						}
+					}); 
+					
+				}, error => {
+					
+					App.alert('Please check WiFi connection');
+					
+					
+					
+		});
+});
+
+function getRecordFront(resolve, reject) {	
+	return new Promise((resolve, reject) => {
+				
+				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/USB/', function(result) {
+									resolve(result);
+							}, function(error) {
+								reject();
+								});
+
+						}, function(error) {
+							reject();
+						});
+						
+	});     
+}
+
+function getRecordInward(resolve, reject) {	
+	return new Promise((resolve, reject) => {
+				
+				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/GENERAL/', function(result) {
+									resolve(result);
+							}, function(error) {
+								reject();
+								});
+
+						}, function(error) {
+							reject();
+						});
+						
+	});     
+}
+
+function getRecordEvent(resolve, reject) {	
+	return new Promise((resolve, reject) => {
+				
+				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/EVENT/', function(result) {
+									resolve(result);
+							}, function(error) {
+								reject();
+								});
+
+						}, function(error) {
+							reject();
+						});
+						
+	});     
+}
+
+
+function getRecordFiles(date, type, resolve, reject){ 		
+			return new Promise((resolve, reject) => {
+				
+				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+							
+							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+date, function(result) {
+								resolve(result);
+							}, function(error) {
+								reject();
+							});
+							
+
+						}, function(error) {
+							reject();
+						});
+				
+			});   			
+		}
+
+		
+App.onPageInit('media.files', function (page) {
+		getRecordFiles(TargetAsset.FOLDER_NAME, TargetAsset.FOLDER_TYPE).then(response => {	
+			var assetListContainer = $$(page.container).find('.mediaFileList');
+	
+					/*var searchForm = $$('.searchbarConnectAssets');
+					var assetList = getAssetList();   
+					var newAssetlist = [];
+					var keys = Object.keys(assetList);
+
+					$.each(keys, function( index, value ) {    
+						assetList[value].Selected = false;    
+						newAssetlist.push(assetList[value]);       
+					});
+					
+					newAssetlist.sort(function(a,b){
+						if(a.Name < b.Name) return -1;
+						if(a.Name > b.Name) return 1;
+						return 0;
+					}); */
+
+					var virtualConnectAssetsList = App.virtualList('.mediaFileList', { 
+						items: response,
+						height: 92.67,
+					
+						renderItem: function (index, item) {
+							var ret = '';
+							var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
+							
+							ret +=  '<li data-index="'+index+'" data-name="'+item.name+'" class=" item_file dwnl-file">';
+							ret += '	<div class="item-media"><img src="./resources/images/SVG/videofile.svg" width="45"/></div>';
+							ret += '	<div class="item-inner">';
+							ret += '	  <div class="item-title-row">';
+							ret += '		<div class="item-title"><b>'+item.name+'</b></div>';
+							ret += '		<div class="item-after"><i class="material-icons md-36 color-green">play_for_work</i></div>';
+							ret += '	  </div>';
+							ret += '	  <div class="item-subtitle">size: '+item.size+'</div>';
+							ret += '	  <div class="item-text">'+item.modifiedDate+'</div>';
+							ret += '	</div>';						
+							ret +=  '</li>';
+							
+							return  ret;
+						}
+					}); 
+					
+				}, error => {
+					
+					App.alert('Please check WiFi connection');
+					
+					
+					
+		});
+				
+    
+});
+
+function loadFilesPage(){
+   var videoTitle = 'Videos';
+			switch(TargetAsset.FOLDER_TYPE){
+					case 'USB':
+						videoTitle = 'Front Videos';
+					break;
+					case 'EVENT':
+						videoTitle = 'Event Videos';					
+					break;
+					default:
+						videoTitle = 'Inward Videos';					
+				}
+				
+        mainView.router.load({
+            url:'resources/templates/media.files.html',
+            context:{
+				Name: videoTitle
+            }
+        });           
+    
+}
+
+
+
+
+$$(document).on('click', '.item_connect', function(){ 
+	TargetAsset.ASSET_IMEI = $$(this).data("imei");  
+    console.log(TargetAsset.ASSET_IMEI);
+    loadConnectPage();
+});
+
+$$(document).on('click', '.item_folder', function(){ 
+	TargetAsset.FOLDER_TYPE = $$(this).data("type");  
+    TargetAsset.FOLDER_NAME = $$(this).data("name");  
+    loadFilesPage();
+});
+
+$$(document).on('click', '.dwnl-file', function(){ 
+    TargetAsset.FILE_NAME = $$(this).data("name");  
+	//App.hidePreloader();
+	var progressbar = $$('#demo-inline-progressbar');
+	App.setProgressbar(progressbar, 'red');
+	downloadFile(TargetAsset.FILE_NAME, TargetAsset.FOLDER_TYPE).then(response => {					
+					App.hidePreloader(); 		
+					App.hideProgressbar(progressbar);
+					$$('#demo-inline-progressbar').addClass('display-none');
+					App.alert('File uploaded');
+					//showMediaFile(response);
+				}, error => {
+					App.hidePreloader(); 
+                    App.alert('File not uploaded. Try again');
+				});
+});
+
+/*function showMediaFile(fileName){
+					
+				//App.alert(fileName);
+				var fullPathToFilePrivate = 'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/'+fileName;
+				var externalDirEntry;
+				
+				window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function success(dirEntry) {
+					externalDirEntry = dirEntry;
+				},function (e) {
+					App.alert('error dir '+JSON.stringify(e));
+				});
+				
+				window.resolveLocalFileSystemURL(fullPathToFilePrivate, function onSuccess(fileEntry)
+				{
+					
+					fileEntry.copyTo(externalDirEntry, 'myfile.mp4',
+						function(e)
+						{
+							viewFile(e.nativeURL);
+						},
+						function()
+						{
+							App.alert('copying FAILED');
+						});
+				}, function (e) { App.alert(JSON.stringify(e)); });
+			}
+			
+			function viewFile(url){//App.alert(url);
+				if (cordova && cordova.plugins.fileOpener2) {
+					cordova.plugins.fileOpener2.open(
+						url, // You can also use a Cordova-style file uri: cdvfile://localhost/persistent/Downloads/starwars.pdf
+						'video/mp4',
+						{
+							error: function (e) {
+								App.alert('Error status: ' + e.status + ' - Error message: ' + e.message);
+							},
+							success: function () {
+								
+								console.log('file opened successfully');
+							}
+						}
+					);
+				}
+			}*/
+
+function downloadFile(date, type, resolve, reject){ 		
+			
+			var folderDate = date.substr(0, 10);
+			var folder = type + "_" + folderDate;
+			var fileName = date;			
+			
+			return new Promise((resolve, reject) => {
+				
+				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+						
+						/*var permissions = cordova.plugins.permissions;
+						
+						permissions.hasPermission(permissions.MANAGE_EXTERNAL_STORAGE, 
+							function(status) {
+								downloadMediaFile();
+							}, 
+							function() {
+								permissions.requestPermission(permissions.MANAGE_EXTERNAL_STORAGE, function(b) {
+									downloadMediaFile();
+								});
+							}
+						);*/
+						//downloadMediaFile();
+						
+						
+						//function downloadMediaFile(){
+							/*var networkState = navigator.connection.type;
+							if (networkState == Connection.NONE) {
+								return;
+							} else {
+								
+								window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
+
+								function fileSystemSuccess(fileSystem) {
+									
+									
+									var rootdir = fileSystem.root;
+									var fp = rootdir.toURL(); */
+									
+									
+									var lp = cordova.file.documentsDirectory + '/Download/' + fileName;
+									//file:///data/user/0/com.quiktrak.quiktrak_dashcam/
+									//var lp = "Android/data/com.quiktrak.quiktrak_dashcam/" + fileName;
+									
+									//'file:///storage/emulated/0/Download/' + fileName;'file:///data/user/0/com.quiktrak.quiktrak_dashcam/files/files/' + folder + '/' + fileName;
+									
+									var rp = '/storage/sdcard1/DVRMEDIA/CarRecorder/'+type+'/'+folderDate+'/'+fileName;
+									
+									window.cordova.plugin.ftp.download(lp, rp, function(result) {												
+										$$('.view-main #demo-inline-progressbar').removeClass('display-none');
+										//$$('.view-main #demo-inline-progressbar').attr('data-progress', parseInt((result * 100), 10).toString(10));
+										
+										var progress = +result * 100;
+										
+										//App.progressbar.set('#demo-inline-progressbar', pcnt);
+										//var progressbar = $$('#demo-inline-progressbar');
+										//App.setProgressbar(progressbar, progress);
+	
+										if (result == 1) {
+											resolve(fileName);
+										} else {
+											//App.alert("ftp: dwnl=" + result * 100 + "%");
+										}
+									}, function(error) {
+										console.error("ftp: ls error=" + error);									
+										App.alert("Something went wrong");
+									});
+								/*}
+
+								function onDirectorySuccess(parent) {
+									// Directory created successfuly
+									//App.alert('dir success');
+								}
+
+								function onDirectoryFail(error) {
+									//Error while creating directory
+									App.alert("Unable to create new directory: " + error.code);
+								}
+
+								function fileSystemFail(evt) {
+									//Unable to access file system
+									App.alert(evt.target.error.code);
+								}
+							}*/
+						//}
+						
+						//console.info("ftp: connect ok=" + ok);
+							
+
+					}, function(error) {
+						console.error("ftp: connect error=" + error);
+						App.alert("ftp: connect error=" + error);
+					});				
+				});   			
 }
