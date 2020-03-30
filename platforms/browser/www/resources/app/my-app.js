@@ -6836,11 +6836,14 @@ function getRecordFront(resolve, reject) {
 							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/USB/', function(result) {
 									resolve(result);
 							}, function(error) {
-								reject();
+								App.alert(error);
+								console.log(error);
+								//reject();
 								});
 
 						}, function(error) {
-							reject();
+							App.alert('not connected');
+							//reject();
 						});
 						
 	});     
