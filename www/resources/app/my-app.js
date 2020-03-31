@@ -6448,7 +6448,9 @@ function getImage(source){
 
 App.onPageInit('connect.wifi', function (page) {
 	intervalForReply = setInterval(function () {		
-		window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+		//window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+		window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
+		//quiktrak_biletskiy
 		//						App.showPreloader();
 								$$(document).find('.connection-img').attr('src', './resources/images/SVG/connection.svg');
 								$$(document).find('.connection-info').html('Connection Established');
@@ -6721,15 +6723,15 @@ App.onPageInit('media.folders', function (page) {
 							var ret = '';
 							var assetImg = '<div class="item_asset_img bg-boatwatch"><div class="text-a-c vertical-center user_f_l"><center><i class="material-icons md-36 color-white font-size-18 connect-icon">wifi</i></center></div></div>';
 							
-										ret +=  '<li data-index="'+index+'" data-name="'+item.name+'" data-type="USB" class=" item_folder">';							
+										ret +=  '<li data-index="'+index+'" data-name="1" data-type="USB" class=" item_folder">';							
 										ret += '<div class="item-media"><img src="./resources/images/SVG/folder.svg" width="45"/></div>';
 										ret += '	<div class="item-inner">';
 										ret += '	  <div class="item-title-row">';
-										ret += '		<div class="item-title"><b>'+item.name+'</b></div>';
+										ret += '		<div class="item-title"><b>folder</b></div>';
 										ret += '		<div class="item-after"><i class="material-icons md-36 color-blue">play_circle_outline</i></div>';
 										ret += '	  </div>';
 										ret += '	  <div class="item-subtitle">media folder</div>';
-										ret += '	  <div class="item-text">'+item.modifiedDate+'</div>';
+										ret += '	  <div class="item-text">_</div>';
 										ret += '	</div>';
 										ret +=  '</li>';
 							
@@ -6832,8 +6834,10 @@ App.onPageInit('media.events', function (page) {
 function getRecordFront(resolve, reject) {	
 	return new Promise((resolve, reject) => {
 				
-				window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
-							window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/USB/', function(result) {
+				//window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
+					window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
+							//window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/USB/', function(result) {
+								window.cordova.plugin.ftp.ls('/', function(result) {
 									resolve(result);
 							}, function(error) {
 								App.alert(error);
