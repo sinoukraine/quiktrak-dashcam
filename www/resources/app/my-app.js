@@ -6450,7 +6450,7 @@ App.onPageInit('connect.wifi', function (page) {
 	intervalForReply = setInterval(function () {		
 		//window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
 		
-				window.cordova.plugin.ftp.connect('192.168.0.105:10011', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
+				window.cordova.plugin.ftp.connect('192.168.0.105', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
 					
 					//window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
 		//quiktrak_biletskiy
@@ -6837,7 +6837,7 @@ App.onPageInit('media.events', function (page) {
 function getRecordFront(resolve, reject) {	
 	return new Promise((resolve, reject) => {
 				
-				window.cordova.plugin.ftp.connect('192.168.0.105:10011', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
+				window.cordova.plugin.ftp.connect('192.168.0.105', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
 				//window.cordova.plugin.ftp.connect('192.168.43.1:10011', 'admin', 'admin', function(ok) {
 					//window.cordova.plugin.ftp.connect('quiktrak.ftp.tools', 'quiktrak_biletskiy', '4eBcgg9S1N5I', function(ok) {
 							//window.cordova.plugin.ftp.ls('/storage/sdcard1/DVRMEDIA/CarRecorder/USB/', function(result) {
