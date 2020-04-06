@@ -1,4 +1,3 @@
-
 window.LanguagePackages= {
 	"zh":{
 		
@@ -9,7 +8,7 @@ window.LanguagePackages= {
 		"COM_MSG03": "Retrieving information",
 		"COM_MSG04": "Cancel",
 		"COM_MSG05": "Nothing found",
-		"COM_MSG06": "Search",
+		"COM_MSG06": "IMEI",
 		"COM_MSG07": "Send",
 		"COM_MSG08": "Loading...",
 		"COM_MSG09": "Latitude",
@@ -115,12 +114,12 @@ window.LanguagePackages= {
 
 
 		"LOGIN_MSG01": "The login(email) or password you entered is incorrect.",
-		"LOGIN_MSG02": "Login Name / Email",
+		"LOGIN_MSG02": "Login",
 		"LOGIN_MSG03": "Password",
 		"LOGIN_MSG04": "Login",
 		"LOGIN_MSG05": "Forgot password?",
-		"MENU_MSG00": "My Assets",
-		"MENU_MSG01": "Connect to DashCam",
+		"MENU_MSG00": "Tracking",
+		"MENU_MSG01": "Geofence",
 		"MENU_MSG02": "Recharge Credits",
 		"MENU_MSG03": "Profile",
 		"MENU_MSG04": "Sign Out",
@@ -179,8 +178,13 @@ window.LanguagePackages= {
 		"ALARM_MSG29": "Over Road Speed",
 		"ALARM_MSG30": "Offline Alarm",
 		"ALARM_MSG31": "hours",
-
-		"ASSET_STATUS_MSG00": "Date, time",
+		"ALARM_MSG32": "Connect to DashCam",
+		"ALARM_MSG33": "Connect",
+		"ALARM_MSG34": "Front",
+		"ALARM_MSG35": "Inward",
+		"ALARM_MSG36": "Event",
+		
+		"ASSET_STATUS_MSG00": "Date/Time",
 		"ASSET_STATUS_MSG01": "Heading",
 		"ASSET_STATUS_MSG02": "Speed",
 		"ASSET_STATUS_MSG03": "km/h",
@@ -190,7 +194,7 @@ window.LanguagePackages= {
 		"ASSET_STATUS_MSG07": "Status",
 		"ASSET_STATUS_MSG08": "PlayBack",
 		"ASSET_STATUS_MSG09": "Track",
-		"ASSET_STATUS_MSG10": "Log",
+		"ASSET_STATUS_MSG10": "Mileage",
 		"ASSET_STATUS_MSG11": "Battery",
 		"ASSET_STATUS_MSG12": "Fuel",
 		"ASSET_STATUS_MSG13": "Ignition",
@@ -253,7 +257,7 @@ window.LanguagePackages= {
 		"ASSET_TRACK_MSG14": "sec",	
 		"ASSET_TRACK_MSG15": "GPRS",
 		"ASSET_TRACK_MSG16": "Geo Fence Set",
-		"ASSET_TRACK_MSG17": "Go To",	
+		"ASSET_TRACK_MSG17": "Go To",		
 
 		"ASSET_EDIT_MSG00": "Tag",
 		"ASSET_EDIT_MSG01": "Name",
