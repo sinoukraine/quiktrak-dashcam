@@ -4717,7 +4717,6 @@ function sendCMD(myCMD, imei, resolve, reject){
 				});
 }
 
-
 function loadMediaFolders(){
    
         mainView.router.load({
