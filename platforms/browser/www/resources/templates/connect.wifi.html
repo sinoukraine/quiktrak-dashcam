@@ -1,0 +1,61 @@
+<div class="page status_page" data-page="connect.wifi">
+	<div class="navbar bg-boatwatch ">
+        <div class="navbar-inner">
+            <div class="left">
+            	<a href="#" class="link back "> <i class="f7-icons" >chevron_left</i></a>
+            </div>
+            <div class="center sliding ">{{@global.LANGUAGE.ALARM_MSG33}}</div>
+        </div>
+    </div>
+    
+    <div class="page-content with-bottom-button">
+
+    	<div class="content-block connect_block_top">
+    		<div class="row no-gutter">
+			    <div class="col-100">
+					<center>
+						<img class="connection-img" src="./resources/images/SVG/connection-red.svg">
+						<p class="connection-info">Connect to DasCam</p>
+					</center>
+                </div>                    
+			</div>
+    	</div>
+
+        <div class="list-block media-list status_block_list connection-note">                
+            <ul class="row no-gap">                     
+                <li class="item-content open-address col-100">
+                    <div class="item-media state-0"><i class="material-icons color-light-grey md-36">sim_card</i></div>
+                    <div class="item-inner">                     
+                        <div class="item-text note-info-label">SSID</div> 
+                        <div class="item-subtext note-info-text">{{Login}}</div>
+					</div>
+                </li>
+				<li class="item-content open-address col-100">
+                    <div class="item-media state-0"><i class="material-icons color-light-grey md-36">lock</i></div>
+                    <div class="item-inner">                     
+                        <div class="item-text note-info-label">Password</div> 
+                        <div class="item-subtext note-info-text">{{Password}}</div>
+					</div>
+                </li>     
+            </ul>    
+        </div>   
+		<div class="list-block media-list status_block_list connection-note-error display-none">      
+			<ul class="row no-gap">                     
+                <li class="item-content open-address col-100">
+                    <div class="item-media state-0"><i class="f7-icons icon-menu-support color-light-grey"></i></div>
+                    <div class="item-inner">                     
+                        <div class="item-text note-info-label">Note</div> 
+                        <div class="item-subtext note-info-text">Please check IMEI to make sure you select the right dashcam</div>
+					</div>
+                </li>     
+            </ul>			     
+        </div>   		
+        <div class="connect-block">
+          <button type="button" class="button button-big login-submit button-fill bg-boatwatch btn_login text-color-white" style="" id="btnConnect">Connect</button>
+		  <button type="button" class="button button-big login-submit button-fill bg-green btn_login text-color-white display-none" style="" id="btnGoToSD">Go To SD Card</button>
+        </div>
+        
+    	
+
+    </div>
+</div>

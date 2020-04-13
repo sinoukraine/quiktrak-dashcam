@@ -6442,7 +6442,7 @@ function getImage(source){
 
 
 App.onPageInit('connect.wifi', function (page) {
-	intervalForReply = setInterval(function () {				
+	/*intervalForReply = setInterval(function () {				
 				WifiWizard2.getConnectedSSID().then(response => {					
 					let mySSID = JSON.stringify(response);
 					let SSID = mySSID.substr(1,mySSID.length -2);
@@ -6465,7 +6465,7 @@ App.onPageInit('connect.wifi', function (page) {
 					}
 				});
 				
-		}, 10000);	
+		}, 10000);	*/
 });
 
 
