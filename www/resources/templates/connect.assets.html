@@ -1,38 +1,39 @@
-<div class="navbar bg-boatwatch no-border">
-        <div class="navbar-inner">
-            <div class="left">
-                <a href="#" class="link backToIndex "> <i class="f7-icons">bars</i></a>
-            </div>
-            <div class="center sliding  ">{{@global.LANGUAGE.ALARM_MSG32}}</div>
+<div class="page  " data-page="connect.assets">
+	<div class="navbar bg-boatwatch bw_top_shadow">
+                            <div class="navbar-inner">
+                                <div class="left">
+                                    <a href="#" class="link icon-only open-panel "> <i class="icon icon-header-menu"></i></a>
+                                </div>
+                                <div class="left navbar_title navbar_title_index">{{@global.LANGUAGE.MENU_MSG00}}</div>
+                                <!--<div class="right">   
+                                	<a href="#" class="link sorting_button" ><i class="icon icon-sort"></i></a>                                                                  
+                                    <a href="#" class="link notification_button" ><i class="icon icon-header-alarm"></i></a>
+                                </div>-->
+                            </div>
+                            
+                        </div>    
+
+  
+    <form class="searchbar searchbarConnectAssets" >
+        <div class="searchbar-input">
+            <input type="search" placeholder="{{@global.LANGUAGE.COM_MSG06}}">
+            <a href="#" class="searchbar-clear"></a>
         </div>
-        
-    </div>
+        <a href="#" class="searchbar-cancel">{{@global.LANGUAGE.COM_MSG04}}</a>
+    </form>
+       
+	
+    <div class="searchbar-overlay"></div>
 
-<div class="pages">
-    <div class="page  " data-page="connect.assets">
-    	
+    <div class="page-content">
 
-      
-        <form class="searchbar searchbarConnectAssets" >
-            <div class="searchbar-input">
-                <input type="search" placeholder="{{@global.LANGUAGE.COM_MSG06}}">
-                <a href="#" class="searchbar-clear"></a>
-            </div>
-            <a href="#" class="searchbar-cancel">{{@global.LANGUAGE.COM_MSG04}}</a>
-        </form>
-           
-    	
-        <div class="searchbar-overlay"></div>
-
-        <div class="page-content">
-            <div class="content-block connect-assets-search-nothing-found searchbar-not-found">                               
+		<div class="content-block connect-assets-search-nothing-found searchbar-not-found">                               
             {{@global.LANGUAGE.COM_MSG05}}
         </div>        
         <div class="list-block media-list virtual-list list-block-search-connect-assets connectAssetList">          
             
         </div>
-            
-        </div>
-
+        
     </div>
+
 </div>
