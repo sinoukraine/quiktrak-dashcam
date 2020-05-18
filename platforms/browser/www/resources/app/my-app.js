@@ -6071,7 +6071,7 @@ function setAssetList(list){
 			sendCMD("RTMP,ON,IN", IMEI_TEST).then(response1 => {
 				console.log('rtmp',response1);
 				if(response1 == '000'){	
-						videoStreamer.streamRTMPAuth('rtmp://136.243.130.117:1935/stream', 'stream', '', function (res) {
+						videoStreamer.streamRTMPAuth('rtmp://136.243.130.117:1935/stream', 'mystream', '', function (res) {
 							console.log('live',res);
 							
 							
