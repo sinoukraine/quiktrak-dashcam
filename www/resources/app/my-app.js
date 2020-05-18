@@ -6063,11 +6063,12 @@ function updateAssetsListStats(){
 }
 
 function setAssetList(list){
-
-	sendCMD("RSERVICE,rtmp://136.243.130.117:1935/stream", TargetAsset.ASSET_IMEI).then(response => {
+	//console.log(TargetAsset.ASSET_IMEI);
+	let IMEI_TEST = "0357730090913204";
+	sendCMD("RSERVICE,rtmp://136.243.130.117:1935/stream", IMEI_TEST).then(response => {
 		console.log('connect',response);
 		if(response == '000'){		
-			sendCMD("RTMP,ON,IN", TargetAsset.ASSET_IMEI).then(response1 => {
+			sendCMD("RTMP,ON,IN", IMEI_TEST).then(response1 => {
 				console.log('rtmp',response1);
 				if(response1 == '000'){	
 						// show comment
