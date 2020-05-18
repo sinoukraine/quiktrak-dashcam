@@ -6076,7 +6076,7 @@ function setAssetList(list){
 				App.alert(e);						
 			});
 		}else{			
-			App.alert('else');
+			App.alert(res);
 		}
 	}, function (e) {
 		App.alert('err');
