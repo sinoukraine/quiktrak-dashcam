@@ -78,7 +78,7 @@
 	<plugin name="cordova-open-native-settings" source="npm" spec="1.5.2" />
 	<plugin name="cordova-plugin-android-permissions" source="npm"  spec="1.0.2" />
 	<plugin spec="https://github.com/apache/cordova-plugin-file-transfer" source="git"  />
-    <plugin spec="https://github.com/cdibened/PDFViewer.git" source="git"  />
+    <!--<plugin spec="https://github.com/cdibened/PDFViewer.git" source="git"  />-->
     <plugin spec="https://github.com/disono/cordova-rtmp-rtsp-stream" source="git"  />
    
     <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
