@@ -6065,13 +6065,24 @@ function updateAssetsListStats(){
 function setAssetList(list){
 	//console.log(TargetAsset.ASSET_IMEI);
 	let IMEI_TEST = "0357730090913204";
-	sendCMD("RSERVICE,rtmp://136.243.130.117:1935/stream", IMEI_TEST).then(response => {
+	sendCMD("RSERVICE,rtmp://136.243.130.117:1935/stream/qtlive", IMEI_TEST).then(response => {
 		console.log('connect',response);
 		if(response == '000'){		
 			sendCMD("RTMP,ON,IN", IMEI_TEST).then(response1 => {
 				console.log('rtmp',response1);
 				if(response1 == '000'){	
-						videoStreamer.streamRTMPAuth('rtmp://136.243.130.117:1935/stream', 'mystream', '', function (res) {
+						
+						setTimeout(function(){     
+                            
+							sendCMD("RTMP,OFF", IMEI_TEST).then(response2 => {
+								App.alert('Live off');	
+							}, error => {
+								App.alert('Er Live Off');	
+							});
+							
+                        },60000); 
+						
+						/*videoStreamer.streamRTMPAuth('rtmp://136.243.130.117:1935/stream', 'mystream', '', function (res) {
 							console.log('live',res);
 							
 							
@@ -6098,7 +6109,7 @@ function setAssetList(list){
 						}, function (e) {
 							App.alert('err');
 							//App.alert(e);
-						});
+						});*/
 						
 						
 						
