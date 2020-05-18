@@ -6071,26 +6071,32 @@ function setAssetList(list){
 			sendCMD("RTMP,ON,IN", IMEI_TEST).then(response1 => {
 				console.log('rtmp',response1);
 				if(response1 == '000'){	
-						videoStreamer.streamRTMPAuth('rtmp://136.243.130.117:1935/stream', '', '', function (res) {
+						videoStreamer.streamRTMPAuth('rtmp://136.243.130.117:1935/stream', 'stream', '', function (res) {
 							console.log('live',res);
 							
-							videoStreamer.videoRecord(function (res1) {}, function (e1) {
-								//App.alert('Rec failed');								
-							});
 							
 							if (res.event_name == 'onConnectionSuccess') {
 								videoStreamer.commentListShow(true, function (resCom) {	
-									//App.alert('ok');			
+									App.alert('ok');			
 									//App.alert(resCom);
 								}, function (e) {
-									//App.alert('warn');
+									App.alert('warn');
 									//App.alert(e);						
 								});
 							}else{			
-								//App.alert(JSON.stringify(res));
+								App.alert(JSON.stringify(res));
 							}
+							
+							
+							videoStreamer.videoRecord(function (res1) {
+								App.alert('Live');
+							}, function (e1) {
+								App.alert('Rec failed');								
+							});
+							
+							
 						}, function (e) {
-							//App.alert('err');
+							App.alert('err');
 							//App.alert(e);
 						});
 						
