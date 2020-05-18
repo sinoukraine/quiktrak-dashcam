@@ -6064,25 +6064,49 @@ function updateAssetsListStats(){
 
 function setAssetList(list){
 
-	// show comment
-	videoStreamer.streamRTMPAuth('rtmp://136.243.130.117:1935/stream', '', '', function (res) {
-		// show all the comment form and list if connection and authentication is successful
-		if (res.event_name == 'onConnectionSuccess') {
-			videoStreamer.commentListShow(true, function (resCom) {	
-				App.alert('ok');			
-				App.alert(resCom);
-			}, function (e) {
-				App.alert('warn');
-				App.alert(e);						
-			});
-		}else{			
-			App.alert(JSON.stringify(res));
-		}
-	}, function (e) {
-		App.alert('err');
-		App.alert(e);
-	});
-	
+	sendCMD("RSERVICE,rtmp://136.243.130.117:1935/stream", TargetAsset.ASSET_IMEI).then(response => {
+		console.log('connect',response);
+		if(response == '000'){		
+			sendCMD("RTMP,ON,IN", TargetAsset.ASSET_IMEI).then(response1 => {
+				console.log('rtmp',response1);
+				if(response1 == '000'){	
+						// show comment
+						videoStreamer.streamRTMPAuth('rtmp://136.243.130.117:1935/stream', '', '', function (res) {
+							console.log('live',res);
+							// show all the comment form and list if connection and authentication is successful
+							if (res.event_name == 'onConnectionSuccess') {
+								videoStreamer.commentListShow(true, function (resCom) {	
+									App.alert('ok');			
+									App.alert(resCom);
+								}, function (e) {
+									App.alert('warn');
+									App.alert(e);						
+								});
+							}else{			
+								App.alert(JSON.stringify(res));
+							}
+						}, function (e) {
+							App.alert('err');
+							App.alert(e);
+						});
+						
+				} else {
+					App.alert('000 Stream failed');	
+				}		
+				
+			}, error => {
+				//App.hidePreloader();
+				App.alert('Stream failed');	
+			});	
+			
+		} else {
+			App.alert('000 Connection failed');	
+		}	
+	}, error => {
+		//App.hidePreloader();
+		App.alert('Connection failed');	
+	});	
+		
     /*jwplayer("container").setup({
         modes: [
             {   type: "flash",
